@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>登录模块</title>
+
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>\
+    <style type="text/css">
+        .button{
+            width: 100px;
+            height: 29px;
+            font-size: 16px;
+            color: white;
+            background-color: black;
+            padding: 0;
+            vertical-align: top;
+            border: 0;
+        }
+        .textbox{
+            height: 25px;
+            padding: 0;
+            vertical-align: top;
+        }
+        span{
+            font-size: 16px;
+            height: 29px;
+            line-height: 29px;
+        }
+    </style>
+    <script type="text/javascript">
+        function login()
+        {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            alert(username)
+            $.ajax
+            ({
+                url: "http://127.0.0.1:8080/login",
+
+//                dataType: "json",
+                type: "post",
+                data: {
+                    username: username,
+                    password: password,
+                },
+                success:function(res){
+
+                    console.log(res);  //在console中查看数据
+                },
+                error:function(){
+                    alert('failed!');
+                },
+            });
+        };
+
+    </script>
+    <script type="text/javascript">
+
+        function  delete1()
+        {
+            $.ajax
+            ({
+                url: "http://127.0.0.1:8080/user/deleteUser",
+                contentType: 'application/json',
+                dataType: "json",
+                type: "get",
+                //加上这句话,允许浏览器向服务器跨域请求时携带cookie
+//                xhrFields: {
+//                    withCredentials: true
+//                },
+//                crossDomain: true,
+                dataType : "text",
+                success:function(res){
+
+                    console.log(res);  //在console中查看数据
+                },
+                error:function(res){
+                    console.log(res);
+                    alert('failed!');
+                }
+
+
+
+            });
+        }
+    </script>
+</head>
+<body>
+<div>
+    <!--<from>-->
+    <div class="form-signin">
+        <h3 class="form-signin-heading">请登录</h3>
+        <p>
+            <label for="username" class="sr-only">用户名：</label>
+            <input type="text" id="username"  class="form-control" >
+        </p>
+        <p>
+            <label for="password" class="sr-only">密码：</label>
+            <input type="password" id="password"  class="form-control">
+        </p>
+        <button class="btn btn-lg btn-primary btn-block" onclick="login()">登录</button>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" onclick="delete1()">测试</button>
+    <!--</from>>-->
+</div>
+
+</body>
+</html>
