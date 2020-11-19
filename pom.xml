@@ -8,11 +8,11 @@
 		<version>2.3.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ltx_ltxweb</groupId>
-	<artifactId>ltxweb_bytoken</artifactId>
+	<groupId>com.bjfu.fcro</groupId>
+	<artifactId>foodcheck_routeopti</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ltxweb_bytoken</name>
-	<description>demo project for token</description>
+	<name>oodcheck_routeopti</name>
+	<description>the project for oodcheck and routeopti</description>
 
 	<properties>
 		<java.version>8</java.version>

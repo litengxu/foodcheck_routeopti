@@ -1,9 +1,12 @@
 
 server:
- port: 8080
+ port: 7070
 spring:
+#修改默认时区
+  jackson:
+    time-zone: GMT+8
   datasource:
-    url: jdbc:mysql://localhost:3307/person_website?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://localhost:3307/foodcheck_routeopti?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
     password: root
 #???????????????????????????
@@ -14,4 +17,17 @@ spring:
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  #level 日志等级 指定命名空间的日志输出
+  level:
+    com.fishpro.log: debug
+  #file 指定输出文件的存储路径
+  file:
+    name: test.log
+  #pattern 指定输出场景的日志输出格式
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+
 
