@@ -25,7 +25,10 @@ public class SysSamplingInspectorInformation {
     private String sii_phone;
     //所属抽检机构
     private String sampling_agency;
-    //创建时间
+    //    是否已被分配到抽检账号（默认1，未分配到账号）
+    private boolean whether_assigned;
+    //管理员id（外键）
+    private int admin_id;
     //创建时间
     private Date create_time;
     //修改时间

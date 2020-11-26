@@ -10,7 +10,7 @@ import javax.xml.crypto.Data;
  * @ClassName: ResultTool
  * @Author: 李腾旭
  * @Date: 2020-06-12 12:52
- * @Description: ${todo}
+ * @Description: 工具类
  * @Version: V1.0
  */
 public class ResultTool {

@@ -4,6 +4,7 @@ package com.bjfu.fcro.common.enums;
 import java.rmi.AlreadyBoundException;
 
 /**
+ * 建立给前端的统一格式的枚举类
  *规定:
  * #1表示成功
  * #1001～1999 区间表示参数错误
@@ -36,6 +37,8 @@ public enum ResultCode {
     USER_CODE_ERRROR(2010,"验证码错误"),
     USER_CODE_ISEMPTY(2011,"验证码为空"),
     USER_ALREADY_EXISTS(2012,"用户名已存在"),
+    /*根据id查询出whether_assigned*/
+    Spot_Inspectors_Have_Been_Assigned(2013,"抽检员信息已被分配到账号，请删除后重试"),
     /* 业务错误 */
     NO_PERMISSION(3001, "没有权限");
     private Integer code;

@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @ClassName: JsonResult
  * @Author: 李腾旭
  * @Date: 2020-06-12 12:47
- * @Description: ${todo}
+ * @Description: 设置实体类，接收枚举类做参数，统一返回
  * @Version: V1.0
  */
 

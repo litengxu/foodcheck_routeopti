@@ -1,5 +1,6 @@
 package com.bjfu.fcro;
 
+import com.bjfu.fcro.dao.SamplingAccountDao;
 import com.bjfu.fcro.dao.SamplingInspectorInformationDao;
 import com.bjfu.fcro.entity.SysSamplingInspectorInformation;
 import com.bjfu.fcro.service.SysRoleService;
@@ -17,11 +18,11 @@ class FoodcheckRouteoptiApplicationTests {
 	private  SysRoleService sysRoleService;
 
 	@Autowired
-	private SamplingInspectorInformationDao samplingInspectorInformationDao;
+	private SamplingAccountDao samplingAccountDao;
 	@Test
 	void contextLoads() {
-		SysSamplingInspectorInformation sysSamplingInspectorInformation = samplingInspectorInformationDao.selectAll();
-		System.out.println(sysSamplingInspectorInformation.getLast_update_time());
+
+		System.out.println("======"+samplingAccountDao.selectAll().getCreate_time());
 	}
 
 }
