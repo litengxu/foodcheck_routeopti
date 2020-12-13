@@ -30,7 +30,9 @@ public class SysSamplingAccount {
         //是否参与抽检，默认为1，参与抽检
         private boolean whether_participate;
         //adminid是否修改过（默认1，未修改）
-        private boolean whether_modify_adminid;
+        private boolean whether_modify_ids;
+        //当前分配至账号的抽检员姓名
+        private  String sampling_inspector_names;
         //创建时间
         private Date create_time;
         //修改时间

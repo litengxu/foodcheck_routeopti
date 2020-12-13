@@ -73,6 +73,8 @@ public interface UserDao {
             " where id= #{id}")
     int update(SysUser sysUser);
 
+    @Select("select id from sys_user where account =#{adminaccount}")
+    int selectbyaccount(@Param("adminaccount") String adminaccount);
 
 
 }

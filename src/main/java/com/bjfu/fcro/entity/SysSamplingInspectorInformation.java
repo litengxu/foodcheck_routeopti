@@ -33,8 +33,10 @@ public class SysSamplingInspectorInformation {
     private Date create_time;
     //修改时间
     private Date last_update_time;
+
+    /*是否已删除（默认0，代表未删除*/
+    private boolean whether_deleted;
     //保留字段
-    private String sii_reserved_field1;
     private String sii_reserved_field2;
     private String sii_reserved_field3;
 }

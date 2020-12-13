@@ -46,7 +46,6 @@ public class SysSamplingInspectorInformationcontroller {
             @RequestParam String sii_sex,
             @RequestParam String sii_phone,
             @RequestParam String sampling_agency){
-        System.out.println(sii_name);
         samplingInspectorInformationService.updatebyid(id,sii_name,sii_sex,sii_phone,sampling_agency);
         return ResultTool.success();
     }
@@ -55,13 +54,41 @@ public class SysSamplingInspectorInformationcontroller {
     @ResponseBody
     public Object deletesiinformationbyid(
             @RequestParam Integer id){
-        System.out.println(id);
         int ws = samplingInspectorInformationService.selectwhetherassignedbyid(id);
         if(ws == 0){//要删除的抽检员信息已被分配，不允许删除
             return ResultTool.fail(ResultCode.Spot_Inspectors_Have_Been_Assigned);
         }
-        int res = samplingInspectorInformationService.deletebyid(id);
+//        int res = samplingInspectorInformationService.deletebyid(id);
+        int res = samplingInspectorInformationService.update_whether_deleted_byid(id);
+        if(res!=0){
+            return ResultTool.success();
+        }
+       return ResultTool.fail();
+    }
+    @PostMapping("/addnewsiinformation")
+    @ResponseBody
+    public Object addnewsiinformation(
+            @RequestParam String adminaccount,
+            @RequestParam String sii_name,
+            @RequestParam String sii_sex,
+            @RequestParam String sii_phone,
+            @RequestParam String sampling_agency) {
+        int res = samplingInspectorInformationService.insertbyaccount(adminaccount, sii_name, sii_sex, sii_phone, sampling_agency);
+        if (res == 1) {
+            return ResultTool.success();
+        }else{
+            return  ResultTool.fail();
+        }
 
-        return ResultTool.success();
+    }
+
+
+    /**根据管理员账号查询未删除的且未被分配的抽检员信息*/
+    @PostMapping("/selectunassignedByAdminAccount")
+    @ResponseBody
+    public  Object  selectunassignedByAdminAccount( @RequestParam String accountname){
+
+        List<SysSamplingInspectorInformation> list = samplingInspectorInformationService.selectunassignedByAdminAccount(accountname);
+        return ResultTool.success(list);
     }
 }

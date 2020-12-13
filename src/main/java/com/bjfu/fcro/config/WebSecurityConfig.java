@@ -107,7 +107,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 antMatchers("/user/deleteUser/**").hasAuthority("delete_user").
                 antMatchers("/user/getUser/**").hasAuthority("query_user").
 //                antMatchers("/user/").
+                //修改管理员信息和权限，需要超级管理员的权限
                 antMatchers("/superuser/**").hasAnyAuthority("superadmin").
+                //抽检员信息的管理，需要管理员权限
+                antMatchers("/siinformation/**").hasAnyAuthority("admin").
                 antMatchers("/index").permitAll().
                 anyRequest().permitAll();
 

@@ -2,6 +2,7 @@ package com.bjfu.fcro.service.serviceimpl;
 
 import com.bjfu.fcro.dao.UserDao;
 import com.bjfu.fcro.entity.SysUser;
+import com.bjfu.fcro.service.SysCommonService;
 import com.bjfu.fcro.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -127,4 +128,5 @@ public class SysUserServiceImpl implements SysUserService {
         }
 
     }
+
 }

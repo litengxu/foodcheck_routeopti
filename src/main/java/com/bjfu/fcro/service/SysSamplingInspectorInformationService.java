@@ -1,8 +1,10 @@
 package com.bjfu.fcro.service;
 
 
+import com.alibaba.druid.sql.dialect.oracle.ast.OracleDataTypeIntervalYear;
 import com.bjfu.fcro.entity.SysSamplingInspectorInformation;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,4 +35,16 @@ public interface SysSamplingInspectorInformationService {
 
     /*根据id删除数据*/
     int  deletebyid(Integer id);
+
+    /*插入新的抽检员数据*/
+     int insertbyaccount(String adminaccount,
+                          String sii_name,
+                         String sii_sex,
+                          String sii_phone,
+                          String sampling_agency);
+     /*修改删除状态，删除时置字段为0*/
+     int update_whether_deleted_byid(Integer id);
+
+    /**根据管理员账号查询未删除的且未被分配的抽检员信息*/
+    List<SysSamplingInspectorInformation> selectunassignedByAdminAccount( String adminaccount);
 }
