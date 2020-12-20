@@ -23,6 +23,10 @@ public interface SysSamplingInspectorInformationService {
     * 根据adminid查询当前管理员id下的抽检员的信息
     * */
     List<SysSamplingInspectorInformation> selectAllByAdminAccount(String adminaccount);
+    /**查询数量*/
+    int selectcountAllByAdminAccount(String adminaccount);
+    /**分页查询所有信息*/
+    List<SysSamplingInspectorInformation> selectpageByAdminAccount(String adminaccount,int pagesize, int pageIndex);
 
     /*
     * 根据id，更新抽检员信息表中的数据
@@ -47,4 +51,5 @@ public interface SysSamplingInspectorInformationService {
 
     /**根据管理员账号查询未删除的且未被分配的抽检员信息*/
     List<SysSamplingInspectorInformation> selectunassignedByAdminAccount( String adminaccount);
+
 }

@@ -2,7 +2,9 @@ package com.bjfu.fcro.controller;
 
 import com.bjfu.fcro.common.enums.ResultCode;
 import com.bjfu.fcro.common.utils.ResultTool;
+import com.bjfu.fcro.entity.SysSamplingAccount;
 import com.bjfu.fcro.entity.SysSamplingInspectorInformation;
+import com.bjfu.fcro.service.SysSamplingAccountService;
 import com.bjfu.fcro.service.SysSamplingInspectorInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.xml.transform.Result;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/siinformation")
@@ -18,7 +22,8 @@ public class SysSamplingInspectorInformationcontroller {
 
     @Autowired
     private SysSamplingInspectorInformationService samplingInspectorInformationService;
-
+    @Autowired
+    private SysSamplingAccountService sysSamplingAccountService;
 
     //
     @GetMapping("/getallsiinformation")
@@ -32,11 +37,21 @@ public class SysSamplingInspectorInformationcontroller {
 
     @PostMapping("/getallsiinformationbyadminaccount")
     @ResponseBody
-    public Object getallsiinformationbyadminaccount(@RequestParam String adminaccount){
+    public Object getallsiinformationbyadminaccount(
+            @RequestParam String adminaccount,
+             @RequestParam Integer pageIndex,
+            @RequestParam Integer pageSize
+    ){
 
-        List<SysSamplingInspectorInformation> list = samplingInspectorInformationService.selectAllByAdminAccount(adminaccount);
-        System.out.println(list);
-        return ResultTool.success(list);
+//        List<SysSamplingInspectorInformation> list = samplingInspectorInformationService.selectAllByAdminAccount(adminaccount);
+        int pageindex_true = (pageIndex-1)*pageSize;
+        int pagesize_true = pageSize;
+        List<SysSamplingInspectorInformation> list = samplingInspectorInformationService.selectpageByAdminAccount(adminaccount,pagesize_true,pageindex_true);
+        int total = samplingInspectorInformationService.selectcountAllByAdminAccount(adminaccount);
+        Map<String,Object> map = new HashMap<>();
+        map.put("tableData",list);
+        map.put("pageTotal",total);
+        return ResultTool.success(map);
     }
     @PostMapping("/enditsiinformationbyid")
     @ResponseBody
@@ -73,11 +88,19 @@ public class SysSamplingInspectorInformationcontroller {
             @RequestParam String sii_sex,
             @RequestParam String sii_phone,
             @RequestParam String sampling_agency) {
+        if(sii_name.equals("") || sii_name.contains(" ") || sii_sex .equals("") || sii_sex.contains(" ") || sii_name.equals("") || sii_name.contains(" ") || sii_phone.equals("") || sii_phone.contains(" ")){
+            return ResultTool.fail(ResultCode.CONTAINS_UNKNOWN_CHARACTERSS);
+        }
+        if(sii_name.contains("-")){
+            return ResultTool.fail(ResultCode.CONTAINS_UNKNOWN_CHARACTERSS);
+        }
         int res = samplingInspectorInformationService.insertbyaccount(adminaccount, sii_name, sii_sex, sii_phone, sampling_agency);
         if (res == 1) {
             return ResultTool.success();
-        }else{
+        }else if (res == 0){
             return  ResultTool.fail();
+        }else{
+            return ResultTool.fail(ResultCode.NAM_EALREADY_EXISTS);
         }
 
     }
@@ -86,9 +109,13 @@ public class SysSamplingInspectorInformationcontroller {
     /**根据管理员账号查询未删除的且未被分配的抽检员信息*/
     @PostMapping("/selectunassignedByAdminAccount")
     @ResponseBody
-    public  Object  selectunassignedByAdminAccount( @RequestParam String accountname){
+    public  Object  selectunassignedByAdminAccount( @RequestParam String accountname,@RequestParam Integer siiaccountid){
 
         List<SysSamplingInspectorInformation> list = samplingInspectorInformationService.selectunassignedByAdminAccount(accountname);
-        return ResultTool.success(list);
+        String res = sysSamplingAccountService.selectnamesbyid(siiaccountid);
+        Map<String,Object> map= new HashMap<String,Object>();
+        map.put("undes",list);
+        map.put("des",res);
+        return ResultTool.success(map);
     }
 }

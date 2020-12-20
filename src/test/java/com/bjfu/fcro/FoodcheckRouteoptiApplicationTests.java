@@ -11,6 +11,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @SpringBootTest
 class FoodcheckRouteoptiApplicationTests {
 
@@ -22,7 +27,23 @@ class FoodcheckRouteoptiApplicationTests {
 	@Test
 	void contextLoads() {
 
-		System.out.println("======"+samplingAccountDao.selectAll().getCreate_time());
+		Map<String, List<String>> map = new HashMap<String, List<String>>();
+
+		List<String> list = new ArrayList<>();
+		for(int i=0;i<10;i++){
+			list.add("1");
+		}
+		List<String> list2 = new ArrayList<>();
+		for(int i=0;i<10;i++){
+			list2.add("2");
+		}
+		map.put("1",list);
+		map.put("2",list2);
+		System.out.println(map.values());
+		System.out.println(new ArrayList<List<String>>(map.values()));
+		char s[] = {'a','b'};
+		System.out.println(s.toString());
+		System.out.println(new String(s));
 	}
 
 }

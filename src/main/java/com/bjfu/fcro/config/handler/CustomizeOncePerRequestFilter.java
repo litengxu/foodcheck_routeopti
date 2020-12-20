@@ -36,13 +36,13 @@ public class CustomizeOncePerRequestFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
         String headerToken = request.getHeader(header);
-        System.out.println("headerToken = " + headerToken);
-        System.out.println("request getMethod = " + request.getMethod());
-        System.out.println("request username="+request.getParameter("username"));
+//        System.out.println("headerToken = " + headerToken);
+//        System.out.println("request getMethod = " + request.getMethod());
+//        System.out.println("request username="+request.getParameter("username"));
         if (!StringUtils.isEmpty(headerToken)) {
             //postMan测试时，自动假如的前缀，要去掉。
             String token = headerToken.replace("Bearer", "").trim();
-            System.out.println("token = " + token);
+//            System.out.println("token = " + token);
 
             //判断令牌是否过期，默认是一周
             //比较好的解决方案是：
@@ -54,9 +54,9 @@ public class CustomizeOncePerRequestFilter extends OncePerRequestFilter {
             boolean check = false;
             try {
                 check = this.jwtTokenUtil.isTokenExpired(token);
-                System.out.println("check:"+check);
+//                System.out.println("check:"+check);
             } catch (Exception e) {
-                System.out.println("令牌已过期，请重新登录。");
+//                System.out.println("令牌已过期，请重新登录。");
                 new Throwable("令牌已过期，请重新登录。"+e.getMessage());
             }
             if (!check){
@@ -72,10 +72,10 @@ public class CustomizeOncePerRequestFilter extends OncePerRequestFilter {
                     //验证令牌有效性
                     boolean validata = false;
                     try {
-                        System.out.println("validata");
+//                        System.out.println("validata");
                         validata = jwtTokenUtil.validateTokenbyname(token, username);
                     }catch (Exception e) {
-                        System.out.println("validata 异常");
+//                        System.out.println("validata 异常");
                         new Throwable("验证token无效:"+e.getMessage());
                     }
                     if (validata) {

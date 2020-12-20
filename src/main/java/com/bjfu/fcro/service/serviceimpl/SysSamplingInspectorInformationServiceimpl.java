@@ -30,6 +30,16 @@ public class SysSamplingInspectorInformationServiceimpl  implements SysSamplingI
     }
 
     @Override
+    public int selectcountAllByAdminAccount(String adminaccount) {
+        return samplingInspectorInformationDao.selectcountAllByAdminAccount(adminaccount);
+    }
+
+    @Override
+    public List<SysSamplingInspectorInformation> selectpageByAdminAccount(String adminaccount, int pagesize, int pageIndex) {
+        return samplingInspectorInformationDao.selectpageByAdminAccount(adminaccount,pagesize,pageIndex);
+    }
+
+    @Override
     public int updatebyid(Integer id,String sii_name,String sii_sex,String sii_phone,String sampling_agency) {
         return samplingInspectorInformationDao.updatebyid(id,sii_name,sii_sex,sii_phone,sampling_agency);
     }
@@ -47,6 +57,10 @@ public class SysSamplingInspectorInformationServiceimpl  implements SysSamplingI
     @Override
     public int insertbyaccount(String adminaccount, String sii_name, String sii_sex, String sii_phone, String sampling_agency) {
         int adminid = userDao.selectbyaccount(adminaccount);
+        int count = samplingInspectorInformationDao.selectcountByAdminAccountandname(adminaccount,sii_name);
+        if(count >0){
+            return -1;
+        }
         if(adminid != 0 ) {
             samplingInspectorInformationDao.insertnewsiiinformaion(adminid, sii_name, sii_sex, sii_phone, sampling_agency);
             return 1;

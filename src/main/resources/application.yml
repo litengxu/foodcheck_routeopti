@@ -14,9 +14,10 @@ spring:
   thymeleaf:
       prefix: classpath:/templates/
 #???sql???????
-mybatis:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#mybatis:
+#  configuration:
+  #在控制台输出sql
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 logging:
   #level 日志等级 指定命名空间的日志输出

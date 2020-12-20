@@ -60,6 +60,9 @@ public class SysSuperUserController {
             @RequestParam Boolean ifenabled,
             @RequestParam Boolean iflocked
     ){
+        if(name.equals("") || name.contains(" ") || username .equals("") || username.contains(" ") || password.equals("") || password.contains(" ")){
+            return ResultTool.fail(ResultCode.CONTAINS_UNKNOWN_CHARACTERSS);
+        }
         int count = sysUserService.selectacountnum(name);
         if(count >=1){
             return ResultTool.fail(ResultCode.USER_ALREADY_EXISTS);

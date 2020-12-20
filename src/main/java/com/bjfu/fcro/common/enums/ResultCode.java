@@ -39,8 +39,12 @@ public enum ResultCode {
     USER_ALREADY_EXISTS(2012,"用户名已存在"),
     /*根据id查询出whether_assigned*/
     Spot_Inspectors_Have_Been_Assigned(2013,"抽检员信息已被分配到账号，请删除后重试"),
+    NAM_EALREADY_EXISTS(2014,"抽检员姓名已存在"),
+    CONTAINS_UNKNOWN_CHARACTERSS(2015,"包含未知字符"),
+    TOO_FEW_INSPECTORS(2016,"抽检员数量较少无法完成分配"),
     /* 业务错误 */
     NO_PERMISSION(3001, "没有权限");
+
     private Integer code;
     private String message;
 

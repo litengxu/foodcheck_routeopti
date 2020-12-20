@@ -20,13 +20,13 @@ public class CustomizeLogoutHandler implements LogoutHandler {
     @Override
     public void logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) {
         String headerToken = httpServletRequest.getHeader(header);
-        System.out.println("logout header Token = " + headerToken);
-        System.out.println("logout request getMethod = " + httpServletRequest.getMethod());
+/*        System.out.println("logout header Token = " + headerToken);
+        System.out.println("logout request getMethod = " + httpServletRequest.getMethod());*/
         //
         if (!StringUtils.isEmpty(headerToken)) {
             //postMan测试时，自动假如的前缀，要去掉。
-            String token = headerToken.replace("Bearer", "").trim();
-            System.out.println("authentication = " + authentication);
+/*            String token = headerToken.replace("Bearer", "").trim();
+            System.out.println("authentication = " + authentication);*/
             SecurityContextHolder.clearContext();
         }
     }

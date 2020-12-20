@@ -32,4 +32,18 @@ public interface SysSamplingAccountService {
 
         /**根据抽检账号查询表中是否有数据*/
         int selectssaccountbyaccount( String s_account);
+
+        /**管理抽检员到抽检账号的分配*/
+        boolean admininspectortoaccount( String adminaccount,
+                                            String distributenames[],
+                                            Integer insaccountid) throws  Exception;
+
+        /**根据id查找分配到某抽检账号的抽检员*/
+        String selectnamesbyid( Integer id);
+
+        /**重置抽检员到抽检账号的分配*/
+        int resetsamplingaccount(String adminaccount) throws Exception;
+
+        /**随机分配*/
+        boolean randomlyassigned(String adminaccount,int size,int accountsize,int personsize) throws Exception;
 }
