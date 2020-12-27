@@ -15,10 +15,10 @@ public interface SamplingAccountDao {
     @Select("select * from sys_sampling_account")
     SysSamplingAccount selectAll();
 
-    @Select("select * from sys_sampling_account where admin_id = #{admin_id} and whether_modify_ids = 1")
+    @Select("select * from sys_sampling_account where admin_id = #{admin_id} and whether_modify_ids = 1 and whether_participate = 1")
     List<SysSamplingAccount> selectAllbyadminid(@Param("admin_id") int admin_id);
 
-    @Select("select count(id) from sys_sampling_account where admin_id =  ( SELECT id from sys_user WHERE account = #{adminaccount})  and whether_modify_ids = 1")
+    @Select("select count(id) from sys_sampling_account where admin_id =  ( SELECT id from sys_user WHERE account = #{adminaccount})  and whether_modify_ids = 1 and whether_participate = 1")
     int selectcountAllbyadmincount(@Param("adminaccount") String  adminaccount);
 
     /**根据管理员账号查询未删除的抽检员信息 按分页*/

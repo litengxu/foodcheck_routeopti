@@ -129,4 +129,9 @@ public class SysUserServiceImpl implements SysUserService {
 
     }
 
+    @Override
+    public int selectbyaccount(String adminaccount) {
+        return userDao.selectbyaccount(adminaccount);
+    }
+
 }

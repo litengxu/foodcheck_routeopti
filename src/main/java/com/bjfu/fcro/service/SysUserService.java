@@ -1,6 +1,7 @@
 package com.bjfu.fcro.service;
 
 import com.bjfu.fcro.entity.SysUser;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -64,4 +65,7 @@ public interface SysUserService {
       * @return
       */
      boolean checkLogin(String username,String rawPassword) throws Exception;
+/**根据管理员用户名查询id*/
+     int selectbyaccount(String adminaccount);
+
 }

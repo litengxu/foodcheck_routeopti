@@ -127,7 +127,9 @@ public class SysSamplingAccountController {
             @RequestParam String adminaccount,
             @RequestParam String distributenames[],
             @RequestParam Integer insaccountid) throws Exception {
-
+        if(distributenames.length == 0){
+            return ResultTool.fail();
+        }
         boolean res = sysSamplingAccountService.admininspectortoaccount(adminaccount,distributenames,insaccountid);
 
         if(res == true){
@@ -158,8 +160,9 @@ public class SysSamplingAccountController {
             @RequestParam String adminaccount,
             @RequestParam int size
     ) throws  Exception{
-
+        /*参与抽检账号数目*/
         int accountsize = sysCommonService.selectcountlbyadminaccount(adminaccount);
+        /*抽检员数目*/
         int personsize = sysSamplingInspectorInformationService.selectcountAllByAdminAccount(adminaccount);
         if(personsize < accountsize*size || personsize==0){
             return ResultTool.fail(ResultCode.TOO_FEW_INSPECTORS);

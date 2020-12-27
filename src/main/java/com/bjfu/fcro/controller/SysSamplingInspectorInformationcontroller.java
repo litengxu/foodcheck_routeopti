@@ -61,8 +61,11 @@ public class SysSamplingInspectorInformationcontroller {
             @RequestParam String sii_sex,
             @RequestParam String sii_phone,
             @RequestParam String sampling_agency){
-        samplingInspectorInformationService.updatebyid(id,sii_name,sii_sex,sii_phone,sampling_agency);
-        return ResultTool.success();
+        if(samplingInspectorInformationService.updatebyid(id,sii_name,sii_sex,sii_phone,sampling_agency) >0){
+            return  ResultTool.success();
+        }else{
+            return ResultTool.fail();
+        }
     }
 
     @PostMapping("/deletesiinformationbyid")
@@ -102,7 +105,6 @@ public class SysSamplingInspectorInformationcontroller {
         }else{
             return ResultTool.fail(ResultCode.NAM_EALREADY_EXISTS);
         }
-
     }
 
 
@@ -113,7 +115,7 @@ public class SysSamplingInspectorInformationcontroller {
 
         List<SysSamplingInspectorInformation> list = samplingInspectorInformationService.selectunassignedByAdminAccount(accountname);
         String res = sysSamplingAccountService.selectnamesbyid(siiaccountid);
-        Map<String,Object> map= new HashMap<String,Object>();
+        Map<String,Object> map= new HashMap<>();
         map.put("undes",list);
         map.put("des",res);
         return ResultTool.success(map);

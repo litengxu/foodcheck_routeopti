@@ -181,7 +181,6 @@ public class SysSamplingAccountServiceimpl implements SysSamplingAccountService,
                         names.append(sysSamplingAccount.getSampling_inspector_names());
                     }
                 }
-                System.out.println(names.toString());
                 /**2. 把抽检员名字插入到抽检账号中,并把是否修改过改为0（已修改过），该行不会被前台查到   */
                 samplingAccountDao.updateidsandnamesbyid(ids.toString(), names.toString(), insaccountid);
                 personindex++;
