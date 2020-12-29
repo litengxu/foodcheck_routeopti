@@ -22,6 +22,18 @@ public interface SamplingLibraryDao {
             " and   admin_id  = #{admin_id} ORDER BY  id LIMIT #{pagesize}")
     List<SysSamplingLibrary> selectpageByAdminid(@Param("admin_id") int  admin_id,@Param("pagesize") int pagesize,@Param("pageIndex") int pageIndex);
 
+    /**搜索抽检库信息 按分页*/
+    @Select("select * from sys_sampling_library where id >= (SELECT id from sys_sampling_library WHERE  admin_id  = #{admin_id} and (ssl_name like '%${searchname}%' OR address like '%${searchname}%') ORDER BY id LIMIT #{pageIndex}, 1)" +
+            " and   admin_id  = #{admin_id} and (ssl_name like '%${searchname}%' OR address like '%${searchname}%') ORDER BY  id LIMIT #{pagesize}")
+    List<SysSamplingLibrary> searchpageByAdminid(@Param("admin_id") int  admin_id,@Param("pagesize") int pagesize,@Param("pageIndex") int pageIndex,@Param("searchname") String searchname);
+
+    /**根据管理员账号获取数据总数*/
+    @Select("select count(id) from sys_sampling_library where  admin_id  = #{admin_id}")
+    int selectcountByAdminid(@Param("admin_id") int  admin_id);
+
+    /**根据管理员账号和搜索词获取总数*/
+    @Select("select count(id) from sys_sampling_library where  admin_id  = #{admin_id} and (ssl_name like '%${searchname}%' OR address like '%${searchname}%')")
+    int searchcountByAdminid(@Param("admin_id") int  admin_id,@Param("searchname") String searchname);
 
     /**修改抽检库的数据*/
     @Update("Update sys_sampling_library set jurisdiction = #{jurisdiction},category=#{category},ssl_name=#{ssl_name},address=#{address} where id = #{id}")

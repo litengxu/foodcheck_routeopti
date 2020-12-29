@@ -35,13 +35,18 @@ public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService 
     public  List getalllibrary(
             Integer admin_id,
             Integer pageSize,
-            Integer pageIndex){
+            Integer pageIndex,
+            String searchname){
 
         List<SysSamplingLibrary> reslist = new ArrayList<>();
         if(admin_id == 1){
             reslist = selectAll(pageSize,pageIndex);
         }else{
-            reslist = selectpageByAdminid(admin_id,pageSize,pageIndex);
+            if(searchname.equals("") || searchname == null){
+                reslist = selectpageByAdminid(admin_id,pageSize,pageIndex);
+            }else{
+                reslist=  searchpageByAdminid(admin_id,pageSize,pageIndex,searchname);
+            }
         }
         /**把表中的类型id转换为类型名称*/
         for(int i=0;i<reslist.size();i++){
@@ -66,6 +71,20 @@ public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService 
         }
 
         return reslist;
+    }
+
+    @Override
+    public List<SysSamplingLibrary> searchpageByAdminid(int admin_id, int pagesize, int pageIndex, String searchname) {
+        return samplingLibraryDao.searchpageByAdminid(admin_id, pagesize, pageIndex, searchname);
+    }
+
+    @Override
+    public int selectcountbyadminid(int admin_id,String searchname) {
+        if(searchname.equals("") || searchname == null){
+            return samplingLibraryDao.selectcountByAdminid(admin_id);
+        }else{
+            return samplingLibraryDao.searchcountByAdminid(admin_id,searchname);
+        }
     }
 
     @Override

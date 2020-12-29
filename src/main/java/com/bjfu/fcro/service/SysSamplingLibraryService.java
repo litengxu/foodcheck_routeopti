@@ -18,9 +18,15 @@ public interface SysSamplingLibraryService {
     List getalllibrary(
             Integer admin_id,
             Integer pageSize,
-            Integer pageIndex
+            Integer pageIndex,
+            String searchname
             );
+    /**根据管理员账号查询抽检库信息 按分页*/
+    List<SysSamplingLibrary> searchpageByAdminid( int  admin_id,int pagesize, int pageIndex, String searchname);
 
+
+    /**获取管理员id下的所有数据数量，分页用*/
+    int selectcountbyadminid(int admin_id,String searchname);
     /**修改抽检库的数据*/
     int updatesamplinglibrarybyid( int id,String jurisdiction,String category, String ssl_name,String address);
 

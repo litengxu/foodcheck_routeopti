@@ -36,6 +36,7 @@ public class SysSamplingLibraryController {
     @PostMapping("/getalllibrary")
     @ResponseBody
     public Object getalllibrary(
+            @RequestParam  String searchname,
             @RequestParam Integer pageIndex,
             @RequestParam Integer pageSize
     ){
@@ -44,10 +45,13 @@ public class SysSamplingLibraryController {
         int pagesize_true = pageSize;
         int admin_id = sysUserService.selectbyaccount(admincount);
         List<SysSamplingFoodType> foodTypes = sysSamplingFoodTypeService.findalltypebyadminid(admincount);
-        List<SysSamplingLibrary> sysSamplingLibraries=  sysSamplingLibraryService.getalllibrary(admin_id,pagesize_true,pageindex_true);
-        Map<String,List> res = new HashMap<>();
+        List<SysSamplingLibrary> sysSamplingLibraries= new ArrayList<>();
+        sysSamplingLibraries=  sysSamplingLibraryService.getalllibrary(admin_id,pagesize_true,pageindex_true,searchname);
+        int pageTotal = sysSamplingLibraryService.selectcountbyadminid(admin_id,searchname);
+        Map<String,Object> res = new HashMap<>();
         res.put("foodTypes",foodTypes);
         res.put("sysSamplingLibraries",sysSamplingLibraries);
+        res.put("pageTotal",pageTotal);
         return ResultTool.success(res);
     }
 
