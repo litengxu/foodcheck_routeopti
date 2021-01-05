@@ -1,27 +1,41 @@
 package com.bjfu.fcro.service.serviceimpl;
 
-import com.bjfu.fcro.common.utils.ResultTool;
+import com.bjfu.fcro.common.utils.OfficeTool;
+import com.bjfu.fcro.dao.ExcelProcessingProgressDao;
 import com.bjfu.fcro.dao.SamplingFoodTypeDao;
 import com.bjfu.fcro.dao.SamplingLibraryDao;
+import com.bjfu.fcro.entity.SysSamplingFoodType;
 import com.bjfu.fcro.entity.SysSamplingLibrary;
 import com.bjfu.fcro.service.SysSamplingLibraryService;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.*;
+
 
 
 @Repository
 public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService {
 
+
+    protected  static  final Logger logger = LoggerFactory.getLogger(SysSamplingLibraryServiceimpl.class) ;
     @Autowired
     private SamplingLibraryDao   samplingLibraryDao;
     @Autowired
     private SamplingFoodTypeDao samplingFoodTypeDao;
-
+    @Autowired
+    private ExcelProcessingProgressDao excelProcessingProgressDao;
     @Override
     public List<SysSamplingLibrary> selectAll( int pagesize, int pageIndex) {
         return samplingLibraryDao.selectAll(pagesize,pageIndex);
@@ -93,6 +107,88 @@ public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService 
     }
 
     @Override
+    @Async
+    public Map<Integer, Map<Integer, Object>> uploadbyexcel(String adminaccount,int admin_id,String []paths) {
+        logger.info("开始处理excel");
+        Map<Integer, Map<Integer,Object>> map = new HashMap<>();
+        List<SysSamplingFoodType> listtype = samplingFoodTypeDao.findallidbyadminid(admin_id);
+        int ids[] = new int[listtype.size()];
+        for (int i=0;i<listtype.size();i++){
+            ids[i] = listtype.get(i).getId();
+        }
+        String idstring = toids(ids);
+        for(int f = 0;f<paths.length;f++){
+            //数据总数
+            int total = 0 ;
+            //成功条数
+            int successtotal = 0;
+            //失败条数
+            int failtotal = 0;
+            //重复条数
+            int repeattotal = 0;
+            //当前状态
+            int state = 0;
+            try {
+                File file = ResourceUtils.getFile(paths[f]);
+//                String filename = files.get(f).getOriginalFilename();
+                String filename = file.getName();
+                excelProcessingProgressDao.insertnewexceldata(admin_id,filename,state,total,successtotal,failtotal,repeattotal);
+                //最新插入的数据id
+                int excelprogressid = excelProcessingProgressDao.selectmaxidbyexcelname(filename);
+                map = OfficeTool.readExcelContentz(file);
+                total = map.size();
+//            map.forEach((key,value)->{
+//
+//            });
+                for (Map.Entry<Integer, Map<Integer,Object>> entry1:map.entrySet()){
+                    String ssl_name = null;
+                    String category = null;
+                    String address = null;
+                    String jurisdiction = null;
+                    int whether_to_repeat = 0;
+                    for(Map.Entry<Integer,Object> entry2:entry1.getValue().entrySet()){
+
+                        if(entry2.getKey() == 1){//辖区
+                            jurisdiction = entry2.getValue().toString();
+                        }
+                        if(entry2.getKey() == 2){//类别
+                            category = entry2.getValue().toString();
+                        }
+                        if(entry2.getKey() == 3){//抽检点
+                            ssl_name = entry2.getValue().toString();
+                            if(slelectcountbysslname(ssl_name) >=1){//存在重复抽检点，直接跳过
+                                whether_to_repeat = 1;
+                                repeattotal ++;
+                            }
+                        }
+                        if(entry2.getKey() == 4){//地址
+                            address = entry2.getValue().toString();
+                        }
+                    }
+                    if(whether_to_repeat == 0){
+                    /*插入excel数据*/
+                        if(insertexcel(ssl_name, category, address, admin_id, jurisdiction, idstring)){
+                            successtotal ++;
+                        }
+                    }
+                    excelProcessingProgressDao.updatestate(excelprogressid,state,total,successtotal,repeattotal);
+                }
+                state = 1;
+                excelProcessingProgressDao.updatestate(excelprogressid,state,total,successtotal,repeattotal);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        logger.info("处理完成");
+        return map;
+    }
+    @Transactional( rollbackFor = {Exception.class})
+    public boolean insertexcel(String ssl_name,String category,String address,int admin_id,String jurisdiction,String ids){
+
+        return samplingLibraryDao.insertallnewsamplinglibrary(ssl_name, category, address, admin_id, jurisdiction, ids);
+    }
+    @Override
     public boolean deletesamplinglibrarybyid(int id) {
         return samplingLibraryDao.deletesamplinglibrarybyid(id);
     }
@@ -114,16 +210,20 @@ public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService 
         for(int i=0;i<adislen;i++){
             ids[index++] = samplingFoodTypeDao.selectidbytypenameandadminaccount(againhavedistributenames[i],adminaccount);
         }
+        samplingLibraryDao.updateidsbyid(toids(ids),insaccountid);
+        return true;
+    }
+
+    public String toids(int []ids){
         Arrays.sort(ids);
         StringBuilder stringBuilder = new StringBuilder();
-        for(int i=0;i<(dislen+adislen);i++){
+        for(int i=0;i<ids.length ;i++){
             stringBuilder.append(ids[i]);
-            if(i!=(dislen+adislen)-1){
+            if(i!=ids.length-1){
                 stringBuilder.append("-");
             }
         }
-        samplingLibraryDao.updateidsbyid(stringBuilder.toString(),insaccountid);
-        return true;
+        return stringBuilder.toString();
     }
 
     @Override
@@ -138,6 +238,5 @@ public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService 
         int id = samplingLibraryDao.selectidbysllname(ssl_name);
         this.savesamplingidstosslibrary(adminaccount,selectedfoodtypes,null,id);
         return true;
-
     }
 }

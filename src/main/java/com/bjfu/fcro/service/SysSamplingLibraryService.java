@@ -4,8 +4,11 @@ package com.bjfu.fcro.service;
 import com.bjfu.fcro.entity.SysSamplingLibrary;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface SysSamplingLibraryService {
@@ -29,8 +32,8 @@ public interface SysSamplingLibraryService {
     int selectcountbyadminid(int admin_id,String searchname);
     /**修改抽检库的数据*/
     int updatesamplinglibrarybyid( int id,String jurisdiction,String category, String ssl_name,String address);
-
-
+    /**上传excel表*/
+    Map<Integer, Map<Integer,Object>> uploadbyexcel(String adminacount,int admin_d,String []paths);
 
     /**删除抽检库的数据*/
     boolean deletesamplinglibrarybyid( int id);

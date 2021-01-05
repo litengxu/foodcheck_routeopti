@@ -51,7 +51,7 @@ public interface SamplingLibraryDao {
     @Select("select count(id)  from sys_sampling_library where ssl_name = #{ssl_name}")
     int slelectcountbysslname(@Param("ssl_name") String ssl_name);
 
-    /**插入新的抽检点数据*/
+    /**插入新的抽检点数据  无抽检类型ds*/
     @Insert("INSERT into sys_sampling_library (ssl_name,category,address,admin_id,jurisdiction) VALUES(#{ssl_name},#{category},#{address},#{admin_id},#{jurisdiction});")
     boolean insertnewsamplinglibrary(
             @Param("ssl_name") String ssl_name,
@@ -60,7 +60,16 @@ public interface SamplingLibraryDao {
             @Param("admin_id") int admin_id,
             @Param("jurisdiction") String jurisdiction
     );
-
+    /**插入新的抽检点数据**/
+    @Insert("INSERT into sys_sampling_library (ssl_name,category,address,admin_id,jurisdiction,foodtype_ids) VALUES(#{ssl_name},#{category},#{address},#{admin_id},#{jurisdiction},#{foodtype_ids});")
+    boolean insertallnewsamplinglibrary(
+            @Param("ssl_name") String ssl_name,
+            @Param("category") String category,
+            @Param("address") String address,
+            @Param("admin_id") int admin_id,
+            @Param("jurisdiction") String jurisdiction,
+            @Param("foodtype_ids") String foodtype_ids
+    );
     /**根据抽检点名称查询id*/
     @Select("select id from sys_sampling_library where ssl_name = #{ssl_name}")
     int selectidbysllname(@Param("ssl_name") String ssl_name);

@@ -15,9 +15,13 @@ public interface SamplingFoodTypeDao {
     @Select("select type_name from sys_sampling_food_type where id =#{id}")
     String selecttypename( @Param("id") int  id);
 
-    /**根据管理员账号名查询次账号下所有的抽检类型*/
+    /**根据管理员账号名查询此账号下所有的抽检类型*/
     @Select("select type_name from sys_sampling_food_type where admin_id =( SELECT id from sys_user WHERE account = #{adminaccount})")
     List<SysSamplingFoodType> findalltypebyadminid(@Param("adminaccount")  String adminaccount);
+
+    /**根据管理员账号名查询此账号下所有的抽检类id*/
+    @Select("select id from sys_sampling_food_type where admin_id =#{adminid}")
+    List<SysSamplingFoodType> findallidbyadminid(@Param("adminid")  int adminid);
 
     /**根据管理员账号和食品类型查询该类型的id*/
     @Select("select id from sys_sampling_food_type where type_name = #{typename} and admin_id =( SELECT id from sys_user WHERE account = #{adminaccount})")

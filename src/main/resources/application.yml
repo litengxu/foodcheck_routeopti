@@ -1,6 +1,11 @@
 
 server:
  port: 7070
+ tomcat:
+   max-connections: 10000
+   threads:
+     max: 400    #修改tomcat的最大连接数和最大同时连接数
+   max-http-form-post-size: 16KB #修改header的大小
 spring:
 #修改默认时区
   jackson:
@@ -9,15 +14,28 @@ spring:
     url: jdbc:mysql://localhost:3307/foodcheck_routeopti?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
     password: root
-#???????????????????????????
+#配置alibaba的druid的数据源（连接池）
     type: com.alibaba.druid.pool.DruidDataSource
+    hikari:
+      max-lifetime: 60000
+      connection-timeout: 60000
   thymeleaf:
       prefix: classpath:/templates/
-#???sql???????
+
 #mybatis:
 #  configuration:
   #在控制台输出sql
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#文件配置
+  servlet:
+      multipart:
+        enabled: true #是否启用http上传处理
+        max-request-size: 10MB #最大请求文件的大小
+        max-file-size: 10MB #设置单个文件最大长度
+  mvc:
+      servlet:
+        load-on-startup: 1 #修改数据库连接未预加载
 
 logging:
   #level 日志等级 指定命名空间的日志输出
@@ -30,5 +48,8 @@ logging:
   pattern:
     console: "%d %-5level %logger : %msg%n"
     file: "%d %-5level [%thread] %logger : %msg%n"
+
+
+
 
 
