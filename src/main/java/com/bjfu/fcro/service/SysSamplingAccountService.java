@@ -46,4 +46,8 @@ public interface SysSamplingAccountService {
 
         /**随机分配*/
         boolean randomlyassigned(String adminaccount,int size,int accountsize,int personsize) throws Exception;
+
+        /**查询所有可以参与抽检的账号*/
+
+        Object selectAllCanParticipatebyadminid(int adminid);
 }

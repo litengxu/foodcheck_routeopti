@@ -42,6 +42,7 @@ public enum ResultCode {
     NAM_EALREADY_EXISTS(2014,"抽检员姓名已存在"),
     CONTAINS_UNKNOWN_CHARACTERSS(2015,"包含未知字符"),
     TOO_FEW_INSPECTORS(2016,"抽检员数量较少无法完成分配"),
+    FOOD_TYPE_EXISTS(2018,"食品类型已存在"),
     /* 业务错误 */
     NO_PERMISSION(3001, "没有权限");
 

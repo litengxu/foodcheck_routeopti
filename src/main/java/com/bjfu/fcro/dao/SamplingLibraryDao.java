@@ -14,7 +14,7 @@ public interface SamplingLibraryDao {
 
     /**超级管理员，按分页查询所有的抽检库数据*/
     @Select("select * from sys_sampling_library where id >= (SELECT id from sys_sampling_library  ORDER BY id LIMIT #{pageIndex}, 1)" +
-            "and  ORDER BY id LIMIT #{pagesize}")
+            " ORDER BY id LIMIT #{pagesize}")
     List<SysSamplingLibrary> selectAll(@Param("pagesize") int pagesize,@Param("pageIndex") int pageIndex);
 
     /**根据管理员账号查询抽检库信息 按分页*/
@@ -31,9 +31,21 @@ public interface SamplingLibraryDao {
     @Select("select count(id) from sys_sampling_library where  admin_id  = #{admin_id}")
     int selectcountByAdminid(@Param("admin_id") int  admin_id);
 
+     /**根据管理员账号获取数据*/
+    @Select("select * from sys_sampling_library where  admin_id  = #{admin_id}")
+    List<SysSamplingLibrary> selectallByAdminidnopage(@Param("admin_id") int  admin_id);
+    
+    /**根据超级管理员账号获取数据总数*/
+    @Select("select count(id) from sys_sampling_library ")
+    int selectcount();
+
     /**根据管理员账号和搜索词获取总数*/
     @Select("select count(id) from sys_sampling_library where  admin_id  = #{admin_id} and (ssl_name like '%${searchname}%' OR address like '%${searchname}%')")
     int searchcountByAdminid(@Param("admin_id") int  admin_id,@Param("searchname") String searchname);
+
+    /**根据管理员账号和搜索词获取总数*/
+    @Select("select count(id) from sys_sampling_library where  ssl_name like '%${searchname}%' OR address like '%${searchname}%'")
+    int searchcount(@Param("searchname") String searchname);
 
     /**修改抽检库的数据*/
     @Update("Update sys_sampling_library set jurisdiction = #{jurisdiction},category=#{category},ssl_name=#{ssl_name},address=#{address} where id = #{id}")

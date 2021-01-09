@@ -95,8 +95,14 @@ public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService 
     @Override
     public int selectcountbyadminid(int admin_id,String searchname) {
         if(searchname.equals("") || searchname == null){
+            if(admin_id == 1){
+                return samplingLibraryDao.selectcount();
+            }
             return samplingLibraryDao.selectcountByAdminid(admin_id);
         }else{
+            if(admin_id == 1){
+                return samplingLibraryDao.searchcount(searchname);
+            }
             return samplingLibraryDao.searchcountByAdminid(admin_id,searchname);
         }
     }
