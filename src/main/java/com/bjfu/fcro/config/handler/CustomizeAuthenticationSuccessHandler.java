@@ -79,9 +79,11 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
 //        map.put("menus",menus);
 //        map.put("token",token);
         String role = sysRoleService.selectroleByAccount(userDetails.getUsername());
+        String city = sysUserService.seleccity(userDetails.getUsername());
         Map<String,Object> map = new HashMap<>();
         map.put("rolename",role);
         map.put("token",token);
+        map.put("city",city);
         //返回json数据
         JsonResult result = ResultTool.success(map);
         //处理编码方式，防止中文乱码的情况

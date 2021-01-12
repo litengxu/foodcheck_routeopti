@@ -40,4 +40,6 @@ public class SysUser {
     private Integer create_user;
     //修改人
     private Integer update_user;
+    //所在城市
+    private String city;
 }

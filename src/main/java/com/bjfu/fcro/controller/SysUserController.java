@@ -55,9 +55,9 @@ public class SysUserController {
             @RequestParam  String username,
             @RequestParam Integer id,
             @RequestParam String password,
-            @RequestParam Integer whether_change_password
+            @RequestParam Integer whether_change_password,
+            @RequestParam String  city
                                    ){
-
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         password = passwordEncoder.encode(password);
         SysUser sysUser = sysUserService.queryById(id);
@@ -70,6 +70,7 @@ public class SysUserController {
         }
         sysUser.setUser_name(username);
         sysUser.setUpdate_time(new Date());
+        sysUser.setCity(city);
         sysUserService.update(sysUser);
         return ResultTool.success();
     }
