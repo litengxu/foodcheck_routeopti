@@ -56,10 +56,11 @@ public class SysSuperUserController {
             @RequestParam  String name,
             @RequestParam  String username,
             @RequestParam String password,
+            @RequestParam String city,
             @RequestParam Boolean ifenabled,
             @RequestParam Boolean iflocked
     ){
-        if(name.equals("") || name.contains(" ") || username .equals("") || username.contains(" ") || password.equals("") || password.contains(" ")){
+        if(name.equals("") || name.contains(" ") || username .equals("") || username.contains(" ") || password.equals("") || password.contains(" ") || city.equals("") || city.contains(" ") ){
             return ResultTool.fail(ResultCode.CONTAINS_UNKNOWN_CHARACTERSS);
         }
         int count = sysUserService.selectacountnum(name);
@@ -72,6 +73,7 @@ public class SysSuperUserController {
             sysUser.setAccount(name);
             sysUser.setUser_name(username);
             sysUser.setPassword(password);
+            sysUser.setCity(city);
             sysUser.setLast_login_time(new Date());
             sysUser.setNot_expired(true);
             sysUser.setCredentials_not_expired(true);

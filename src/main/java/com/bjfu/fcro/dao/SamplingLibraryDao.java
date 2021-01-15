@@ -64,25 +64,29 @@ public interface SamplingLibraryDao {
     int slelectcountbysslname(@Param("ssl_name") String ssl_name);
 
     /**插入新的抽检点数据  无抽检类型ds*/
-    @Insert("INSERT into sys_sampling_library (ssl_name,category,address,admin_id,jurisdiction) VALUES(#{ssl_name},#{category},#{address},#{admin_id},#{jurisdiction});")
+    @Insert("INSERT into sys_sampling_library (ssl_name,category,address,admin_id,jurisdiction,longitude,latitude) VALUES(#{ssl_name},#{category},#{address},#{admin_id},#{jurisdiction},#{longitude},#{latitude});")
     boolean insertnewsamplinglibrary(
             @Param("ssl_name") String ssl_name,
             @Param("category") String category,
             @Param("address") String address,
             @Param("admin_id") int admin_id,
-            @Param("jurisdiction") String jurisdiction
+            @Param("jurisdiction") String jurisdiction,
+            @Param("longitude") String longitude,
+            @Param("latitude") String latitude
     );
     /**插入新的抽检点数据**/
-    @Insert("INSERT into sys_sampling_library (ssl_name,category,address,admin_id,jurisdiction,foodtype_ids) VALUES(#{ssl_name},#{category},#{address},#{admin_id},#{jurisdiction},#{foodtype_ids});")
+    @Insert("INSERT into sys_sampling_library (ssl_name,category,address,admin_id,jurisdiction,foodtype_ids,longitude,latitude) VALUES(#{ssl_name},#{category},#{address},#{admin_id},#{jurisdiction},#{foodtype_ids},#{longitude},#{latitude});")
     boolean insertallnewsamplinglibrary(
             @Param("ssl_name") String ssl_name,
             @Param("category") String category,
             @Param("address") String address,
             @Param("admin_id") int admin_id,
             @Param("jurisdiction") String jurisdiction,
-            @Param("foodtype_ids") String foodtype_ids
+            @Param("foodtype_ids") String foodtype_ids,
+            @Param("longitude") String longitude,
+            @Param("latitude") String latitude
     );
     /**根据抽检点名称查询id*/
-    @Select("select id from sys_sampling_library where ssl_name = #{ssl_name}")
-    int selectidbysllname(@Param("ssl_name") String ssl_name);
+    @Select("select id from sys_sampling_library where ssl_name = #{ssl_name} and admin_id = #{admin_id}")
+    int selectidbysllname(@Param("ssl_name") String ssl_name,@Param("admin_id") int admin_id);
 }

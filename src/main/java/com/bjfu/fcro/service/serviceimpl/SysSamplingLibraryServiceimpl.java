@@ -1,6 +1,9 @@
 package com.bjfu.fcro.service.serviceimpl;
 
+import com.bjfu.fcro.common.enums.ResultCode;
+import com.bjfu.fcro.common.utils.BaiduApiTool;
 import com.bjfu.fcro.common.utils.OfficeTool;
+import com.bjfu.fcro.common.utils.ResultTool;
 import com.bjfu.fcro.dao.ExcelProcessingProgressDao;
 import com.bjfu.fcro.dao.SamplingFoodTypeDao;
 import com.bjfu.fcro.dao.SamplingLibraryDao;
@@ -23,6 +26,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.*;
 
+import static com.bjfu.fcro.common.utils.BaiduApiTool.getCoordinate;
 
 
 @Repository
@@ -151,6 +155,8 @@ public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService 
                     String category = null;
                     String address = null;
                     String jurisdiction = null;
+                    String longitude = "0";
+                    String latitude = "0";
                     int whether_to_repeat = 0;
                     for(Map.Entry<Integer,Object> entry2:entry1.getValue().entrySet()){
 
@@ -160,6 +166,9 @@ public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService 
                         if(entry2.getKey() == 2){//类别
                             category = entry2.getValue().toString();
                         }
+                        if(entry2.getKey() == 4){//地址
+                            address = entry2.getValue().toString();
+                        }
                         if(entry2.getKey() == 3){//抽检点
                             ssl_name = entry2.getValue().toString();
                             if(slelectcountbysslname(ssl_name) >=1){//存在重复抽检点，直接跳过
@@ -167,15 +176,19 @@ public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService 
                                 repeattotal ++;
                             }
                         }
-                        if(entry2.getKey() == 4){//地址
-                            address = entry2.getValue().toString();
-                        }
                     }
                     if(whether_to_repeat == 0){
-                    /*插入excel数据*/
-                        if(insertexcel(ssl_name, category, address, admin_id, jurisdiction, idstring)){
-                            successtotal ++;
+                        /*获取经纬度*/
+                        String coorstr[] = BaiduApiTool.getCoordinate(address);
+                        if(coorstr !=null){
+                            longitude = coorstr[0];
+                            latitude = coorstr[1];
+                              /*插入excel数据   非空时才能插入数据*/
+                            if(insertexcel(ssl_name, category, address, admin_id, jurisdiction, idstring,longitude,latitude)){
+                                successtotal ++;
+                            }
                         }
+
                     }
                     excelProcessingProgressDao.updatestate(excelprogressid,state,total,successtotal,repeattotal);
                 }
@@ -190,9 +203,9 @@ public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService 
         return map;
     }
     @Transactional( rollbackFor = {Exception.class})
-    public boolean insertexcel(String ssl_name,String category,String address,int admin_id,String jurisdiction,String ids){
+    public boolean insertexcel(String ssl_name,String category,String address,int admin_id,String jurisdiction,String ids,String longitude,String latitude){
 
-        return samplingLibraryDao.insertallnewsamplinglibrary(ssl_name, category, address, admin_id, jurisdiction, ids);
+        return samplingLibraryDao.insertallnewsamplinglibrary(ssl_name, category, address, admin_id, jurisdiction, ids,longitude,latitude);
     }
     @Override
     public boolean deletesamplinglibrarybyid(int id) {
@@ -207,7 +220,6 @@ public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService 
         if(againhavedistributenames !=null){
             adislen = againhavedistributenames.length;
         }
-
         int []ids = new int[dislen+adislen];
         int index=0;
         for(int i=0;i<dislen;i++ ){
@@ -239,10 +251,17 @@ public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService 
 
     @Override
     @Transactional( rollbackFor = {Exception.class})
-    public boolean insertallsamplinglibrary(String ssl_name, String category, String address, int admin_id, String jurisdiction, String[] selectedfoodtypes,String adminaccount) throws Exception {
-        samplingLibraryDao.insertnewsamplinglibrary(ssl_name,category,address,admin_id,jurisdiction);
-        int id = samplingLibraryDao.selectidbysllname(ssl_name);
+    public Object insertallsamplinglibrary(String ssl_name, String category, String address, int admin_id, String jurisdiction, String[] selectedfoodtypes,String adminaccount) throws Exception {
+
+        String str[] = BaiduApiTool.getCoordinate(address);
+        if(str == null){
+            return ResultTool.fail(ResultCode.IRREGULAR_ADDRESS);
+        }
+        String longitude = str[0];
+        String latitude  = str[1];
+        samplingLibraryDao.insertnewsamplinglibrary(ssl_name,category,address,admin_id,jurisdiction,longitude,latitude);
+        int id = samplingLibraryDao.selectidbysllname(ssl_name,admin_id);
         this.savesamplingidstosslibrary(adminaccount,selectedfoodtypes,null,id);
-        return true;
+        return ResultTool.success();
     }
 }

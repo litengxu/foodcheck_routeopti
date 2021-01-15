@@ -1,9 +1,21 @@
 package com.bjfu.fcro;
 
+
+
+
+import net.sf.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class javatest {
-
+    static String AK = "afzx0PGdTM3wlK9WrLqY3QhOdEhWr3Iz"; // 百度地图密钥
     public String smallestStringWithSwaps(String s, List<List<Integer>> pairs) {
         if (pairs.size() == 0) {
             return s;
@@ -91,38 +103,48 @@ public class javatest {
         }
     }
     public static void main(String[] args) {
-        javatest javatest = new javatest();
-        List<List<Integer>> pairs = new ArrayList<>();
-        List<Integer> list1 = new ArrayList<>();
-        list1.add(0);
-        list1.add(3);
-        List<Integer> list2 = new ArrayList<>();
-        list2.add(1);
-        list2.add(2);
-        pairs.add(list1);
-        pairs.add(list2);
-        System.out.println(javatest.smallestStringWithSwaps("dcab",pairs));
-
-
-/*        Long nums = 9223372036854775807L;
-        String a = Long.toBinaryString(nums);
-        System.out.println(a.length());*/
-//        String s = "1-2-3";
-//        String []str = s.split("-");
-//        for (String index:str){
-//            System.out.println(index);
-//        }
-//
-//        int [][]a ={{1,2},{3,4}};
-//        Arrays.sort(a, new Comparator<int[]>() {
-//            @Override
-//            public int compare(int[] o1, int[] o2) {
-//                return o2[1]-o1[1];
-//            }
-//        });
-//
-//        for(int i=0;i<a.length;i++){
-//            System.out.println(a[i][1]);
-//        }
+        String dom = "北京王府井";
+        String coordinate[] = getCoordinate(dom);
+        System.out.println("'" + dom + "'的经纬度为：" + coordinate[0]+"  "+coordinate[1]);
     }
+    /*根据url 通过http获取返回值*/
+    public static String loadJSON(String url) {
+        StringBuilder json = new StringBuilder();
+        try {
+            URL oracle = new URL(url);
+            URLConnection yc = oracle.openConnection();
+            BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream(), "UTF-8"));
+            String inputLine = null;
+            while ((inputLine = in.readLine()) != null) {
+                json.append(inputLine);
+            }
+            in.close();
+        } catch (MalformedURLException e) {} catch (IOException e) {}
+        return json.toString();
+    }
+
+    // 调用百度地图API根据地址，获取坐标
+    public static String[] getCoordinate(String address) {
+        if (address != null && !"".equals(address)) {
+//            http://api.map.baidu.com/geocoding/v3/?address=北京市海淀区上地十街10号&output=json&ak=您的ak&callback=showLocation
+            address = address.replaceAll("\\s*", "").replace("#", "栋");
+            String url = " http://api.map.baidu.com/geocoding/v3/?address=" + address + "&output=json&ak=" + AK;
+            String json = loadJSON(url);
+            String res[]  = new String[2];
+            System.out.println(json);
+            if (json != null && !"".equals(json)) {
+                JSONObject obj = JSONObject.fromObject(json);
+                if ("0".equals(obj.getString("status"))) {
+                    double lng = obj.getJSONObject("result").getJSONObject("location").getDouble("lng"); // 经度
+                    double lat = obj.getJSONObject("result").getJSONObject("location").getDouble("lat"); // 纬度
+                    DecimalFormat df = new DecimalFormat("#.######");
+                    res[0] = df.format(lng);
+                    res[1] = df.format(lat);
+                    return res;
+                }
+            }
+        }
+        return null;
+    }
+
 }
