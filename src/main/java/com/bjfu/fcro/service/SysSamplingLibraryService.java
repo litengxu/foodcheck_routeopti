@@ -45,7 +45,7 @@ public interface SysSamplingLibraryService {
     int slelectcountbysslname(String ssl_name);
 
     /**保存新的抽检点数据到表中*/
-    boolean insertallsamplinglibrary(
+    Object insertallsamplinglibrary(
             String ssl_name,
              String category,
              String address,

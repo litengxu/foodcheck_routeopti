@@ -3,9 +3,11 @@ package com.bjfu.fcro.service.serviceimpl;
 
 import com.bjfu.fcro.common.utils.ResultTool;
 import com.bjfu.fcro.dao.SamplingAccountDao;
+import com.bjfu.fcro.dao.SamplingFoodTypeDao;
 import com.bjfu.fcro.dao.SamplingInspectorInformationDao;
 import com.bjfu.fcro.dao.UserDao;
 import com.bjfu.fcro.entity.SysSamplingAccount;
+import com.bjfu.fcro.entity.SysSamplingFoodType;
 import com.bjfu.fcro.entity.SysSamplingInspectorInformation;
 import com.bjfu.fcro.service.SysCommonService;
 import com.bjfu.fcro.service.SysSamplingAccountService;
@@ -13,9 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Repository("SysSamplingAccountServiceimpl")
 public class SysSamplingAccountServiceimpl implements SysSamplingAccountService, SysCommonService<SysSamplingAccount> {
@@ -26,6 +26,8 @@ public class SysSamplingAccountServiceimpl implements SysSamplingAccountService,
     private UserDao userDao;
     @Autowired
     private SamplingInspectorInformationDao samplingInspectorInformationDao;
+    @Autowired
+    private SamplingFoodTypeDao samplingFoodTypeDao;
     Random random = new Random();
     /**
      * 根据管理员账号查出抽检账号的信息
@@ -194,6 +196,16 @@ public class SysSamplingAccountServiceimpl implements SysSamplingAccountService,
             accoutindex++;
         }
         return true;
+    }
+
+    @Override
+    public Object selectAllCanParticipatebyadminid(int adminid) {
+        List<SysSamplingAccount>  listaccount = samplingAccountDao.selectAllCanParticipatebyadminid(adminid);
+        List<SysSamplingFoodType> listtype = samplingFoodTypeDao.findallbyadminid(adminid);
+        Map<String,Object> res = new HashMap<>();
+        res.put("listaccount",listaccount);
+        res.put("listtype",listtype);
+        return ResultTool.success(res);
     }
 
 

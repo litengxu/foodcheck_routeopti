@@ -67,5 +67,6 @@ public interface SysUserService {
      boolean checkLogin(String username,String rawPassword) throws Exception;
 /**根据管理员用户名查询id*/
      int selectbyaccount(String adminaccount);
-
+     /**根据用户名查询城市*/
+     String seleccity(String adminaccount);
 }

@@ -26,7 +26,7 @@ public interface UserDao {
      * @return
      */
     @Insert("INSERT into sys_user VALUES(0,#{account},#{user_name},#{password},#{last_login_time},#{enabled},#{not_expired},#{account_not_locked}," +
-            "#{credentials_not_expired},#{create_time},#{update_time},#{create_user},#{update_user});")
+            "#{credentials_not_expired},#{create_time},#{update_time},#{create_user},#{update_user},#{city});")
     boolean insertnewaccount(SysUser sysUser);
     /**
      * 判断用户中是否已有要注册的用户名
@@ -69,12 +69,13 @@ public interface UserDao {
      */
     @Update("update sys_user SET account = #{account},user_name=#{user_name}, password=#{password}, last_login_time=#{last_login_time}, enabled=#{enabled}, not_expired=#{not_expired}, account_not_locked=#{account_not_locked}," +
             " credentials_not_expired=#{credentials_not_expired}, create_time=#{create_time}, update_time=#{update_time}, " +
-            "create_user=#{create_user}, update_user=#{update_user}" +
+            "create_user=#{create_user}, update_user=#{update_user},city=#{city}" +
             " where id= #{id}")
     int update(SysUser sysUser);
 
     @Select("select id from sys_user where account =#{adminaccount}")
     int selectbyaccount(@Param("adminaccount") String adminaccount);
 
-
+    @Select("select city from sys_user where account =#{adminaccount}")
+    String selectcity(@Param("adminaccount") String adminaccount);
 }

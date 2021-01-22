@@ -135,10 +135,11 @@ public class SysSamplingLibraryController {
         if(sysSamplingLibraryService.slelectcountbysslname(ssl_name) >0){
             return ResultTool.fail(ResultCode.USER_ALREADY_EXISTS);
         }
+
         String adminaccount = sysCommonMethodService.findadminaccount();
         int admin_id = sysUserService.selectbyaccount(adminaccount);
-        sysSamplingLibraryService.insertallsamplinglibrary(ssl_name,category,address,admin_id,jurisdiction,selectedfoodtypes,adminaccount);
-        return ResultTool.success();
+        return sysSamplingLibraryService.insertallsamplinglibrary(ssl_name,category,address,admin_id,jurisdiction,selectedfoodtypes,adminaccount);
+
     }
 
 

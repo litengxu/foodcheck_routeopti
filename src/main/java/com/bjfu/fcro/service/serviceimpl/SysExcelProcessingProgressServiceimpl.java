@@ -26,9 +26,6 @@ public class SysExcelProcessingProgressServiceimpl implements SysExcelProcessing
 
     @Override
     public boolean deleteexcelprocessbyid(int id) {
-        System.out.println(
-                "sahnchu "
-        );
         return excelProcessingProgressDao.deleteexcelprocessbyid(id);
     }
 }

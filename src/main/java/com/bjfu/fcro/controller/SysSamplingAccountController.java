@@ -6,9 +6,7 @@ import com.bjfu.fcro.common.utils.ResultTool;
 import com.bjfu.fcro.entity.SysSamplingAccount;
 import com.bjfu.fcro.entity.SysSamplingInspectorInformation;
 import com.bjfu.fcro.entity.SysUser;
-import com.bjfu.fcro.service.SysCommonService;
-import com.bjfu.fcro.service.SysSamplingAccountService;
-import com.bjfu.fcro.service.SysSamplingInspectorInformationService;
+import com.bjfu.fcro.service.*;
 import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,8 +30,10 @@ public class SysSamplingAccountController {
     private SysSamplingAccountService sysSamplingAccountService;
     @Autowired
     private SysSamplingInspectorInformationService sysSamplingInspectorInformationService;
-
-
+    @Autowired
+    private SysCommonMethodService sysCommonMethodService;
+    @Autowired
+    private SysUserService sysUserService;
     /**
      * 根据admin账号获取该账号下所有的抽检账号信息*/
     @PostMapping("/getallssaccountbyadminaccount")
@@ -173,4 +173,15 @@ public class SysSamplingAccountController {
         }
 
     }
+
+    /**查询所有可以参与抽检的账号以及食品类型*/
+    @PostMapping("/selectAllCanParticipatebyadminid")
+    @ResponseBody
+    public Object selectAllCanParticipatebyadminid(
+    ) throws  Exception{
+        String adminaccount = sysCommonMethodService.findadminaccount();
+        int adminid = sysUserService.selectbyaccount(adminaccount);
+        return sysSamplingAccountService.selectAllCanParticipatebyadminid(adminid);
+    }
+
 }
