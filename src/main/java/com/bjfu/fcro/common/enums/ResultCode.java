@@ -45,6 +45,9 @@ public enum ResultCode {
     FOOD_TYPE_EXISTS(2018,"食品类型已存在"),
     IRREGULAR_ADDRESS(2019,"地址输入不规范"),
     PlLEASE_FILL_IN_THE_REQUIRED_OPTIONS(2020,"请填选必选项"),
+    TOTAL_NUMBER_TOO_SMALL(2021,"抽检商家数量应大于等于抽检食品数量"),
+    NO_FOOD_FOUND_IN_THE_LIBRARY(2022,"抽检库为空或者库中不存所有要抽检的食品类型"),
+    TOO_MANY_SAMPLING_ACCOUNTS(2023,"选择的抽检账号数量过多"),
     /* 业务错误 */
     NO_PERMISSION(3001, "没有权限");
 

@@ -8,6 +8,10 @@ public interface SysSamplingPlanService {
 
     Object generateplan(  String selectedsamplingaccountid[],
                           String typeoffoodselectedid[],
+                           String quantityvalue[],
                            int numbers,
-                          String coordinate[]);
+                          String coordinate[],
+                          String starting_point,
+                          int admin_id);
+
 }

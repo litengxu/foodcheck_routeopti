@@ -66,4 +66,11 @@ public interface SamplingFoodTypeDao {
     @Delete("delete from sys_sampling_food_type where id= #{id}")
     boolean deletecustomizecategorie(@Param("id") int id);
 
+    /**根据id找到对应的风险值*/
+    @Select("select value_at_risk from sys_sampling_food_type where id =#{id}")
+    String findriskvalue (@Param("id") int id);
+
+    /**根据id找到对应的风险值*/
+    @Select("select type_name from sys_sampling_food_type where id =#{id}")
+    String findtypename (@Param("id") int id);
 }
