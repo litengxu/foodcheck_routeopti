@@ -113,7 +113,7 @@ public class Grouping {
 	 * 这个方法根据所有点两两之间的距离，以及一组地点的序号，确定地点子集两两之间的距离
 	 * 也就是得到dists的一个部分。其中singleGroup表示子集的序号集合：
 	 */
-	private static double[][] getPartDists(double[][] dists, int[] singleGroup) {
+	public static double[][] getPartDists(double[][] dists, int[] singleGroup) {
 		// 该组路线的地点个数
 		int len = singleGroup.length;
 		// 声明该组地点集合的距离矩阵

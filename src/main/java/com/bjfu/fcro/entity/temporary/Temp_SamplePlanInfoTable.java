@@ -13,18 +13,18 @@ import java.util.List;
 @NoArgsConstructor
 public class Temp_SamplePlanInfoTable {
 
+    /*抽检点在抽检库表中的id*/
     private int  samplingpointid;
-
+    /*状态 true = 完成 false = 未完成*/
     private boolean state;
-
+    /*地址*/
     private String address;
-
+    /*经度*/
     private double lng;
-
+    /*纬度*/
     private double lat;
-
+    /*此抽检点要抽检的食品类型list*/
     private List<Temp_SampleFoodTable> sampleofoodlist;
-
 
 
 

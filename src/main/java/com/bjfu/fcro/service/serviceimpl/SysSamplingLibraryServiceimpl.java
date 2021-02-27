@@ -223,9 +223,12 @@ public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService 
         int []ids = new int[dislen+adislen];
         int index=0;
         for(int i=0;i<dislen;i++ ){
+
             ids[index++] = samplingFoodTypeDao.selectidbytypenameandadminaccount(distributenames[i],adminaccount);
         }
         for(int i=0;i<adislen;i++){
+
+
             ids[index++] = samplingFoodTypeDao.selectidbytypenameandadminaccount(againhavedistributenames[i],adminaccount);
         }
         samplingLibraryDao.updateidsbyid(toids(ids),insaccountid);

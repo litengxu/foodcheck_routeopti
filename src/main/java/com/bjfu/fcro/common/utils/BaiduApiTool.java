@@ -11,7 +11,7 @@ import java.net.URLConnection;
 import java.text.DecimalFormat;
 
 public class BaiduApiTool {
-    static String AK = "afzx0PGdTM3wlK9WrLqY3QhOdEhWr3Iz"; // 百度地图密钥
+    static String AK = "svq1mQqPx1vrCaI5r6GiId5pHj9bQ03G"; // 百度地图密钥
 
     /*根据url 通过http获取返回值*/
     public static String loadJSON(String url) {

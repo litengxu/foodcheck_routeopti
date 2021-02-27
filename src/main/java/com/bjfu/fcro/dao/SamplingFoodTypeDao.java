@@ -35,7 +35,7 @@ public interface SamplingFoodTypeDao {
     List<SysSamplingFoodType> findallidbyadminid(@Param("adminid")  int adminid);
 
     /**根据管理员账号和食品类型查询该类型的id*/
-    @Select("select id from sys_sampling_food_type where type_name = #{typename} and admin_id =( SELECT id from sys_user WHERE account = #{adminaccount})")
+    @Select("select id from sys_sampling_food_type where type_name = #{typename} and (admin_id =( SELECT id from sys_user WHERE account = #{adminaccount}) or admin_id = 1)")
     int selectidbytypenameandadminaccount(@Param("typename") String typename,@Param("adminaccount") String adminaccount);
 
     /**查找十六大类食品类型   adminid = 1*/
@@ -54,7 +54,7 @@ public interface SamplingFoodTypeDao {
 
 
     /**返回某个自定义食品类型的数量*/
-    @Select("select count(id) from sys_sampling_food_type where admin_id = #{adminid} and type_name = #{food_type}")
+    @Select("select count(id) from sys_sampling_food_type where (admin_id = #{adminid} or admin_id = 1) and type_name = #{food_type}")
     int findcountcustomizecategorie(@Param("adminid") int adminid,@Param("food_type") String food_type);
 
     /**插入新的自定义抽检类型*/

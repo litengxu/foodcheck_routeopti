@@ -37,6 +37,9 @@ public interface SamplingAccountDao {
     /**修改是否修改过id分配字段为0   删除时使用*/
     @Update("UPDATE sys_sampling_account set whether_modify_ids = 0 where id = #{id};")
     int update_whether_modify_idsbyid(@Param("id")  Integer id);
+    /**修改是否参与抽检字段为0 */
+    @Update("UPDATE sys_sampling_account set whether_participate = 0 where id = #{id};")
+    int update_whether_participate_idsbyid(@Param("id")  Integer id);
 
     /**
      * 插入新数据到抽检账号表

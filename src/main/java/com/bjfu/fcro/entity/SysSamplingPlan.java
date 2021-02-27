@@ -21,22 +21,22 @@ public class SysSamplingPlan {
     /*外键 管理员id*/
     private int admin_id;
   /*外籍 抽检账号id*/
-    private int ssa_id;
+//    private int ssa_id;
     /*抽检员姓名*/
-    private String inspector_names;
+//    private String inspector_names;
     /*抽检计划 json串
-    *{id,state,timetamp,current_path_sort,
+    *{id,state,timetamp,
     *       planinfolist:[{
     *              planid,state,address,lng,lat,samplefoodlist:[{foodtype,count}]
     *        }]
     * }
-    *
+    *Temp_task:[.....Temp_Group:[id=0,....Temp_SampleFoodtable：[......Temp_SampleFoodTable[...]]]
     * */
     private String task_json;
     /*已被调查的点*/
-    private  String point_has_been_investigated;
+//    private  String point_has_been_investigated;
     /*目前抽检点的排序*/
-    private  String current_path_sort;
+//    private  String current_path_sort;
     /*抽检状态 true代表以抽检完成*/
     private boolean sampling_state;
     //创建时间

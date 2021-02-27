@@ -6,8 +6,8 @@ import com.bjfu.fcro.common.utils.ResultTool;
 import com.bjfu.fcro.service.SysCommonMethodService;
 import com.bjfu.fcro.service.SysSamplingPlanService;
 import com.bjfu.fcro.service.SysUserService;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
-import org.omg.CORBA.PUBLIC_MEMBER;
+//import org.apache.xmlbeans.impl.xb.xsdschema.Public;
+//import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,7 +42,6 @@ public class SysSamplingPlanController {
         if(selectedsamplingaccountid.length == 0 || typeoffoodselectedid.length == 0 ||  numbers == null || starting_point == null){
             return ResultTool.fail(ResultCode.PlLEASE_FILL_IN_THE_REQUIRED_OPTIONS);
         }
-
         int number = Integer.parseInt(numbers);
         int basicSum = 0;
         // 从基本数量数组中遍历计算总和
@@ -58,7 +57,5 @@ public class SysSamplingPlanController {
         String adminaccount = sysCommonMethodService.findadminaccount();
         int admin_id = sysUserService.selectbyaccount(adminaccount);
         return sysSamplingPlanService.generateplan(selectedsamplingaccountid,typeoffoodselectedid,quantityvalue,number,coordinate,starting_point,admin_id);
-
-
     }
 }

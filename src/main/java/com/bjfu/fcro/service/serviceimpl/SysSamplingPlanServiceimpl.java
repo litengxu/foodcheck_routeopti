@@ -1,19 +1,26 @@
 package com.bjfu.fcro.service.serviceimpl;
 
 import com.bjfu.fcro.algorithm.Divide;
+import com.bjfu.fcro.algorithm.DoSort;
 import com.bjfu.fcro.algorithm.Grouping;
 import com.bjfu.fcro.common.enums.ResultCode;
 import com.bjfu.fcro.common.utils.CoordinateToDistance;
 import com.bjfu.fcro.common.utils.ResultTool;
+import com.bjfu.fcro.dao.SamplingAccountDao;
 import com.bjfu.fcro.dao.SamplingFoodTypeDao;
 import com.bjfu.fcro.dao.SamplingLibraryDao;
+import com.bjfu.fcro.dao.SamplingPlanDao;
+import com.bjfu.fcro.entity.SysSamplingAccount;
 import com.bjfu.fcro.entity.SysSamplingLibrary;
+import com.bjfu.fcro.entity.temporary.Temp_Group;
 import com.bjfu.fcro.entity.temporary.Temp_SampleFoodTable;
 import com.bjfu.fcro.entity.temporary.Temp_SamplePlanInfoTable;
+import com.bjfu.fcro.entity.temporary.Temp_Task;
 import com.bjfu.fcro.service.SysSamplingPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 @Repository
@@ -28,8 +35,10 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     private SamplingFoodTypeDao samplingFoodTypeDao;
     @Autowired
     private SamplingLibraryDao samplingLibraryDao;
-
-
+    @Autowired
+    private SamplingAccountDao samplingAccountDao;
+    @Autowired
+    private SamplingPlanDao samplingPlanDao;
     /**
      * selectedsamplingaccountid 抽检账号的id
      * quantityvalue 每种抽检食品要抽检的数量
@@ -194,7 +203,8 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
             samplingPoints.add(entry.getValue().get(i));
         }
     }
-    if(samplingPoints.size() <= selectedsamplingaccountid.length ){
+        System.out.println(samplingPoints.toString());
+    if(selectedsamplingaccountid.length != 1 && samplingPoints.size() <= selectedsamplingaccountid.length+2 ){
         return ResultTool.fail(ResultCode.TOO_MANY_SAMPLING_ACCOUNTS);
     }
     double [][]dists = getdists(samplingPoints);
@@ -204,16 +214,119 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
             for (int j = 0; j < groups[i].length; j++)
                 System.out.print("" + groups[i][j] + ", ");
             System.out.println();
-        }
-        return null;
     }
+    /** 6. 使用算法排序各个点之间的顺序，linitial_position排在第一个和最后一个*/
+    /*dists距离矩阵目前是使用直接计算经纬度的距离，后期可以改成百度地图api求取实际距离*/
+    groups = DoSort.sort(groups,dists);
+        for (int i = 0; i < groups.length; i++) {
+            for (int j = 0; j < groups[i].length; j++)
+                System.out.print("" + groups[i][j] + ", ");
+            System.out.println();
+        }
+//        7. 将抽检计划存入数据库，修改抽检账号状态为不参与抽检，待抽检完成后改回
+//        需要构造存入数据库的json串；
+//    获取要抽检的所有的地址数组,以及抽检地址的id数组
+    String addresses[] = new String[samplingPoints.size()];
+    int addressesid[] = new int[samplingPoints.size()];
+    for (int i = 0; i < samplingPoints.size(); i++) {
+        addresses[i] = samplingPoints.get(i).getAddress();
+        addressesid[i] = samplingPoints.get(i).getSamplingpointid();
+    }
+        System.out.println(Arrays.toString(addressesid));
+//    获取分组后的抽检地址的id数组
+    int addressesidbyGroup[][] = new int[groups.length][];
+    for (int i = 0; i < groups.length; i++) {
+        addressesidbyGroup[i] =new int[groups[i].length];
+        for (int j = 0; j < groups[i].length; j++) {
+            addressesidbyGroup[i][j] = addressesid[groups[i][j]];
+        }
+    }
+//    获取要抽检的的所有食品类型数组
+    String Foodtypes[] = new String[typeoffoodselected.length];
+    int foodTypesIndex = 0;
+    for (int i = 0; i < typeoffoodselected.length; i++) {
+        if(finalAmounts[i] > 0){
+            Foodtypes[foodTypesIndex] = typeoffoodselected[i];
+            foodTypesIndex++;
+        }
+    }
+    Foodtypes = Arrays.copyOfRange(Foodtypes,0,foodTypesIndex);
+//        创建新的任务实体
+    Temp_Task temp_task = new Temp_Task(starting_point,coordinate[0],coordinate[1],String.valueOf(System.currentTimeMillis()),"未完成",addresses,Foodtypes,new ArrayList<>(),false);
+        System.out.println(temp_task.toString());
+//        根据抽检账号的id，获取账号名
+    String []selectedsamplingaccount = new String[selectedsamplingaccountid.length];
+    String []selectedsamplingaccountnames = new String[selectedsamplingaccountid.length];
+    for (int i = 0; i < selectedsamplingaccountid.length; i++) {
+        SysSamplingAccount sysSamplingAccount = samplingAccountDao.selectnameandidsbyid(Integer.valueOf(selectedsamplingaccountid[i]));
+        selectedsamplingaccount[i] = sysSamplingAccount.getS_account();
+        selectedsamplingaccountnames[i] = sysSamplingAccount.getSampling_inspector_names();
+    }
+        System.out.println(Arrays.toString(selectedsamplingaccount));
+        System.out.println(Arrays.toString(selectedsamplingaccountnames));
+//        遍历所有的账号，并为每个账号建立一个分组实体
+    for (int i = 0; i < selectedsamplingaccountid.length; i++) {
+        Temp_Group temp_group = new Temp_Group(i,"未接受","未完成",false,Integer.valueOf(selectedsamplingaccountid[i]),selectedsamplingaccount[i],selectedsamplingaccountnames[i],groups[i],addressesidbyGroup[i],new ArrayList<>());
+        temp_task.getGroupList().add(temp_group);
+    }
+        System.out.println(temp_task);
+    for (int i = 0; i < temp_task.getGroupList().size() ; i++) {
+        for (int j = 0; j < temp_task.getGroupList().get(i).getSamplingPointIndex().length; j++) {
+            int k = temp_task.getGroupList().get(i).getSamplingPointIndex()[j];
+            temp_task.getGroupList().get(i).getSamplePlanInfoTableList().add(samplingPoints.get(k));
+        }
+    }
+        System.out.println(temp_task.toString());
+//        7. 将抽检计划存入数据库，修改抽检账号状态为不参与抽检，待抽检完成后改回
+    samplingPlanDao.insertnewsamplingplan(admin_id,temp_task.toString(),temp_task.isState());
+//    修改账号状态为不参与抽检
+    for (int i = 0; i < selectedsamplingaccountid.length; i++) {
+        samplingAccountDao.update_whether_participate_idsbyid(Integer.valueOf(selectedsamplingaccountid[i]));
+    }
+/// * 8. 将抽检计划发送到每一个参与的抽检账号表的app端
+//         * 9. 将抽检计划返回给前台并展示
+    String markers[][] = new String[samplingPoints.size()+selectedsamplingaccountid.length-1][6];
+    int markersIndex = 0;
+    for (int i = 0; i < temp_task.getGroupList().size(); i++) {
+        List<Temp_SamplePlanInfoTable> samplePlanInfoTables = temp_task.getGroupList().get(i).getSamplePlanInfoTableList();
 
+        for (int j = 0; j <= samplePlanInfoTables.size(); j++) {
 
-
-
-
-
-
+            if(j == 0){
+                markers[markersIndex][0] = temp_task.getStartPoint();
+                markers[markersIndex][1] = temp_task.getStartPoint_lng();
+                markers[markersIndex][2] = temp_task.getStartPoint_lat();
+            }else {
+                markers[markersIndex][0] = samplePlanInfoTables.get(j-1).getAddress();
+                markers[markersIndex][1] = String.valueOf(samplePlanInfoTables.get(j-1).getLng());
+                markers[markersIndex][2] = String.valueOf(samplePlanInfoTables.get(j-1).getLat());
+            }
+            if(j != samplePlanInfoTables.size()){
+                markers[markersIndex][3] = samplePlanInfoTables.get(j).getAddress();
+                markers[markersIndex][4] = String.valueOf(samplePlanInfoTables.get(j).getLng());
+                markers[markersIndex][5] = String.valueOf(samplePlanInfoTables.get(j).getLat());
+            }else{
+                markers[markersIndex][3] = temp_task.getStartPoint();
+                markers[markersIndex][4] = temp_task.getStartPoint_lng();
+                markers[markersIndex][5] = temp_task.getStartPoint_lat();
+            }
+            markersIndex++;
+        }
+    }
+        for (int i = 0; i < markers.length; i++) {
+            for (int j = 0; j < markers[i].length; j++) {
+                System.out.print(i+" "+j+" ");
+                System.out.print(markers[i][j]+" ");
+            }
+            System.out.println();
+        }
+//       拼接提示信息
+    StringBuilder message = splicemessage(temp_task);
+    Map<String,Object> ret = new HashMap<>();
+    ret.put("route",markers);
+    ret.put("message",message);
+    return ResultTool.success(ret);
+}
     /**根据抽检点的list获取距离矩阵*/
     public static double[][] getdists(List<Temp_SamplePlanInfoTable> samplingPoints){
         int len = samplingPoints.size();
@@ -222,12 +335,47 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
             double fromlng = samplingPoints.get(i).getLng();
             double fromlat = samplingPoints.get(i).getLat();
             for (int j = 0; j < len ; j++) {
-                double tolng = samplingPoints.get(i).getLng();
+                double tolng = samplingPoints.get(j).getLng();
                 double tolat = samplingPoints.get(j).getLat();
 
                 dists[i][j] = CoordinateToDistance.coordinateToDistance(fromlng,fromlat,tolng,tolat);
             }
         }
         return dists;
+    }
+    /**拼接顯示給前台的字符串*/        /**
+     * 第i组：
+     *  抽检账号：
+     *  抽检员：
+     *  抽检地点：起始点+第一个地址（抽检食品：某类食品抽检1，某类食品抽检1）
+     * */
+    public static StringBuilder splicemessage(Temp_Task temp_task){
+        StringBuilder message = new StringBuilder();
+        for (int i = 0; i < temp_task.getGroupList().size(); i++) {
+            message.append("第"+(i+1)+"组"+"\n");
+            message.append(" "+"抽检账号："+temp_task.getGroupList().get(i).getAccount()+"\n");
+            message.append(" "+"抽检员："+temp_task.getGroupList().get(i).getNames()+"\n");
+            message.append(" "+"抽检地点："+temp_task.getStartPoint()+"=>");
+            List<Temp_SamplePlanInfoTable> samplePlanInfoTables = temp_task.getGroupList().get(i).getSamplePlanInfoTableList();
+            for (int j = 0; j < samplePlanInfoTables.size(); j++) {
+                message.append(samplePlanInfoTables.get(j).getAddress() + "（抽检食品：");
+                for (int k = 0; k < samplePlanInfoTables.get(j).getSampleofoodlist().size(); k++) {
+                    message.append(samplePlanInfoTables.get(j).getSampleofoodlist().get(k).getFoodtype() + "抽检");
+                    message.append(samplePlanInfoTables.get(j).getSampleofoodlist().get(k).getCount());
+                    if (k != samplePlanInfoTables.get(j).getSampleofoodlist().size() - 1) {
+                        message.append(",");
+                    }
+
+                }
+                message.append(")");
+                if (j != samplePlanInfoTables.size() - 1) {
+                    message.append("=>");
+                }
+                if (j == samplePlanInfoTables.size() - 1) {
+                    message.append("\n");
+                }
+            }
+        }
+        return message;
     }
 }
