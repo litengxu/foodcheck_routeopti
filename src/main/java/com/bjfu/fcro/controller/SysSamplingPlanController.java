@@ -58,4 +58,18 @@ public class SysSamplingPlanController {
         int admin_id = sysUserService.selectbyaccount(adminaccount);
         return sysSamplingPlanService.generateplan(selectedsamplingaccountid,typeoffoodselectedid,quantityvalue,number,coordinate,starting_point,admin_id);
     }
+
+    @PostMapping("/findplan")
+    @ResponseBody
+    public  Object generateplan(
+            @RequestParam Integer pageIndex,
+            @RequestParam Integer pageSize
+    ) {
+        int pageindex_true = (pageIndex-1)*pageSize;
+        int pagesize_true = pageSize;
+        String   adminaccount = sysCommonMethodService.findadminaccount();
+       return sysSamplingPlanService.findplan(pagesize_true,pageindex_true,adminaccount);
+
+    }
+
 }

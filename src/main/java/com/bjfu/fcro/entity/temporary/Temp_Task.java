@@ -3,6 +3,8 @@ package com.bjfu.fcro.entity.temporary;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.sf.json.JSONObject;
+
 import java.util.*;
 /**
  * @Program: foodcheck_routeopti
@@ -28,6 +30,8 @@ public class Temp_Task {
     private String createTimeStamp;
 //    任务完成时间
     private String finishTimeStamp;
+//    抽检点名字信息
+    private String samplingnames[];
 //    要抽检的所有地址信息
     private String address[];
 //    要抽检的所有食品种类
@@ -35,5 +39,8 @@ public class Temp_Task {
 //    该抽检计划中的所有分组
     private List<Temp_Group> groupList;
 //    状态是否完成
-    private boolean state;
+    private String state;
+    public String toString(){
+        return JSONObject.fromObject(this).toString();
+    }
 }

@@ -4,6 +4,8 @@ package com.bjfu.fcro.entity.temporary;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.sf.json.JSONObject;
+
 import java.util.*;
 /**
  * @Program: foodcheck_routeopti
@@ -35,7 +37,12 @@ public class Temp_Group {
     private int samplingPointIndex[];
 //    抽检顺序，里面是抽检点的ids
     private int samplingPointIds[];
+//    抽检点名字的抽检顺序
+    private String samplingPointsNames[];
 //    所包含的抽检计划List
     private List<Temp_SamplePlanInfoTable> samplePlanInfoTableList;
+    public String toString(){
+        return JSONObject.fromObject(this).toString();
+    }
 
 }

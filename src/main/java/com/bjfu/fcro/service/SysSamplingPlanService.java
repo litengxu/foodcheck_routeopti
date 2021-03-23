@@ -13,5 +13,5 @@ public interface SysSamplingPlanService {
                           String coordinate[],
                           String starting_point,
                           int admin_id);
-
+    Object findplan(int pagesize_true,int pageindex_true,String adminaccount);
 }

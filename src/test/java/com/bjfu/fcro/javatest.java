@@ -16,19 +16,32 @@ import java.util.*;
 
 public class javatest {
     static String AK = "afzx0PGdTM3wlK9WrLqY3QhOdEhWr3Iz"; // 百度地图密钥
-
+    static class A {
+        public void print(){
+            System.out.println("a");
+        }
+    }
+    static  class B extends A{
+        public void print(){
+            System.out.println("b");
+        }
+    }
     public static void main(String[] args) {
 //        String dom = "北京王府井";
 //        String coordinate[] = getCoordinate(dom);
 //        System.out.println("'" + dom + "'的经纬度为：" + coordinate[0]+"  "+coordinate[1]);
-        int groups[] = {3,5,4};
-        int path[] =  {0,1,3,2};
-
-        int temp[] = Arrays.copyOf(groups,groups.length);
-        for (int j = 1; j < path.length; j++) {
-            groups[j-1] = temp[path[j] - 1];
-        }
-        System.out.println(Arrays.toString(groups));
+//        int groups[] = {3,5,4};
+//        int path[] =  {0,1,3,2};
+//
+//        int temp[] = Arrays.copyOf(groups,groups.length);
+//        for (int j = 1; j < path.length; j++) {
+//            groups[j-1] = temp[path[j] - 1];
+//        }
+//        System.out.println(Arrays.toString(groups));
+        Integer a = 127; Integer b = 127;
+        Integer a2 = 128; Integer b2 = 128;
+        System.out.println(a == b);
+        System.out.println(a2 == b2);
     }
     /*根据url 通过http获取返回值*/
     public static String loadJSON(String url) {

@@ -1,26 +1,27 @@
 package com.bjfu.fcro.service.serviceimpl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bjfu.fcro.algorithm.Divide;
 import com.bjfu.fcro.algorithm.DoSort;
 import com.bjfu.fcro.algorithm.Grouping;
 import com.bjfu.fcro.common.enums.ResultCode;
 import com.bjfu.fcro.common.utils.CoordinateToDistance;
 import com.bjfu.fcro.common.utils.ResultTool;
-import com.bjfu.fcro.dao.SamplingAccountDao;
-import com.bjfu.fcro.dao.SamplingFoodTypeDao;
-import com.bjfu.fcro.dao.SamplingLibraryDao;
-import com.bjfu.fcro.dao.SamplingPlanDao;
+import com.bjfu.fcro.dao.*;
 import com.bjfu.fcro.entity.SysSamplingAccount;
 import com.bjfu.fcro.entity.SysSamplingLibrary;
+import com.bjfu.fcro.entity.SysSamplingPlan;
 import com.bjfu.fcro.entity.temporary.Temp_Group;
 import com.bjfu.fcro.entity.temporary.Temp_SampleFoodTable;
 import com.bjfu.fcro.entity.temporary.Temp_SamplePlanInfoTable;
 import com.bjfu.fcro.entity.temporary.Temp_Task;
 import com.bjfu.fcro.service.SysSamplingPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Repository
@@ -39,6 +40,8 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     private SamplingAccountDao samplingAccountDao;
     @Autowired
     private SamplingPlanDao samplingPlanDao;
+    @Autowired
+    private UserDao userDao;
     /**
      * selectedsamplingaccountid 抽检账号的id
      * quantityvalue 每种抽检食品要抽检的数量
@@ -116,7 +119,7 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
                                 /*新建抽检食品类型实体，传入当前抽检的食品类型和数量*/
                                 Temp_SampleFoodTable temp_sampleFoodTable = new Temp_SampleFoodTable(typeoffoodselected[i],1);
                                 /*新建临时抽检计划实体，传入抽检点的id，状态，地址，经纬度，以及临时抽检实体的list*/
-                                Temp_SamplePlanInfoTable temp_samplePlanInfoTable = new Temp_SamplePlanInfoTable(alllibrary.get(j).getId(),false,
+                                Temp_SamplePlanInfoTable temp_samplePlanInfoTable = new Temp_SamplePlanInfoTable(alllibrary.get(j).getId(),alllibrary.get(j).getSsl_name(),"未完成",
                                         alllibrary.get(j).getAddress(),Double.parseDouble(alllibrary.get(j).getLongitude()),Double.parseDouble(alllibrary.get(j).getLatitude()),new ArrayList<>());
                                 temp_samplePlanInfoTable.getSampleofoodlist().add(temp_sampleFoodTable);
                                 /*当map中不存在当前抽检食品类型时*/
@@ -195,7 +198,7 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     /*从map中取出参与抽检的抽检点，存入新的List中*/
     List<Temp_SamplePlanInfoTable> samplingPoints = new ArrayList<>();
     /*先加入出发点到抽检计划中*/
-    Temp_SamplePlanInfoTable start = new Temp_SamplePlanInfoTable(0,true,starting_point,Double.parseDouble(coordinate[0]),Double.parseDouble(coordinate[1]),null);
+    Temp_SamplePlanInfoTable start = new Temp_SamplePlanInfoTable(0,"初始点","未完成",starting_point,Double.parseDouble(coordinate[0]),Double.parseDouble(coordinate[1]),null);
     samplingPoints.add(start);
     /*再加入要抽检的抽检点*/
     for(Map.Entry<String,List<Temp_SamplePlanInfoTable>> entry:map.entrySet()){
@@ -228,17 +231,22 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
 //    获取要抽检的所有的地址数组,以及抽检地址的id数组
     String addresses[] = new String[samplingPoints.size()];
     int addressesid[] = new int[samplingPoints.size()];
+    String samplingpointnames[] = new String[samplingPoints.size()];
     for (int i = 0; i < samplingPoints.size(); i++) {
+        samplingpointnames[i] = samplingPoints.get(i).getSamplingpoint();
         addresses[i] = samplingPoints.get(i).getAddress();
         addressesid[i] = samplingPoints.get(i).getSamplingpointid();
     }
         System.out.println(Arrays.toString(addressesid));
 //    获取分组后的抽检地址的id数组
     int addressesidbyGroup[][] = new int[groups.length][];
+    String samplingpointsnameGroup[][] = new String[groups.length][];
     for (int i = 0; i < groups.length; i++) {
         addressesidbyGroup[i] =new int[groups[i].length];
+        samplingpointsnameGroup[i] = new String[groups[i].length];
         for (int j = 0; j < groups[i].length; j++) {
             addressesidbyGroup[i][j] = addressesid[groups[i][j]];
+            samplingpointsnameGroup[i][j] = samplingpointnames[groups[i][j]];
         }
     }
 //    获取要抽检的的所有食品类型数组
@@ -251,8 +259,10 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
         }
     }
     Foodtypes = Arrays.copyOfRange(Foodtypes,0,foodTypesIndex);
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 //        创建新的任务实体
-    Temp_Task temp_task = new Temp_Task(starting_point,coordinate[0],coordinate[1],String.valueOf(System.currentTimeMillis()),"未完成",addresses,Foodtypes,new ArrayList<>(),false);
+    Temp_Task temp_task = new Temp_Task(starting_point,coordinate[0],coordinate[1],sdf.format(new java.util.Date()),"未完成",samplingpointnames,addresses,Foodtypes,new ArrayList<>(),"未完成");
         System.out.println(temp_task.toString());
 //        根据抽检账号的id，获取账号名
     String []selectedsamplingaccount = new String[selectedsamplingaccountid.length];
@@ -266,7 +276,7 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
         System.out.println(Arrays.toString(selectedsamplingaccountnames));
 //        遍历所有的账号，并为每个账号建立一个分组实体
     for (int i = 0; i < selectedsamplingaccountid.length; i++) {
-        Temp_Group temp_group = new Temp_Group(i,"未接受","未完成",false,Integer.valueOf(selectedsamplingaccountid[i]),selectedsamplingaccount[i],selectedsamplingaccountnames[i],groups[i],addressesidbyGroup[i],new ArrayList<>());
+        Temp_Group temp_group = new Temp_Group(i,"未接受","未完成",false,Integer.valueOf(selectedsamplingaccountid[i]),selectedsamplingaccount[i],selectedsamplingaccountnames[i],groups[i],addressesidbyGroup[i],samplingpointsnameGroup[i],new ArrayList<>());
         temp_task.getGroupList().add(temp_group);
     }
         System.out.println(temp_task);
@@ -278,7 +288,7 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     }
         System.out.println(temp_task.toString());
 //        7. 将抽检计划存入数据库，修改抽检账号状态为不参与抽检，待抽检完成后改回
-    samplingPlanDao.insertnewsamplingplan(admin_id,temp_task.toString(),temp_task.isState());
+    samplingPlanDao.insertnewsamplingplan(admin_id,temp_task.toString(),temp_task.getState().equals("未完成"));
 //    修改账号状态为不参与抽检
     for (int i = 0; i < selectedsamplingaccountid.length; i++) {
         samplingAccountDao.update_whether_participate_idsbyid(Integer.valueOf(selectedsamplingaccountid[i]));
@@ -327,6 +337,24 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     ret.put("message",message);
     return ResultTool.success(ret);
 }
+
+    @Override
+    public Object findplan(int pagesize_true, int pageindex_true, String adminaccount) {
+        int adminid = userDao.selectbyaccount(adminaccount);
+        List<SysSamplingPlan> samplingPlans = samplingPlanDao.findplan(pagesize_true,pageindex_true,adminid);
+
+        for(int i=0;i<samplingPlans.size();i++){
+//            Temp_Task temp_task =  JSONObject.parseObject(samplingPlans.get(i).getTask_json(),Temp_Task.class);
+//            System.out.println(temp_task);
+//            JSONObject json = JSONObject.fromObject(samplingPlans.get(i).getTask_json());
+        }
+        int total = samplingPlanDao.findcount(adminid);
+        Map<String,Object> res = new HashMap<>();
+        res.put("list",samplingPlans);
+        res.put("total",total);
+        return ResultTool.success(res);
+    }
+
     /**根据抽检点的list获取距离矩阵*/
     public static double[][] getdists(List<Temp_SamplePlanInfoTable> samplingPoints){
         int len = samplingPoints.size();
