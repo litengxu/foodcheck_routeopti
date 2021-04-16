@@ -134,7 +134,6 @@ public class SysUserController {
         sysUser.setUser_name("用户3");
         return sysUserService.update(sysUser);
     }
-
     @GetMapping("/test")
     public boolean update() {
         System.out.println("开始更新...");

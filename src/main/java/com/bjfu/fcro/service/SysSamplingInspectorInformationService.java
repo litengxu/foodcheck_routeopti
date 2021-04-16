@@ -45,11 +45,19 @@ public interface SysSamplingInspectorInformationService {
                           String sii_name,
                          String sii_sex,
                           String sii_phone,
-                          String sampling_agency);
+                          String sampling_agency,
+                         String sii_account,
+                         String sii_password);
      /*修改删除状态，删除时置字段为0*/
      int update_whether_deleted_byid(Integer id);
 
     /**根据管理员账号查询未删除的且未被分配的抽检员信息*/
     List<SysSamplingInspectorInformation> selectunassignedByAdminAccount( String adminaccount);
+
+    /**查找是否由该账号名和密码 的对应*/
+    int selectaccountandpassword(String username, String password);
+
+    /**根据账号查询对应的抽检员名字*/
+    String  selectnamebyaccount(String account);
 
 }

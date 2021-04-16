@@ -13,6 +13,14 @@ public interface SamplingInspectorInformationDao {
     @Select("select * from sys_sampling_inspector_information")
     List<SysSamplingInspectorInformation> selectAll();
 
+    /**查找是否由该账号名和密码 的对应*/
+    @Select("SELECT count(id) from sys_sampling_inspector_information WHERE sii_account =#{username} and sii_password =#{password}")
+    int selectaccountandpassword(@Param("username") String username,@Param("password") String password);
+
+    /**根据账号查找对应的抽检员姓名*/
+    @Select("SELECT sii_name from sys_sampling_inspector_information WHERE sii_account =#{account}")
+    String selectnamebyaccount(@Param("account") String account);
+
     /**根据管理员账号查询未删除的抽检员信息*/
     @Select("select * from sys_sampling_inspector_information where whether_deleted = 0 and admin_id  = ( SELECT id from sys_user WHERE account = #{adminaccount})")
     List<SysSamplingInspectorInformation> selectAllByAdminAccount(@Param("adminaccount") String adminaccount);
@@ -33,6 +41,16 @@ public interface SamplingInspectorInformationDao {
     /**根据管理员账号和姓名，查询同意账号下是否存在同一抽检员信息*/
     @Select("select count(id) from sys_sampling_inspector_information where whether_deleted = 0 and sii_name = #{siiname} and admin_id  = ( SELECT id from sys_user WHERE account = #{adminaccount})")
     int  selectcountByAdminAccountandname(@Param("adminaccount") String adminaccount,@Param("siiname") String siiname);
+    /**根据管理员账号和姓名，查询同意账号下是否存在同一抽检员账号*/
+    @Select("select count(id) from sys_sampling_inspector_information where whether_deleted = 0 and sii_account = #{sii_account} and admin_id  = ( SELECT id from sys_user WHERE account = #{adminaccount})")
+    int  selectcountByAdminAccountandsiiaccount(@Param("adminaccount") String adminaccount,@Param("sii_account") String sii_account);
+
+    /**根据管理员账号和姓名，查询所有账号下是否存在同一抽检员信息*/
+    @Select("select count(id) from sys_sampling_inspector_information where whether_deleted = 0 and sii_name = #{siiname}")
+    int  selectallcountByAdminAccountandname(@Param("siiname") String siiname);
+    /**根据管理员账号和姓名，查询所有账号下是否存在同一抽检员账号*/
+    @Select("select count(id) from sys_sampling_inspector_information where whether_deleted = 0 and sii_account = #{sii_account}")
+    int  selectallcountByAdminAccountandsiiaccount(@Param("sii_account") String sii_account);
 
     @Update("UPDATE sys_sampling_inspector_information set sii_name = #{sii_name},sii_sex = #{sii_sex},sii_phone = #{sii_phone}," +
             "sampling_agency = #{sampling_agency} where id = #{id};")
@@ -52,12 +70,15 @@ public interface SamplingInspectorInformationDao {
      * @param
      * @return
      */
-    @Insert("INSERT into sys_sampling_inspector_information (sii_name,sii_phone,sii_sex,sampling_agency,admin_id) VALUES(#{sii_name},#{sii_phone},#{sii_sex},#{sampling_agency},#{admin_id});")
+    @Insert("INSERT into sys_sampling_inspector_information (sii_name,sii_phone,sii_sex,sampling_agency,admin_id,sii_account,sii_password) VALUES(#{sii_name},#{sii_phone},#{sii_sex},#{sampling_agency},#{admin_id},#{sii_account},#{sii_password});")
     boolean insertnewsiiinformaion (@Param("admin_id") Integer admin_id,
                                        @Param("sii_name")  String sii_name,
                                        @Param("sii_sex")  String sii_sex,
                                        @Param("sii_phone")  String sii_phone,
-                                       @Param("sampling_agency")  String sampling_agency);
+                                       @Param("sampling_agency")  String sampling_agency,
+                                       @Param("sii_account")  String sii_account,
+                                        @Param("sii_password")  String sii_password
+    );
 
     /**修改是否修改过id分配字段为0   删除时使用*/
     @Update("UPDATE sys_sampling_inspector_information set whether_deleted = 1 where id = #{id};")

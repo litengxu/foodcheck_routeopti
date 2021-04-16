@@ -4,6 +4,7 @@ package com.bjfu.fcro.dao;
 
 import com.bjfu.fcro.entity.SysSamplingAccount;
 import org.apache.ibatis.annotations.*;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,8 @@ public interface SamplingAccountDao {
     @Select("select count(id) from sys_sampling_account where admin_id =  ( SELECT id from sys_user WHERE account = #{adminaccount})  and whether_modify_ids = 1 and whether_participate = 1")
     int selectcountAllbyadmincount(@Param("adminaccount") String  adminaccount);
 
+    @Select("select count(id) from sys_sampling_account where admin_id =  ( SELECT id from sys_user WHERE account = #{adminaccount})")
+    int selecthistorycountAllbyadmincount(@Param("adminaccount") String  adminaccount);
     /**根据管理员账号查询未删除的抽检员信息 按分页*/
     @Select("select * from sys_sampling_account where id >= (SELECT id from sys_sampling_account WHERE whether_modify_ids = 1 and admin_id  = ( SELECT id from sys_user WHERE account = #{adminaccount}) ORDER BY id LIMIT #{pageIndex}, 1)" +
             "and whether_modify_ids = 1 and admin_id =( SELECT id from sys_user WHERE account = #{adminaccount}) ORDER BY id LIMIT #{pagesize}")
@@ -98,4 +101,15 @@ public interface SamplingAccountDao {
     /**重置抽检员到抽检账号的分配*/
     @Update("update sys_sampling_account set sampling_inspector_ids = NULL,sampling_inspector_names = NULL WHERE whether_modify_ids = 1 and admin_id = (SELECT id from sys_user WHERE account = #{adminacount})")
     int resetsamplingaccount(@Param("adminacount") String adminaccount);
+
+    /**查找是否由该账号名和密码 的对应*/
+    @Select("SELECT count(id) from sys_sampling_account WHERE s_account =#{username} and s_password=#{password} and whether_modify_ids = 1;")
+    int selectaccountandpassword(@Param("username") String username,@Param("password") String password);
+
+    /**查找抽检账号的历史信息，*/
+    /**根据管理员账号查询未删除的抽检员信息 按分页*/
+    @Select("select * from sys_sampling_account where id >= (SELECT id from sys_sampling_account WHERE admin_id  = ( SELECT id from sys_user WHERE account = #{adminaccount}) ORDER BY id LIMIT #{pageIndex}, 1)" +
+            "and admin_id =( SELECT id from sys_user WHERE account = #{adminaccount}) ORDER BY id LIMIT #{pagesize}")
+    List<SysSamplingAccount> selecthistorypageByAdminAccount(@Param("adminaccount") String adminaccount, @Param("pagesize") int pagesize, @Param("pageIndex") int pageIndex);
+
 }

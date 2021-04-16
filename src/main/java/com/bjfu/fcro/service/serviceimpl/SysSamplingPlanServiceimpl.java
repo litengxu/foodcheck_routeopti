@@ -41,7 +41,11 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     @Autowired
     private SamplingPlanDao samplingPlanDao;
     @Autowired
+    private SamplingInspectorInformationDao samplingInspectorInformationDao;
+    @Autowired
     private UserDao userDao;
+
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     /**
      * selectedsamplingaccountid 抽检账号的id
      * quantityvalue 每种抽检食品要抽检的数量
@@ -288,7 +292,7 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     }
         System.out.println(temp_task.toString());
 //        7. 将抽检计划存入数据库，修改抽检账号状态为不参与抽检，待抽检完成后改回
-    samplingPlanDao.insertnewsamplingplan(admin_id,temp_task.toString(),temp_task.getState().equals("未完成"));
+    samplingPlanDao.insertnewsamplingplan(admin_id,temp_task.toString(),!temp_task.getState().equals("未完成"));
 //    修改账号状态为不参与抽检
     for (int i = 0; i < selectedsamplingaccountid.length; i++) {
         samplingAccountDao.update_whether_participate_idsbyid(Integer.valueOf(selectedsamplingaccountid[i]));
@@ -339,20 +343,83 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
 }
 
     @Override
-    public Object findplan(int pagesize_true, int pageindex_true, String adminaccount) {
+    public Object findplan(int val,int pagesize_true, int pageindex_true, String adminaccount) {
         int adminid = userDao.selectbyaccount(adminaccount);
-        List<SysSamplingPlan> samplingPlans = samplingPlanDao.findplan(pagesize_true,pageindex_true,adminid);
 
-        for(int i=0;i<samplingPlans.size();i++){
-//            Temp_Task temp_task =  JSONObject.parseObject(samplingPlans.get(i).getTask_json(),Temp_Task.class);
-//            System.out.println(temp_task);
-//            JSONObject json = JSONObject.fromObject(samplingPlans.get(i).getTask_json());
+        List<SysSamplingPlan> samplingPlans = null;
+        int total = 0;
+        if(val == -1){
+            samplingPlans = samplingPlanDao.findplan(pagesize_true,pageindex_true,adminid);
+            total = samplingPlanDao.findcount(adminid);
+        }else if (val == 0){
+            samplingPlans = samplingPlanDao.findundoplan(pagesize_true,pageindex_true,adminid);
+            total = samplingPlanDao.findundocount(adminid);
+        }else  if(val == 1){
+            samplingPlans = samplingPlanDao.findcompletedplan(pagesize_true,pageindex_true,adminid);
+            total = samplingPlanDao.findcompletedcount(adminid);
         }
-        int total = samplingPlanDao.findcount(adminid);
+
         Map<String,Object> res = new HashMap<>();
         res.put("list",samplingPlans);
         res.put("total",total);
         return ResultTool.success(res);
+    }
+
+    @Override
+    public Object getplan(String account) {
+
+//        找到账号对应的抽检员姓名，根据姓名去查找最新的抽检计划
+        String name = samplingInspectorInformationDao.selectnamebyaccount(account);
+        List<SysSamplingPlan> samplingPlans = this.findallplan();
+        boolean flag = false;
+
+        SysSamplingPlan res = null;
+
+        for (int i = 0; i < samplingPlans.size(); i++) {
+
+            Temp_Task temp_task = JSONObject.parseObject(samplingPlans.get(i).getTask_json(),Temp_Task.class);
+            for (int j = 0; j < temp_task.getGroupList().size(); j++) {
+                String names[] = temp_task.getGroupList().get(j).getNames().split("-");
+                for (int k = 0; k < names.length ; k++) {
+                    if(names[k].equals(name)){
+//                    修改任务接收时间
+                        if(temp_task.getGroupList().get(j).getAcceptTimeStamp().equals("未接受")){
+                            temp_task.getGroupList().get(j).setAcceptTimeStamp(sdf.format(new java.util.Date()));
+                            int id = samplingPlans.get(i).getId();
+                            this.updateplan(temp_task.toString(),id,samplingPlans.get(i).isSampling_state());
+                        }
+                        res = samplingPlans.get(i);
+
+                        flag = true;
+                        break;
+                    }
+                }
+                if(flag){
+                    break;
+                }
+
+            }
+            if(flag){
+                break;
+            }
+
+        }
+        if(flag){
+            return ResultTool.success(res);
+        }else{
+            return ResultTool.fail(ResultCode.NO_PLANS);
+        }
+    }
+
+    @Override
+    public List<SysSamplingPlan> findallplan() {
+        return samplingPlanDao.findallplan();
+    }
+
+    @Override
+    public int updateplan(String taskjson, Integer id,boolean status) {
+        return samplingPlanDao.updateplan(taskjson,id,status);
+
     }
 
     /**根据抽检点的list获取距离矩阵*/

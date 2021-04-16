@@ -11,9 +11,12 @@ spring:
   jackson:
     time-zone: GMT+8
   datasource:
-    url: jdbc:mysql://localhost:3307/foodcheck_routeopti?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    url: jdbc:mysql://localhost:3306/foodcheck_routeopti?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
     password: root
+    druid:
+      test-on-borrow: true
+      test-while-idle: true
 #配置alibaba的druid的数据源（连接池）
     type: com.alibaba.druid.pool.DruidDataSource
     hikari:

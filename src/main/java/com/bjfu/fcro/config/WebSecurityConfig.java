@@ -115,7 +115,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 antMatchers("/index").permitAll().
                 anyRequest().permitAll();
 
-
         //第4步：拦截token，并检测。在 UsernamePasswordAuthenticationFilter 之前添加 JwtAuthenticationTokenFilter
         http.addFilterBefore(customizeOncePerRequestFilter, UsernamePasswordAuthenticationFilter.class);
 

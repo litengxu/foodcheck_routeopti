@@ -28,7 +28,7 @@ public class SysSamplingInspectorInformationcontroller {
     //
     @GetMapping("/getallsiinformation")
     @ResponseBody
-    public Object getallsiinformation(){
+    public Object getallsiinformation() throws InterruptedException {
 
         List<SysSamplingInspectorInformation> list =  new ArrayList<>();
         list = samplingInspectorInformationService.selectall();
@@ -88,16 +88,19 @@ public class SysSamplingInspectorInformationcontroller {
     public Object addnewsiinformation(
             @RequestParam String adminaccount,
             @RequestParam String sii_name,
+            @RequestParam String sii_account,
+            @RequestParam String sii_password,
             @RequestParam String sii_sex,
             @RequestParam String sii_phone,
             @RequestParam String sampling_agency) {
-        if(sii_name.equals("") || sii_name.contains(" ") || sii_sex .equals("") || sii_sex.contains(" ") || sii_name.equals("") || sii_name.contains(" ") || sii_phone.equals("") || sii_phone.contains(" ")){
+
+        if(sii_account.equals("") || sii_account.contains(" ")|| sii_password.equals("") || sii_password.contains(" ") || sii_name.equals("") || sii_name.contains(" ") || sii_sex .equals("") || sii_sex.contains(" ") || sii_name.equals("") || sii_name.contains(" ") || sii_phone.equals("") || sii_phone.contains(" ")){
             return ResultTool.fail(ResultCode.CONTAINS_UNKNOWN_CHARACTERSS);
         }
         if(sii_name.contains("-")){
             return ResultTool.fail(ResultCode.CONTAINS_UNKNOWN_CHARACTERSS);
         }
-        int res = samplingInspectorInformationService.insertbyaccount(adminaccount, sii_name, sii_sex, sii_phone, sampling_agency);
+        int res = samplingInspectorInformationService.insertbyaccount(adminaccount, sii_name, sii_sex, sii_phone, sampling_agency,sii_account,sii_password);
         if (res == 1) {
             return ResultTool.success();
         }else if (res == 0){

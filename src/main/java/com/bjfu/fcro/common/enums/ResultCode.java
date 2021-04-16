@@ -39,7 +39,7 @@ public enum ResultCode {
     USER_ALREADY_EXISTS(2012,"用户名已存在"),
     /*根据id查询出whether_assigned*/
     Spot_Inspectors_Have_Been_Assigned(2013,"抽检员信息已被分配到账号，请删除后重试"),
-    NAM_EALREADY_EXISTS(2014,"抽检员姓名已存在"),
+    NAM_EALREADY_EXISTS(2014,"抽检员姓名或账号已存在"),
     CONTAINS_UNKNOWN_CHARACTERSS(2015,"包含未知字符"),
     TOO_FEW_INSPECTORS(2016,"抽检员数量较少无法完成分配"),
     FOOD_TYPE_EXISTS(2018,"食品类型已存在"),
@@ -48,6 +48,7 @@ public enum ResultCode {
     TOTAL_NUMBER_TOO_SMALL(2021,"抽检商家数量应大于等于抽检食品数量"),
     NO_FOOD_FOUND_IN_THE_LIBRARY(2022,"抽检库为空或者库中不存所有要抽检的食品类型"),
     TOO_MANY_SAMPLING_ACCOUNTS(2023,"选择的抽检账号数量过多"),
+    NO_PLANS(2024,"暂无抽检计划"),
     /* 业务错误 */
     NO_PERMISSION(3001, "没有权限");
 

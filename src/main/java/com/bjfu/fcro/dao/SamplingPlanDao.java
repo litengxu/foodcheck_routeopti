@@ -5,6 +5,8 @@ import com.bjfu.fcro.entity.SysSamplingPlan;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -26,7 +28,36 @@ public interface SamplingPlanDao {
     @Select("select * from sys_sampling_plan where id>=(select id from  sys_sampling_plan where admin_id = #{adminid}  ORDER BY id LIMIT #{pageIndex}, 1) and  admin_id = #{adminid} ORDER BY id LIMIT #{pagesize}")
     List<SysSamplingPlan> findplan(@Param("pagesize")  int pagesize_true, @Param("pageIndex") int pageindex_true, @Param("adminid") int  adminid);
 
+    /**查找已完成的已生成的抽检计划   adminid = admin_id*/
+    @Select("select * from sys_sampling_plan where id>=(select id from  sys_sampling_plan where admin_id = #{adminid} and sampling_status = 1 ORDER BY id LIMIT #{pageIndex}, 1) and  admin_id = #{adminid} and sampling_status = 1 ORDER BY id LIMIT #{pagesize}")
+    List<SysSamplingPlan> findcompletedplan(@Param("pagesize")  int pagesize_true, @Param("pageIndex") int pageindex_true, @Param("adminid") int  adminid);
+
+    /**查找未完成的生成的抽检计划   adminid = admin_id*/
+    @Select("select * from sys_sampling_plan where id>=(select id from  sys_sampling_plan where admin_id = #{adminid} and sampling_status = 0 ORDER BY id LIMIT #{pageIndex}, 1) and  admin_id = #{adminid} and sampling_status = 0 ORDER BY id LIMIT #{pagesize}")
+    List<SysSamplingPlan> findundoplan(@Param("pagesize")  int pagesize_true, @Param("pageIndex") int pageindex_true, @Param("adminid") int  adminid);
+
     /**查找计划的数量*/
     @Select("select count(id) from sys_sampling_plan where admin_id = #{adminid}")
     int findcount(@Param("adminid") int adminid);
+
+    /**查找已完成计划的数量*/
+    @Select("select count(id) from sys_sampling_plan where admin_id = #{adminid} and sampling_status = 1")
+    int findcompletedcount(@Param("adminid") int adminid);
+
+    /**查找未完成计划的数量*/
+    @Select("select count(id) from sys_sampling_plan where admin_id = #{adminid} and sampling_status = 0")
+    int findundocount(@Param("adminid") int adminid);
+
+
+    /**查找所有抽检计划*/
+    @Select("select * from sys_sampling_plan ORDER BY create_time DESC")
+    List<SysSamplingPlan> findallplan();
+
+    /**根据id更新抽检计划表*/
+    @Update("UPDATE sys_sampling_plan set task_json = #{taskjson},sampling_status = #{status} where id = #{id}")
+    Integer updateplan(
+                @Param("taskjson") String taskjson,
+                @Param("id") int id,
+                @Param("status") boolean status);
+
 }

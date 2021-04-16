@@ -208,6 +208,11 @@ public class SysSamplingAccountServiceimpl implements SysSamplingAccountService,
         return ResultTool.success(res);
     }
 
+    @Override
+    public int selectaccountandpassword(String username, String password) {
+        return samplingAccountDao.selectaccountandpassword(username,password);
+    }
+
 
     public int[] randomsort(int[] arr,int size){
 

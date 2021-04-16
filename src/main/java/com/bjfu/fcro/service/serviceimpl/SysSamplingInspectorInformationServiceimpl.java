@@ -55,14 +55,18 @@ public class SysSamplingInspectorInformationServiceimpl  implements SysSamplingI
     }
 
     @Override
-    public int insertbyaccount(String adminaccount, String sii_name, String sii_sex, String sii_phone, String sampling_agency) {
+    public int insertbyaccount(String adminaccount, String sii_name, String sii_sex, String sii_phone, String sampling_agency,String sii_account,String sii_password) {
         int adminid = userDao.selectbyaccount(adminaccount);
-        int count = samplingInspectorInformationDao.selectcountByAdminAccountandname(adminaccount,sii_name);
-        if(count >0){
+        //检查同一管理员下是否有重复数据
+//        if(samplingInspectorInformationDao.selectcountByAdminAccountandname(adminaccount,sii_name) >0 || samplingInspectorInformationDao.selectcountByAdminAccountandsiiaccount(adminaccount,sii_account)>0){
+//            return -1;
+//        }
+//        检查所有管理员下是否有重复数据
+        if(samplingInspectorInformationDao.selectallcountByAdminAccountandname(sii_name) >0 || samplingInspectorInformationDao.selectallcountByAdminAccountandsiiaccount(sii_account)>0){
             return -1;
         }
         if(adminid != 0 ) {
-            samplingInspectorInformationDao.insertnewsiiinformaion(adminid, sii_name, sii_sex, sii_phone, sampling_agency);
+            samplingInspectorInformationDao.insertnewsiiinformaion(adminid, sii_name, sii_sex, sii_phone, sampling_agency,sii_account,sii_password);
             return 1;
         }else{
             return 0;
@@ -77,6 +81,16 @@ public class SysSamplingInspectorInformationServiceimpl  implements SysSamplingI
     @Override
     public List<SysSamplingInspectorInformation> selectunassignedByAdminAccount(String adminaccount) {
         return samplingInspectorInformationDao.selectunassignedByAdminAccount(adminaccount);
+    }
+
+    @Override
+    public int selectaccountandpassword(String username, String password) {
+        return samplingInspectorInformationDao.selectaccountandpassword(username,password);
+    }
+
+    @Override
+    public String selectnamebyaccount(String account) {
+        return samplingInspectorInformationDao.selectnamebyaccount(account);
     }
 
 

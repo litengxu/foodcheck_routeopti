@@ -157,6 +157,7 @@ public class SysSamplingLibraryController {
                 .getFiles("file");
         String paths[] = new String[files.size()];
         String adminacount = sysCommonMethodService.findadminaccount();
+
         /*把文件存到磁盘上*/
         for (int i = 0; i <files.size() ; i++) {
             paths[i] =  OfficeTool.uploadAndReturnPath(files.get(i),adminacount,files.get(i).getOriginalFilename());

@@ -36,7 +36,7 @@ public class SysSamplingInspectorInformation {
 
     /*是否已删除（默认0，代表未删除*/
     private boolean whether_deleted;
-    //保留字段
-    private String sii_reserved_field2;
-    private String sii_reserved_field3;
+    //账号密码
+    private String sii_account;
+    private String sii_password;
 }

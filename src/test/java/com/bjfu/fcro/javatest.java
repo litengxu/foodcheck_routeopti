@@ -13,6 +13,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class javatest {
     static String AK = "afzx0PGdTM3wlK9WrLqY3QhOdEhWr3Iz"; // 百度地图密钥
@@ -27,6 +28,9 @@ public class javatest {
         }
     }
     public static void main(String[] args) {
+        AtomicInteger a = new AtomicInteger(2);
+        a.getAndIncrement();
+        System.out.println(a);
 //        String dom = "北京王府井";
 //        String coordinate[] = getCoordinate(dom);
 //        System.out.println("'" + dom + "'的经纬度为：" + coordinate[0]+"  "+coordinate[1]);
@@ -38,10 +42,10 @@ public class javatest {
 //            groups[j-1] = temp[path[j] - 1];
 //        }
 //        System.out.println(Arrays.toString(groups));
-        Integer a = 127; Integer b = 127;
-        Integer a2 = 128; Integer b2 = 128;
-        System.out.println(a == b);
-        System.out.println(a2 == b2);
+//        Integer a = 127; Integer b = 127;
+//        Integer a2 = 128; Integer b2 = 128;
+//        System.out.println(a == b);
+//        System.out.println(a2 == b2);
     }
     /*根据url 通过http获取返回值*/
     public static String loadJSON(String url) {

@@ -45,6 +45,9 @@ public class SysSuperUserController {
         sysUser.setEnabled(ifenabled);
         sysUser.setAccount_not_locked(iflocked);
         sysUser.setUpdate_time(new Date());
+        if(sysUser.getCity() == null || sysUser.getCity().equals("")  ){
+            sysUser.setCity("北京市");
+        }
         sysUserService.update(sysUser);
         return ResultTool.success();
     }

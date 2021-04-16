@@ -9,6 +9,7 @@ import com.bjfu.fcro.service.SysUserService;
 //import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 //import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +38,7 @@ public class SysSamplingPlanController {
             @RequestParam String quantityvalue[],
             @RequestParam String numbers,
             @RequestParam String starting_point
-    ){
+    ) throws InterruptedException {
 
         if(selectedsamplingaccountid.length == 0 || typeoffoodselectedid.length == 0 ||  numbers == null || starting_point == null){
             return ResultTool.fail(ResultCode.PlLEASE_FILL_IN_THE_REQUIRED_OPTIONS);
@@ -61,14 +62,15 @@ public class SysSamplingPlanController {
 
     @PostMapping("/findplan")
     @ResponseBody
-    public  Object generateplan(
+    public  Object findplan(
+            @RequestParam Integer val,
             @RequestParam Integer pageIndex,
             @RequestParam Integer pageSize
     ) {
         int pageindex_true = (pageIndex-1)*pageSize;
         int pagesize_true = pageSize;
         String   adminaccount = sysCommonMethodService.findadminaccount();
-       return sysSamplingPlanService.findplan(pagesize_true,pageindex_true,adminaccount);
+       return sysSamplingPlanService.findplan(val,pagesize_true,pageindex_true,adminaccount);
 
     }
 

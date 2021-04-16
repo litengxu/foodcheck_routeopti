@@ -186,8 +186,13 @@ public class OfficeTool {
                 pathRoot = new File("");
             }
             /**由于会修改classes文件，项目会重新启动    所以下面的注释需要等到利用jar包部署服务器后使用*/
+//            linux 使用 /
+            String saveFile = pathRoot.getAbsolutePath().replace("%20"," ").replace('/', '/')+"/files"+"/"+path;
+
+//            window使用 \
 //            String saveFile = pathRoot.getAbsolutePath().replace("%20"," ").replace('/', '\\')+"\\files"+"\\"+path;
-            String saveFile = pathRoot.getAbsolutePath().replace("%20"," ").substring(0,pathRoot.getAbsolutePath().replace("%20"," ").length()-15).replace('/', '\\')+"\\files"+"\\"+path;
+//            windows下使用下面这个
+//            String saveFile = pathRoot.getAbsolutePath().replace("%20"," ").substring(0,pathRoot.getAbsolutePath().replace("%20"," ").length()-15).replace('/', '\\')+"\\files"+"\\"+path;
             File f = new File(saveFile);
             if(!f.exists()) {
                 f.mkdirs();
@@ -198,7 +203,10 @@ public class OfficeTool {
             writer.close();
 
             //文件路径
-            filePath = saveFile + "\\" + fileName;
+//            windows下使用
+//            filePath = saveFile + "\\" + fileName;
+//            linux下使用
+            filePath = saveFile + "/" + fileName;
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
