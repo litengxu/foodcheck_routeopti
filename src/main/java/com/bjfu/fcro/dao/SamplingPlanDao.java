@@ -60,4 +60,17 @@ public interface SamplingPlanDao {
                 @Param("id") int id,
                 @Param("status") boolean status);
 
+    /**根据id查找计划*/
+    @Select("select * from sys_sampling_plan where id = #{id}")
+    List<SysSamplingPlan> findPlanByid(
+            @Param("id") int id);
+    /**根据id查找完成计划的数量*/
+    @Select("select count(id) from sys_sampling_plan where id = #{id} and sampling_status = 1")
+    int  findCompletePlanByid(
+            @Param("id") int id);
+    /**根据id删除计划*/
+    @Select("delete from sys_sampling_plan where id = #{id}")
+    List<SysSamplingPlan> deletePlanByid(
+            @Param("id") int id);
+
 }

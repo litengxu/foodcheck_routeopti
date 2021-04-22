@@ -47,6 +47,7 @@ public class SysSamplingAccountController {
         int pagesize_true = pageSize;
 //        List<SysSamplingAccount> list = sysCommonService.selectallbyadminaccount(adminaccount);
         List<SysSamplingAccount> list = sysCommonService.selectpagebyadminaccount(adminaccount,pagesize_true,pageindex_true);
+        System.out.println(list);
         int total = sysCommonService.selectcountlbyadminaccount(adminaccount);
         Map<String,Object> map = new HashMap<>();
         map.put("tableData",list);

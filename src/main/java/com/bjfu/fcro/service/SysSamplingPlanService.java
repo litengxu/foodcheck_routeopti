@@ -2,6 +2,7 @@ package com.bjfu.fcro.service;
 
 
 import com.bjfu.fcro.entity.SysSamplingPlan;
+import com.bjfu.fcro.entity.temporary.Temp_Task;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,9 +21,9 @@ public interface SysSamplingPlanService {
     Object getplan(String account);
     List<SysSamplingPlan> findallplan();
     /**根据id更新抽检计划表*/
-    int updateplan(
-           String taskjson,
-            Integer id,
-           boolean status
-    );
+    Object updateplan(
+            Temp_Task temp_task, SysSamplingPlan sysSamplingPlan
+    ) throws Exception;
+
+    Object deleteplan(int id);
 }

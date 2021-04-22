@@ -13,6 +13,7 @@ import com.bjfu.fcro.service.SysSamplingAccountService;
 import com.bjfu.fcro.service.SysSamplingInspectorInformationService;
 import com.bjfu.fcro.service.SysSamplingPlanService;
 import com.bjfu.fcro.service.SysUserService;
+import lombok.Synchronized;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -87,36 +88,27 @@ public class SysSamplingAppController {
     //根据id 更新抽检计划
     @PostMapping("/updateplan")
     @ResponseBody
-    public Object updateplan(
+    public Object updateplan (
             @RequestBody String str
-    ){
+    ) throws Exception{
         SysSamplingPlan sysSamplingPlan =  JSONObject.parseObject(str,SysSamplingPlan.class);
         String task_json = sysSamplingPlan.getTask_json();
         Temp_Task temp_task = JSONObject.parseObject(task_json,Temp_Task.class);
-        boolean bflag = true;
-        for (int i = 0; i <temp_task.getGroupList().size() ; i++) {
-            boolean aflag = true;
-            for (int j = 0; j < temp_task.getGroupList().get(i).getSamplePlanInfoTableList().size(); j++) {
-                Temp_SamplePlanInfoTable t = temp_task.getGroupList().get(i).getSamplePlanInfoTableList().get(j);
-                if(t.getState().equals("未完成")){
-                    aflag = false;
-                    break;
-                }
-            }
-            if(aflag){
-                temp_task.getGroupList().get(i).setState(true);
-                temp_task.getGroupList().get(i).setFinishTimeStamp(sdf.format(new java.util.Date()));
-            }
-            if(!temp_task.getGroupList().get(i).isState()){
-                bflag = false;
-            }
+        /*要考虑到A组接收了抽检计划，B组接收了抽检计划，A组提交修改，B提交修改，这时要避免B组提交的数组覆盖A，
+            如果先拿到A修改后的数据和B修改后的数据合并，在提交，要避免此期间C组提交了新的数据会丢失，
+             解决思路： 1 锁住某行，让C阻塞，修改完成后再放行，这里只加需要加读写锁，故查询时会阻塞，不合适
+                               2  由于是单机应用，故这里直接加JVM锁即可，使用synchronized
 
+        以及重复判断导致的抽检完成时间的重复赋值
+        *
+        *
+        * */
+
+        int id = sysSamplingPlan.getId();
+        if(id==0){
+            return ResultTool.fail();
         }
-        if(bflag){
-            sysSamplingPlan.setSampling_state(true);
-            temp_task.setState("已完成");
-        }
-        sysSamplingPlanService.updateplan(temp_task.toString(),sysSamplingPlan.getId(),sysSamplingPlan.isSampling_state());
-        return ResultTool.success();
+
+        return sysSamplingPlanService.updateplan(temp_task,sysSamplingPlan);
     }
 }

@@ -16,6 +16,7 @@ import com.bjfu.fcro.entity.temporary.Temp_SampleFoodTable;
 import com.bjfu.fcro.entity.temporary.Temp_SamplePlanInfoTable;
 import com.bjfu.fcro.entity.temporary.Temp_Task;
 import com.bjfu.fcro.service.SysSamplingPlanService;
+import lombok.Synchronized;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
@@ -293,10 +294,10 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
         System.out.println(temp_task.toString());
 //        7. 将抽检计划存入数据库，修改抽检账号状态为不参与抽检，待抽检完成后改回
     samplingPlanDao.insertnewsamplingplan(admin_id,temp_task.toString(),!temp_task.getState().equals("未完成"));
-//    修改账号状态为不参与抽检
-    for (int i = 0; i < selectedsamplingaccountid.length; i++) {
-        samplingAccountDao.update_whether_participate_idsbyid(Integer.valueOf(selectedsamplingaccountid[i]));
-    }
+////    修改账号状态为不参与抽检
+//    for (int i = 0; i < selectedsamplingaccountid.length; i++) {
+//        samplingAccountDao.update_whether_participate_idsbyid(Integer.valueOf(selectedsamplingaccountid[i]));
+//    }
 /// * 8. 将抽检计划发送到每一个参与的抽检账号表的app端
 //         * 9. 将抽检计划返回给前台并展示
     String markers[][] = new String[samplingPoints.size()+selectedsamplingaccountid.length-1][6];
@@ -366,39 +367,45 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     }
 
     @Override
-    public Object getplan(String account) {
+    public synchronized Object getplan(String account) {
 
 //        找到账号对应的抽检员姓名，根据姓名去查找最新的抽检计划
         String name = samplingInspectorInformationDao.selectnamebyaccount(account);
         List<SysSamplingPlan> samplingPlans = this.findallplan();
         boolean flag = false;
-
         SysSamplingPlan res = null;
 
+
         for (int i = 0; i < samplingPlans.size(); i++) {
+//            该点抽检状态为未抽检完成
+            if(!samplingPlans.get(i).isSampling_state()){
+                Temp_Task temp_task = JSONObject.parseObject(samplingPlans.get(i).getTask_json(),Temp_Task.class);
+                for (int j = 0; j < temp_task.getGroupList().size(); j++) {
+                    String names[] = temp_task.getGroupList().get(j).getNames().split("-");
+                    for (int k = 0; k < names.length ; k++) {
+                        if(names[k].equals(name)){
+//                        任务状态必须是未完成
+                            if(!temp_task.getGroupList().get(j).isState()){
+                                //                    修改任务接收时间
+                                if(temp_task.getGroupList().get(j).getAcceptTimeStamp().equals("未接受")){
+                                    temp_task.getGroupList().get(j).setAcceptTimeStamp(sdf.format(new java.util.Date()));
+                                    int id = samplingPlans.get(i).getId();
+                                    samplingPlanDao.updateplan(temp_task.toString(),id,samplingPlans.get(i).isSampling_state());
+                                }
+                                res = samplingPlans.get(i);
+                                flag = true;
+                                break;
+                            }
 
-            Temp_Task temp_task = JSONObject.parseObject(samplingPlans.get(i).getTask_json(),Temp_Task.class);
-            for (int j = 0; j < temp_task.getGroupList().size(); j++) {
-                String names[] = temp_task.getGroupList().get(j).getNames().split("-");
-                for (int k = 0; k < names.length ; k++) {
-                    if(names[k].equals(name)){
-//                    修改任务接收时间
-                        if(temp_task.getGroupList().get(j).getAcceptTimeStamp().equals("未接受")){
-                            temp_task.getGroupList().get(j).setAcceptTimeStamp(sdf.format(new java.util.Date()));
-                            int id = samplingPlans.get(i).getId();
-                            this.updateplan(temp_task.toString(),id,samplingPlans.get(i).isSampling_state());
                         }
-                        res = samplingPlans.get(i);
-
-                        flag = true;
+                    }
+                    if(flag){
                         break;
                     }
-                }
-                if(flag){
-                    break;
-                }
 
+                }
             }
+
             if(flag){
                 break;
             }
@@ -415,10 +422,59 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     public List<SysSamplingPlan> findallplan() {
         return samplingPlanDao.findallplan();
     }
+    @Override
+    public Object updateplan( Temp_Task temp_task,  SysSamplingPlan sysSamplingPlan) throws  Exception{
+        synchronized(this) {
+//            库中目前的数据
+            SysSamplingPlan old_sysSamplingPlan = samplingPlanDao.findPlanByid(sysSamplingPlan.getId()).get(0);
+            String old_task_json = old_sysSamplingPlan.getTask_json();
+            Temp_Task old_temp_task = JSONObject.parseObject(old_task_json,Temp_Task.class);
+            temp_task = this.mergeTempTask(temp_task,old_temp_task);
+            boolean bflag = true;
+            for (int i = 0; i <temp_task.getGroupList().size() ; i++) {
+                boolean aflag = true;
+                for (int j = 0; j < temp_task.getGroupList().get(i).getSamplePlanInfoTableList().size(); j++) {
+                    Temp_SamplePlanInfoTable t = temp_task.getGroupList().get(i).getSamplePlanInfoTableList().get(j);
+                    if(t.getState().equals("未完成")){
+                        aflag = false;
+                        break;
+                    }
+                }
+                if(aflag && !temp_task.getGroupList().get(i).isState()){
+                    temp_task.getGroupList().get(i).setState(true);
+                    temp_task.getGroupList().get(i).setFinishTimeStamp(sdf.format(new java.util.Date()));
+                    samplingAccountDao.updateWhetherParticipateBySaccount(temp_task.getGroupList().get(i).getAccount());
+                }
+                if(!temp_task.getGroupList().get(i).isState()){
+                    bflag = false;
+                }
+
+            }
+            if(bflag &&!old_sysSamplingPlan.isSampling_state() ){
+                old_sysSamplingPlan.setSampling_state(true);
+                temp_task.setState("已完成");
+                temp_task.setFinishTimeStamp(sdf.format(new java.util.Date()));
+
+            }
+            samplingPlanDao.updateplan(temp_task.toString(),sysSamplingPlan.getId(),old_sysSamplingPlan.isSampling_state());
+        }
+
+        return ResultTool.success();
+
+    }
 
     @Override
-    public int updateplan(String taskjson, Integer id,boolean status) {
-        return samplingPlanDao.updateplan(taskjson,id,status);
+    public Object deleteplan(int id) {
+//        如果已经完成的任务，不允许删除
+/**
+ *         *samplingPlanDao.findPlanByid(id).get(0).isSampling_state()  查出来一直是false ？？？？？？？
+ */
+        if(samplingPlanDao.findCompletePlanByid(id) == 1){
+            return ResultTool.fail(ResultCode.Not_ALLOWED_TO_DELETE);
+        }else{
+          samplingPlanDao.deletePlanByid(id);
+          return ResultTool.success();
+        }
 
     }
 
@@ -472,5 +528,39 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
             }
         }
         return message;
+    }
+    /**拼接新旧任务*/
+    public Temp_Task mergeTempTask(Temp_Task temp_task,Temp_Task old_temp_task){
+        /**可以知道old_temp_task中是库中最新的抽检情况，所以只需要在old_temp_task中改变temp_task中最新变化的抽检点的完成状态即可*/
+
+        for (int i = 0; i < temp_task.getGroupList().size() ; i++) {
+            Temp_Group temp_group = temp_task.getGroupList().get(i);
+            Temp_Group old_temp_group = old_temp_task.getGroupList().get(i);
+            for (int j = 0; j < temp_group.getSamplePlanInfoTableList().size() ; j++) {
+                    Temp_SamplePlanInfoTable temp_samplePlanInfoTable = temp_group.getSamplePlanInfoTableList().get(j);
+                    Temp_SamplePlanInfoTable old_temp_samplePlanInfoTable = old_temp_group.getSamplePlanInfoTableList().get(j);
+                    if(!temp_samplePlanInfoTable.getState().equals("未完成")){
+                        old_temp_samplePlanInfoTable.setState(temp_samplePlanInfoTable.getState());
+                    }
+            }
+        }
+        return old_temp_task;
+
+    }
+
+    public static void main(String[] args) {
+        SysSamplingPlanServiceimpl s = new SysSamplingPlanServiceimpl();
+        String a = "{\"address\":[\"杭州电子科技大学\",\"上城区梵天寺路48号5幢\",\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"上城区梵天寺路48号5幢\"],\"createTimeStamp\":\"2021-03-23 16:34:43\",\"finishTimeStamp\":\"未完成\",\"foodtypes\":[\"食品\",\"豆制品22222\",\"蔬菜222222222\"],\"groupList\":[\n" +
+                "    {\"acceptTimeStamp\":\"2021-03-29 20:27:47\",\"account\":\"121543533\",\"accountid\":112,\"finishTimeStamp\":\"未完成\",\"id\":0,\"names\":\"王占-李腾旭\",\"samplePlanInfoTableList\":[{\"address\":\"上城区梵天寺路48号5幢\",\"lat\":30.223564,\"lng\":120.17427,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"蔬菜222222222\"}],\"samplingpoint\":\"12\",\"samplingpointid\":4130,\"state\":\"完成\"},{\"address\":\"上城区梵天寺路48号5幢\",\"lat\":30.223583,\"lng\":120.17425,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"食品\"},{\"count\":1,\"foodtype\":\"豆制品22222\"}],\"samplingpoint\":\"杭州天一堂梨膏糖厂\",\"samplingpointid\":4126,\"state\":\"未完成\"}],\"samplingPointIds\":[4130,4126],\"samplingPointIndex\":[4,1],\"samplingPointsNames\":[\"12\",\"杭州天一堂梨膏糖厂\"],\"state\":false},\n" +
+                "    {\"acceptTimeStamp\":\"未接受\",\"account\":\"1\",\"accountid\":113,\"finishTimeStamp\":\"未完成\",\"id\":1,\"names\":\"李武-陈可\",\"samplePlanInfoTableList\":[{\"address\":\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"lat\":30.253082,\"lng\":120.215515,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"豆制品22222\"}],\"samplingpoint\":\"杭州海曼珐酷酒业有限公司2\",\"samplingpointid\":4127,\"state\":\"未完成\"},{\"address\":\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"lat\":30.32432,\"lng\":120.20212,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"豆制品22222\"},{\"count\":1,\"foodtype\":\"蔬菜222222222\"}],\"samplingpoint\":\"杭州海曼珐酷酒业有限公司\",\"samplingpointid\":4129,\"state\":\"未完成\"}],\"samplingPointIds\":[4127,4129],\"samplingPointIndex\":[2,3],\"samplingPointsNames\":[\"杭州海曼珐酷酒业有限公司2\",\"杭州海曼珐酷酒业有限公司\"],\"state\":false}],\n" +
+                "    \"samplingnames\":[\"初始点\",\"杭州天一堂梨膏糖厂\",\"杭州海曼珐酷酒业有限公司2\",\"杭州海曼珐酷酒业有限公司\",\"12\"],\"startPoint\":\"杭州电子科技大学\",\"startPoint_lat\":\"30.30768\",\"startPoint_lng\":\"120.386024\",\"state\":\"true\"}";
+        String b = "{\"address\":[\"杭州电子科技大学\",\"上城区梵天寺路48号5幢\",\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"上城区梵天寺路48号5幢\"],\"createTimeStamp\":\"2021-03-23 16:34:43\",\"finishTimeStamp\":\"未完成\",\"foodtypes\":[\"食品\",\"豆制品22222\",\"蔬菜222222222\"],\"groupList\":[\n" +
+                "    {\"acceptTimeStamp\":\"2021-03-29 20:27:47\",\"account\":\"121543533\",\"accountid\":112,\"finishTimeStamp\":\"未完成\",\"id\":0,\"names\":\"王占-李腾旭\",\"samplePlanInfoTableList\":[{\"address\":\"上城区梵天寺路48号5幢\",\"lat\":30.223564,\"lng\":120.17427,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"蔬菜222222222\"}],\"samplingpoint\":\"12\",\"samplingpointid\":4130,\"state\":\"未完成\"},{\"address\":\"上城区梵天寺路48号5幢\",\"lat\":30.223583,\"lng\":120.17425,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"食品\"},{\"count\":1,\"foodtype\":\"豆制品22222\"}],\"samplingpoint\":\"杭州天一堂梨膏糖厂\",\"samplingpointid\":4126,\"state\":\"未完成\"}],\"samplingPointIds\":[4130,4126],\"samplingPointIndex\":[4,1],\"samplingPointsNames\":[\"12\",\"杭州天一堂梨膏糖厂\"],\"state\":false},\n" +
+                "    {\"acceptTimeStamp\":\"未接受\",\"account\":\"1\",\"accountid\":113,\"finishTimeStamp\":\"未完成\",\"id\":1,\"names\":\"李武-陈可\",\"samplePlanInfoTableList\":[{\"address\":\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"lat\":30.253082,\"lng\":120.215515,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"豆制品22222\"}],\"samplingpoint\":\"杭州海曼珐酷酒业有限公司2\",\"samplingpointid\":4127,\"state\":\"完成\"},{\"address\":\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"lat\":30.32432,\"lng\":120.20212,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"豆制品22222\"},{\"count\":1,\"foodtype\":\"蔬菜222222222\"}],\"samplingpoint\":\"杭州海曼珐酷酒业有限公司\",\"samplingpointid\":4129,\"state\":\"未完成\"}],\"samplingPointIds\":[4127,4129],\"samplingPointIndex\":[2,3],\"samplingPointsNames\":[\"杭州海曼珐酷酒业有限公司2\",\"杭州海曼珐酷酒业有限公司\"],\"state\":false}],\n" +
+                "    \"samplingnames\":[\"初始点\",\"杭州天一堂梨膏糖厂\",\"杭州海曼珐酷酒业有限公司2\",\"杭州海曼珐酷酒业有限公司\",\"12\"],\"startPoint\":\"杭州电子科技大学\",\"startPoint_lat\":\"30.30768\",\"startPoint_lng\":\"120.386024\",\"state\":\"true\"}";
+        Temp_Task old_temp_task = JSONObject.parseObject(a,Temp_Task.class);
+        Temp_Task temp_task = JSONObject.parseObject(b,Temp_Task.class);
+        temp_task = s.mergeTempTask(temp_task,old_temp_task);
+        System.out.println(temp_task.toString());
     }
 }

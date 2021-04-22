@@ -112,4 +112,8 @@ public interface SamplingAccountDao {
             "and admin_id =( SELECT id from sys_user WHERE account = #{adminaccount}) ORDER BY id LIMIT #{pagesize}")
     List<SysSamplingAccount> selecthistorypageByAdminAccount(@Param("adminaccount") String adminaccount, @Param("pagesize") int pagesize, @Param("pageIndex") int pageIndex);
 
+
+    /**根据抽检账号更新是否参与抽检为   参与抽检*/
+    @Update("update sys_sampling_account set whether_participate = 1 where s_account = #{saccount}")
+    int updateWhetherParticipateBySaccount(@Param("saccount") String saccount);
 }

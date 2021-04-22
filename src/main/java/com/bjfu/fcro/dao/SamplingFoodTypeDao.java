@@ -1,10 +1,7 @@
 package com.bjfu.fcro.dao;
 
 import com.bjfu.fcro.entity.SysSamplingFoodType;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -73,4 +70,8 @@ public interface SamplingFoodTypeDao {
     /**根据id找到对应的风险值*/
     @Select("select type_name from sys_sampling_food_type where id =#{id}")
     String findtypename (@Param("id") int id);
+
+    /**根据id修改对应的风险值*/
+    @Update("update sys_sampling_food_type set value_at_risk = #{value_at_risk} where id =#{id}")
+    int updatesixteencategories (@Param("id") int id,@Param("value_at_risk") String value_at_risk);
 }

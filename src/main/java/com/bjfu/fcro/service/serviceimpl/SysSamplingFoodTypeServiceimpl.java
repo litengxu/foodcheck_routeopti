@@ -49,6 +49,11 @@ public class SysSamplingFoodTypeServiceimpl  implements SysSamplingFoodTypeServi
     }
 
     @Override
+    public int updatesixteencategories(Integer id, String value_at_risk) {
+        return samplingFoodTypeDao.updatesixteencategories(id,value_at_risk);
+    }
+
+    @Override
     public int findcountcustomizecategories(String adminaccount) {
         return samplingFoodTypeDao.findcountcustomizecategories(adminaccount);
     }

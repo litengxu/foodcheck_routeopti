@@ -73,5 +73,12 @@ public class SysSamplingPlanController {
        return sysSamplingPlanService.findplan(val,pagesize_true,pageindex_true,adminaccount);
 
     }
+    @PostMapping("/deleteplan")
+    @ResponseBody
+    public  Object deleteplan(
+            @RequestParam Integer id
 
+    ) {
+        return sysSamplingPlanService.deleteplan(id);
+    }
 }

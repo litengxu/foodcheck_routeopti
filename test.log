@@ -1,57 +1,400 @@
-2021-04-16 14:52:15,832 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 5632 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
-2021-04-16 14:52:15,839 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
-2021-04-16 14:52:18,792 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2021-04-16 14:52:18,793 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
-2021-04-16 14:52:18,887 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 78ms. Found 0 JDBC repository interfaces.
-2021-04-16 14:52:18,916 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2021-04-16 14:52:18,917 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2021-04-16 14:52:18,969 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37ms. Found 0 Redis repository interfaces.
-2021-04-16 14:52:20,127 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
-2021-04-16 14:52:20,138 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
-2021-04-16 14:52:20,138 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
-2021-04-16 14:52:20,318 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
-2021-04-16 14:52:20,318 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4405 ms
-2021-04-16 14:52:21,107 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
-2021-04-16 14:52:21,754 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
-2021-04-16 14:52:21,922 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3f1ed068, org.springframework.security.web.context.SecurityContextPersistenceFilter@36cc9385, org.springframework.security.web.header.HeaderWriterFilter@15383681, org.springframework.web.filter.CorsFilter@753aca85, org.springframework.security.web.authentication.logout.LogoutFilter@113e13f9, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@4d0753c9, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7c8c70d6, org.springframework.security.web.session.ConcurrentSessionFilter@304d0259, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7915bca3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@48840594, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2e645fbd, org.springframework.security.web.session.SessionManagementFilter@109a2025, org.springframework.security.web.access.ExceptionTranslationFilter@7342e05d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@21079a12]
-2021-04-16 14:52:21,979 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
-2021-04-16 14:52:22,673 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
-2021-04-16 14:52:23,151 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2021-04-16 14:52:23,151 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
-2021-04-16 14:52:23,158 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 6 ms
-2021-04-16 14:52:23,159 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
-2021-04-16 14:52:23,337 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 8.294 seconds (JVM running for 13.45)
-2021-04-16 15:31:51,081 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 10260 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
-2021-04-16 15:31:51,088 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
-2021-04-16 15:31:51,882 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2021-04-16 15:31:51,883 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
-2021-04-16 15:31:51,946 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 59ms. Found 0 JDBC repository interfaces.
-2021-04-16 15:31:51,959 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2021-04-16 15:31:51,960 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2021-04-16 15:31:52,005 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36ms. Found 0 Redis repository interfaces.
-2021-04-16 15:31:52,550 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
-2021-04-16 15:31:52,559 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
-2021-04-16 15:31:52,559 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
-2021-04-16 15:31:52,709 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
-2021-04-16 15:31:52,709 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1555 ms
-2021-04-16 15:31:52,951 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
-2021-04-16 15:31:53,441 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
-2021-04-16 15:31:53,596 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@72fd8a3c, org.springframework.security.web.context.SecurityContextPersistenceFilter@15383681, org.springframework.security.web.header.HeaderWriterFilter@2c7a8af2, org.springframework.web.filter.CorsFilter@1f9f381d, org.springframework.security.web.authentication.logout.LogoutFilter@4a67b4ec, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@588307f7, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@38b8b6c0, org.springframework.security.web.session.ConcurrentSessionFilter@70c53dbe, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@109a2025, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@36cc9385, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@34780cd9, org.springframework.security.web.session.SessionManagementFilter@720bf653, org.springframework.security.web.access.ExceptionTranslationFilter@339a3670, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7efd28bd]
-2021-04-16 15:31:53,644 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
-2021-04-16 15:31:54,033 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
-2021-04-16 15:31:54,264 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2021-04-16 15:31:54,264 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
-2021-04-16 15:31:54,269 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 5 ms
-2021-04-16 15:31:54,270 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
-2021-04-16 15:31:54,280 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 4.042 seconds (JVM running for 5.377)
-2021-04-16 15:32:48,829 ERROR [http-nio-7070-exec-1] org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter : An internal error occurred while trying to authenticate the user.
-org.springframework.security.authentication.InternalAuthenticationServiceException: 用户不能为空
-	at org.springframework.security.authentication.dao.DaoAuthenticationProvider.retrieveUser(DaoAuthenticationProvider.java:123)
-	at org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider.authenticate(AbstractUserDetailsAuthenticationProvider.java:144)
-	at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:199)
-	at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:219)
-	at org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.attemptAuthentication(UsernamePasswordAuthenticationFilter.java:95)
-	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:212)
+2021-04-21 18:18:23,945 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 79756 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 18:18:23,964 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 18:18:33,076 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 18:18:33,078 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-04-21 18:18:33,382 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 203ms. Found 0 JDBC repository interfaces.
+2021-04-21 18:18:33,427 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 18:18:33,428 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-04-21 18:18:33,493 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36ms. Found 0 Redis repository interfaces.
+2021-04-21 18:18:36,382 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
+2021-04-21 18:18:36,419 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-04-21 18:18:36,420 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-21 18:18:36,862 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-04-21 18:18:36,862 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 12573 ms
+2021-04-21 18:18:38,261 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2021-04-21 18:18:39,651 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2021-04-21 18:18:40,040 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6e4c0d8c, org.springframework.security.web.context.SecurityContextPersistenceFilter@113e13f9, org.springframework.security.web.header.HeaderWriterFilter@4a67b4ec, org.springframework.web.filter.CorsFilter@3e3315d9, org.springframework.security.web.authentication.logout.LogoutFilter@397ef2, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@12abdfb, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7dbe2ebf, org.springframework.security.web.session.ConcurrentSessionFilter@49c675f0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7979b8b7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@188cbcde, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@64db4967, org.springframework.security.web.session.SessionManagementFilter@f91da5e, org.springframework.security.web.access.ExceptionTranslationFilter@3ad4a7d6, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@323f3c96]
+2021-04-21 18:18:40,441 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 18:18:43,811 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
+2021-04-21 18:18:46,035 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 18:18:46,036 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2021-04-21 18:18:46,041 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 5 ms
+2021-04-21 18:18:46,042 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
+2021-04-21 18:18:46,070 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 24.639 seconds (JVM running for 40.393)
+2021-04-21 18:26:32,509 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 67048 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 18:26:32,513 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 18:26:33,241 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 18:26:33,242 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-04-21 18:26:33,309 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 62ms. Found 0 JDBC repository interfaces.
+2021-04-21 18:26:33,322 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 18:26:33,323 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-04-21 18:26:33,368 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37ms. Found 0 Redis repository interfaces.
+2021-04-21 18:26:33,910 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
+2021-04-21 18:26:33,919 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-04-21 18:26:33,919 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-21 18:26:34,078 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-04-21 18:26:34,078 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1514 ms
+2021-04-21 18:26:34,309 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2021-04-21 18:26:34,812 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2021-04-21 18:26:34,974 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3e3315d9, org.springframework.security.web.context.SecurityContextPersistenceFilter@1c7f96b1, org.springframework.security.web.header.HeaderWriterFilter@10643593, org.springframework.web.filter.CorsFilter@64db4967, org.springframework.security.web.authentication.logout.LogoutFilter@36a6bea6, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@6bbe50c9, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4adc663e, org.springframework.security.web.session.ConcurrentSessionFilter@14823f76, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7a04fea7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4ee6291f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@74e6094b, org.springframework.security.web.session.SessionManagementFilter@eca6a74, org.springframework.security.web.access.ExceptionTranslationFilter@1e43e323, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6726cc69]
+2021-04-21 18:26:35,026 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 18:26:35,607 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
+2021-04-21 18:26:35,907 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 18:26:35,907 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2021-04-21 18:26:35,913 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 6 ms
+2021-04-21 18:26:35,914 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
+2021-04-21 18:26:35,924 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 3.91 seconds (JVM running for 5.117)
+2021-04-21 18:28:27,933 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 67012 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 18:28:27,936 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 18:28:28,680 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 18:28:28,680 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-04-21 18:28:28,743 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 58ms. Found 0 JDBC repository interfaces.
+2021-04-21 18:28:28,757 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 18:28:28,758 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-04-21 18:28:28,803 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37ms. Found 0 Redis repository interfaces.
+2021-04-21 18:28:29,351 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
+2021-04-21 18:28:29,360 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-04-21 18:28:29,360 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-21 18:28:29,705 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-04-21 18:28:29,705 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1717 ms
+2021-04-21 18:28:29,932 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2021-04-21 18:28:30,399 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2021-04-21 18:28:30,555 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6e4c0d8c, org.springframework.security.web.context.SecurityContextPersistenceFilter@113e13f9, org.springframework.security.web.header.HeaderWriterFilter@4a67b4ec, org.springframework.web.filter.CorsFilter@3e3315d9, org.springframework.security.web.authentication.logout.LogoutFilter@397ef2, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@12abdfb, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7dbe2ebf, org.springframework.security.web.session.ConcurrentSessionFilter@49c675f0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7979b8b7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@188cbcde, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@64db4967, org.springframework.security.web.session.SessionManagementFilter@f91da5e, org.springframework.security.web.access.ExceptionTranslationFilter@3ad4a7d6, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@323f3c96]
+2021-04-21 18:28:30,617 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 18:28:31,093 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
+2021-04-21 18:28:31,389 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 18:28:31,389 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2021-04-21 18:28:31,394 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 5 ms
+2021-04-21 18:28:31,395 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
+2021-04-21 18:28:31,405 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 4.009 seconds (JVM running for 5.249)
+2021-04-21 18:36:02,489 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 82024 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 18:36:02,492 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 18:36:03,358 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 18:36:03,359 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-04-21 18:36:03,421 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 58ms. Found 0 JDBC repository interfaces.
+2021-04-21 18:36:03,434 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 18:36:03,436 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-04-21 18:36:03,480 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36ms. Found 0 Redis repository interfaces.
+2021-04-21 18:36:04,021 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
+2021-04-21 18:36:04,029 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-04-21 18:36:04,030 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-21 18:36:04,194 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-04-21 18:36:04,194 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1640 ms
+2021-04-21 18:36:04,411 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2021-04-21 18:36:04,860 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2021-04-21 18:36:05,023 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@66b59b7d, org.springframework.security.web.context.SecurityContextPersistenceFilter@2133661d, org.springframework.security.web.header.HeaderWriterFilter@21c815e4, org.springframework.web.filter.CorsFilter@53311681, org.springframework.security.web.authentication.logout.LogoutFilter@6917bb4, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@e322ec9, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1f9f381d, org.springframework.security.web.session.ConcurrentSessionFilter@2241f05b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3414a8c3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@f91da5e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4437ac07, org.springframework.security.web.session.SessionManagementFilter@2a331b46, org.springframework.security.web.access.ExceptionTranslationFilter@70c53dbe, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@44bd4b0a]
+2021-04-21 18:36:05,063 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 18:36:05,453 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
+2021-04-21 18:36:05,678 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 18:36:05,678 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2021-04-21 18:36:05,684 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 5 ms
+2021-04-21 18:36:05,685 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
+2021-04-21 18:36:05,695 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 3.742 seconds (JVM running for 4.949)
+2021-04-21 18:37:36,186 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 82196 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 18:37:36,190 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 18:37:37,032 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 18:37:37,033 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-04-21 18:37:37,096 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 59ms. Found 0 JDBC repository interfaces.
+2021-04-21 18:37:37,109 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 18:37:37,110 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-04-21 18:37:37,155 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37ms. Found 0 Redis repository interfaces.
+2021-04-21 18:37:37,697 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
+2021-04-21 18:37:37,706 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-04-21 18:37:37,706 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-21 18:37:37,869 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-04-21 18:37:37,869 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1623 ms
+2021-04-21 18:37:38,089 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2021-04-21 18:37:38,549 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2021-04-21 18:37:38,629 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4fa9ab6, org.springframework.security.web.context.SecurityContextPersistenceFilter@6917bb4, org.springframework.security.web.header.HeaderWriterFilter@68d651f2, org.springframework.web.filter.CorsFilter@2d3ef181, org.springframework.security.web.authentication.logout.LogoutFilter@37e0292a, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@58b71ceb, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3240b2a4, org.springframework.security.web.session.ConcurrentSessionFilter@eca6a74, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1442f788, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2def7a7a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@a2341c6, org.springframework.security.web.session.SessionManagementFilter@1e43e323, org.springframework.security.web.access.ExceptionTranslationFilter@cf518cf, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@14982a82]
+2021-04-21 18:37:38,736 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 18:37:39,127 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
+2021-04-21 18:37:39,352 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 18:37:39,352 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2021-04-21 18:37:39,358 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 6 ms
+2021-04-21 18:37:39,359 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
+2021-04-21 18:37:39,372 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 3.676 seconds (JVM running for 5.183)
+2021-04-21 18:49:31,583 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 71736 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 18:49:31,588 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 18:49:32,376 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 18:49:32,377 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-04-21 18:49:32,440 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 58ms. Found 0 JDBC repository interfaces.
+2021-04-21 18:49:32,453 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 18:49:32,454 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-04-21 18:49:32,498 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37ms. Found 0 Redis repository interfaces.
+2021-04-21 18:49:33,052 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
+2021-04-21 18:49:33,060 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-04-21 18:49:33,060 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-21 18:49:33,219 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-04-21 18:49:33,219 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1561 ms
+2021-04-21 18:49:33,482 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2021-04-21 18:49:33,944 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2021-04-21 18:49:34,099 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@8bd86c8, org.springframework.security.web.context.SecurityContextPersistenceFilter@14823f76, org.springframework.security.web.header.HeaderWriterFilter@7915bca3, org.springframework.web.filter.CorsFilter@4fa9ab6, org.springframework.security.web.authentication.logout.LogoutFilter@2b03d52f, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@7f5eae0f, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@31c628e7, org.springframework.security.web.session.ConcurrentSessionFilter@f91da5e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6ed16657, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@124ac145, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2d3ef181, org.springframework.security.web.session.SessionManagementFilter@3ad4a7d6, org.springframework.security.web.access.ExceptionTranslationFilter@36cc9385, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@fd9ebde]
+2021-04-21 18:49:34,138 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 18:49:34,530 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
+2021-04-21 18:49:34,763 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 18:49:34,763 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2021-04-21 18:49:34,769 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 6 ms
+2021-04-21 18:49:34,770 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
+2021-04-21 18:49:34,779 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 3.762 seconds (JVM running for 5.138)
+2021-04-21 19:38:35,656 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 83388 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 19:38:35,660 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 19:38:36,426 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 19:38:36,427 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-04-21 19:38:36,494 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 63ms. Found 0 JDBC repository interfaces.
+2021-04-21 19:38:36,508 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 19:38:36,509 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-04-21 19:38:36,554 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37ms. Found 0 Redis repository interfaces.
+2021-04-21 19:38:37,113 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
+2021-04-21 19:38:37,122 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-04-21 19:38:37,122 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-21 19:38:37,276 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-04-21 19:38:37,276 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1566 ms
+2021-04-21 19:38:37,501 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2021-04-21 19:38:37,961 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2021-04-21 19:38:38,042 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@31c628e7, org.springframework.security.web.context.SecurityContextPersistenceFilter@4a67b4ec, org.springframework.security.web.header.HeaderWriterFilter@304d0259, org.springframework.web.filter.CorsFilter@3240b2a4, org.springframework.security.web.authentication.logout.LogoutFilter@4f66ffc8, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@25a5c7db, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4437ac07, org.springframework.security.web.session.ConcurrentSessionFilter@cf518cf, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@f91da5e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@113e13f9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@58434b19, org.springframework.security.web.session.SessionManagementFilter@2133661d, org.springframework.security.web.access.ExceptionTranslationFilter@761956ac, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@dc79225]
+2021-04-21 19:38:38,155 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 19:38:38,544 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
+2021-04-21 19:38:38,772 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 19:38:38,772 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2021-04-21 19:38:38,778 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 6 ms
+2021-04-21 19:38:38,779 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
+2021-04-21 19:38:38,790 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 3.637 seconds (JVM running for 5.054)
+2021-04-21 20:18:52,088 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 85348 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 20:18:52,092 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 20:18:52,951 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 20:18:52,951 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-04-21 20:18:53,017 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 60ms. Found 0 JDBC repository interfaces.
+2021-04-21 20:18:53,030 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 20:18:53,031 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-04-21 20:18:53,076 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37ms. Found 0 Redis repository interfaces.
+2021-04-21 20:18:53,625 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
+2021-04-21 20:18:53,634 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-04-21 20:18:53,634 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-21 20:18:53,790 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-04-21 20:18:53,790 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1632 ms
+2021-04-21 20:18:54,009 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2021-04-21 20:18:54,472 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2021-04-21 20:18:54,621 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7c8c70d6, org.springframework.security.web.context.SecurityContextPersistenceFilter@761956ac, org.springframework.security.web.header.HeaderWriterFilter@4edef76c, org.springframework.web.filter.CorsFilter@1ab5f08a, org.springframework.security.web.authentication.logout.LogoutFilter@79fd6f95, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@459cfcca, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@67514bdd, org.springframework.security.web.session.ConcurrentSessionFilter@2a331b46, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@304d0259, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3ad4a7d6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6edf29c1, org.springframework.security.web.session.SessionManagementFilter@70c53dbe, org.springframework.security.web.access.ExceptionTranslationFilter@720bf653, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@26844abb]
+2021-04-21 20:18:54,660 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 20:18:55,044 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
+2021-04-21 20:18:55,350 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 20:18:55,350 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2021-04-21 20:18:55,355 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 5 ms
+2021-04-21 20:18:55,356 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
+2021-04-21 20:18:55,365 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 3.996 seconds (JVM running for 5.187)
+2021-04-21 20:23:18,442 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 85972 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 20:23:18,446 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 20:23:26,234 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 85224 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 20:23:26,237 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 20:23:27,109 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 20:23:27,110 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-04-21 20:23:27,172 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 58ms. Found 0 JDBC repository interfaces.
+2021-04-21 20:23:27,186 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 20:23:27,187 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-04-21 20:23:27,232 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37ms. Found 0 Redis repository interfaces.
+2021-04-21 20:23:27,774 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
+2021-04-21 20:23:27,784 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-04-21 20:23:27,784 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-21 20:23:27,936 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-04-21 20:23:27,937 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1650 ms
+2021-04-21 20:23:28,161 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2021-04-21 20:23:28,628 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2021-04-21 20:23:28,782 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@34780cd9, org.springframework.security.web.context.SecurityContextPersistenceFilter@109a2025, org.springframework.security.web.header.HeaderWriterFilter@720bf653, org.springframework.web.filter.CorsFilter@623ebac7, org.springframework.security.web.authentication.logout.LogoutFilter@f91da5e, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@588307f7, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@173a6728, org.springframework.security.web.session.ConcurrentSessionFilter@21c815e4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@761956ac, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7915bca3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7c8c70d6, org.springframework.security.web.session.SessionManagementFilter@4edef76c, org.springframework.security.web.access.ExceptionTranslationFilter@2c7a8af2, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7718a40f]
+2021-04-21 20:23:28,824 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 20:23:29,217 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
+2021-04-21 20:23:29,449 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 20:23:29,450 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2021-04-21 20:23:29,455 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 5 ms
+2021-04-21 20:23:29,456 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
+2021-04-21 20:23:29,466 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 3.732 seconds (JVM running for 4.93)
+2021-04-21 20:25:19,504 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 80288 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 20:25:19,510 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 20:25:20,319 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 20:25:20,319 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-04-21 20:25:20,382 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 59ms. Found 0 JDBC repository interfaces.
+2021-04-21 20:25:20,395 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 20:25:20,396 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-04-21 20:25:20,440 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36ms. Found 0 Redis repository interfaces.
+2021-04-21 20:25:20,987 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
+2021-04-21 20:25:20,996 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-04-21 20:25:20,996 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-21 20:25:21,151 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-04-21 20:25:21,151 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1569 ms
+2021-04-21 20:25:21,369 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2021-04-21 20:25:21,852 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2021-04-21 20:25:22,032 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3e3315d9, org.springframework.security.web.context.SecurityContextPersistenceFilter@1c7f96b1, org.springframework.security.web.header.HeaderWriterFilter@10643593, org.springframework.web.filter.CorsFilter@64db4967, org.springframework.security.web.authentication.logout.LogoutFilter@36a6bea6, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@6bbe50c9, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4adc663e, org.springframework.security.web.session.ConcurrentSessionFilter@14823f76, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7a04fea7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4ee6291f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@74e6094b, org.springframework.security.web.session.SessionManagementFilter@eca6a74, org.springframework.security.web.access.ExceptionTranslationFilter@1e43e323, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6726cc69]
+2021-04-21 20:25:22,081 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 20:25:22,478 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
+2021-04-21 20:25:22,704 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 20:25:22,704 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2021-04-21 20:25:22,710 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 5 ms
+2021-04-21 20:25:22,711 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
+2021-04-21 20:25:22,721 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 3.774 seconds (JVM running for 5.05)
+2021-04-21 20:38:44,947 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 72020 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 20:38:44,951 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 20:38:45,736 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 20:38:45,737 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-04-21 20:38:45,800 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 58ms. Found 0 JDBC repository interfaces.
+2021-04-21 20:38:45,813 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 20:38:45,815 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-04-21 20:38:45,859 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36ms. Found 0 Redis repository interfaces.
+2021-04-21 20:38:46,415 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
+2021-04-21 20:38:46,423 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-04-21 20:38:46,424 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-21 20:38:46,613 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-04-21 20:38:46,613 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1600 ms
+2021-04-21 20:38:46,829 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2021-04-21 20:38:47,289 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2021-04-21 20:38:47,440 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4fa9ab6, org.springframework.security.web.context.SecurityContextPersistenceFilter@6917bb4, org.springframework.security.web.header.HeaderWriterFilter@68d651f2, org.springframework.web.filter.CorsFilter@2d3ef181, org.springframework.security.web.authentication.logout.LogoutFilter@37e0292a, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@58b71ceb, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3240b2a4, org.springframework.security.web.session.ConcurrentSessionFilter@eca6a74, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1442f788, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2def7a7a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@a2341c6, org.springframework.security.web.session.SessionManagementFilter@1e43e323, org.springframework.security.web.access.ExceptionTranslationFilter@cf518cf, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@14982a82]
+2021-04-21 20:38:47,479 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 20:38:47,859 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
+2021-04-21 20:38:48,086 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 20:38:48,086 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2021-04-21 20:38:48,092 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 5 ms
+2021-04-21 20:38:48,093 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
+2021-04-21 20:38:48,103 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 3.723 seconds (JVM running for 4.945)
+2021-04-21 20:48:29,212 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 69516 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 20:48:29,217 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 20:48:30,173 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 20:48:30,174 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-04-21 20:48:30,244 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 66ms. Found 0 JDBC repository interfaces.
+2021-04-21 20:48:30,257 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 20:48:30,258 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-04-21 20:48:30,303 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36ms. Found 0 Redis repository interfaces.
+2021-04-21 20:48:30,847 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
+2021-04-21 20:48:30,855 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-04-21 20:48:30,855 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-21 20:48:31,093 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-04-21 20:48:31,093 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1807 ms
+2021-04-21 20:48:31,312 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2021-04-21 20:48:31,767 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2021-04-21 20:48:31,914 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@574a89e2, org.springframework.security.web.context.SecurityContextPersistenceFilter@68d651f2, org.springframework.security.web.header.HeaderWriterFilter@2241f05b, org.springframework.web.filter.CorsFilter@1e1e9ef3, org.springframework.security.web.authentication.logout.LogoutFilter@7a04fea7, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@1416a80a, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@79a04e5f, org.springframework.security.web.session.ConcurrentSessionFilter@6c9320c2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1e43e323, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6917bb4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3dd31157, org.springframework.security.web.session.SessionManagementFilter@71978f46, org.springframework.security.web.access.ExceptionTranslationFilter@743e66f7, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@36417a54]
+2021-04-21 20:48:31,953 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 20:48:32,346 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
+2021-04-21 20:48:32,582 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 20:48:32,582 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2021-04-21 20:48:32,588 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 6 ms
+2021-04-21 20:48:32,589 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
+2021-04-21 20:48:32,600 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 3.912 seconds (JVM running for 5.091)
+2021-04-21 20:52:00,528 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 84052 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 20:52:00,533 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 20:52:01,361 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 20:52:01,361 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-04-21 20:52:01,424 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 59ms. Found 0 JDBC repository interfaces.
+2021-04-21 20:52:01,437 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 20:52:01,438 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-04-21 20:52:01,483 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37ms. Found 0 Redis repository interfaces.
+2021-04-21 20:52:02,038 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
+2021-04-21 20:52:02,047 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-04-21 20:52:02,065 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-21 20:52:02,234 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-04-21 20:52:02,235 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1626 ms
+2021-04-21 20:52:02,457 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2021-04-21 20:52:02,917 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2021-04-21 20:52:02,998 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7dbe2ebf, org.springframework.security.web.context.SecurityContextPersistenceFilter@79fd6f95, org.springframework.security.web.header.HeaderWriterFilter@3414a8c3, org.springframework.web.filter.CorsFilter@4adc663e, org.springframework.security.web.authentication.logout.LogoutFilter@5c080ef3, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@2b5183ec, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@574a89e2, org.springframework.security.web.session.ConcurrentSessionFilter@1e43e323, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@49c675f0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1bc49bc5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@885e7ff, org.springframework.security.web.session.SessionManagementFilter@cf518cf, org.springframework.security.web.access.ExceptionTranslationFilter@2133661d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@60cf62ad]
+2021-04-21 20:52:03,113 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 20:52:03,507 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
+2021-04-21 20:52:03,745 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 20:52:03,745 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2021-04-21 20:52:03,751 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 6 ms
+2021-04-21 20:52:03,752 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
+2021-04-21 20:52:03,761 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 3.943 seconds (JVM running for 5.184)
+2021-04-21 21:03:59,926 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 81032 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 21:03:59,933 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 21:04:00,704 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 21:04:00,704 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-04-21 21:04:00,769 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 61ms. Found 0 JDBC repository interfaces.
+2021-04-21 21:04:00,783 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 21:04:00,784 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-04-21 21:04:00,828 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37ms. Found 0 Redis repository interfaces.
+2021-04-21 21:04:01,380 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
+2021-04-21 21:04:01,389 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-04-21 21:04:01,389 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-21 21:04:01,807 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-04-21 21:04:01,807 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1815 ms
+2021-04-21 21:04:02,031 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2021-04-21 21:04:02,513 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2021-04-21 21:04:02,686 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@a2341c6, org.springframework.security.web.context.SecurityContextPersistenceFilter@6ed16657, org.springframework.security.web.header.HeaderWriterFilter@3ad4a7d6, org.springframework.web.filter.CorsFilter@6e4c0d8c, org.springframework.security.web.authentication.logout.LogoutFilter@4af70944, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@255e5e2e, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7d3fb0ef, org.springframework.security.web.session.ConcurrentSessionFilter@79fd6f95, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@113e13f9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@24e83d19, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3e3315d9, org.springframework.security.web.session.SessionManagementFilter@4a67b4ec, org.springframework.security.web.access.ExceptionTranslationFilter@7915bca3, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4ee5b2d9]
+2021-04-21 21:04:02,733 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 21:04:03,165 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
+2021-04-21 21:04:03,432 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 21:04:03,432 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2021-04-21 21:04:03,438 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 6 ms
+2021-04-21 21:04:03,439 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
+2021-04-21 21:04:03,449 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 3.949 seconds (JVM running for 5.203)
+2021-04-21 21:05:38,156 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 84044 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 21:05:38,161 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 21:05:38,933 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 21:05:38,934 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-04-21 21:05:39,003 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 63ms. Found 0 JDBC repository interfaces.
+2021-04-21 21:05:39,016 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 21:05:39,017 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-04-21 21:05:39,062 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37ms. Found 0 Redis repository interfaces.
+2021-04-21 21:05:39,608 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
+2021-04-21 21:05:39,618 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-04-21 21:05:39,618 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-21 21:05:39,879 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-04-21 21:05:39,880 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1650 ms
+2021-04-21 21:05:40,104 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2021-04-21 21:05:40,563 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2021-04-21 21:05:40,711 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@574a89e2, org.springframework.security.web.context.SecurityContextPersistenceFilter@68d651f2, org.springframework.security.web.header.HeaderWriterFilter@2241f05b, org.springframework.web.filter.CorsFilter@1e1e9ef3, org.springframework.security.web.authentication.logout.LogoutFilter@7a04fea7, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@1416a80a, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@79a04e5f, org.springframework.security.web.session.ConcurrentSessionFilter@6c9320c2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1e43e323, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6917bb4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3dd31157, org.springframework.security.web.session.SessionManagementFilter@71978f46, org.springframework.security.web.access.ExceptionTranslationFilter@743e66f7, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@36417a54]
+2021-04-21 21:05:40,751 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 21:05:41,136 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
+2021-04-21 21:05:41,627 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 21:05:41,628 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2021-04-21 21:05:41,634 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 6 ms
+2021-04-21 21:05:41,635 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
+2021-04-21 21:05:41,649 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 3.999 seconds (JVM running for 5.213)
+2021-04-21 21:24:38,203 WARN  [http-nio-7070-exec-9] org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver : Failure in @ExceptionHandler com.bjfu.fcro.common.exception.GlobalExceptionHandler#indexoutofboundsexceptionHandler(HttpServletRequest, NullPointerException)
+java.lang.IllegalStateException: Could not resolve parameter [1] in public com.bjfu.fcro.common.exception.ResultBody com.bjfu.fcro.common.exception.GlobalExceptionHandler.indexoutofboundsexceptionHandler(javax.servlet.http.HttpServletRequest,java.lang.NullPointerException): No suitable resolver
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:164)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:134)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105)
+	at org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.doResolveHandlerMethodException(ExceptionHandlerExceptionResolver.java:407)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodExceptionResolver.doResolveException(AbstractHandlerMethodExceptionResolver.java:61)
+	at org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.resolveException(AbstractHandlerExceptionResolver.java:141)
+	at org.springframework.web.servlet.handler.HandlerExceptionResolverComposite.resolveException(HandlerExceptionResolverComposite.java:80)
+	at org.springframework.web.servlet.DispatcherServlet.processHandlerException(DispatcherServlet.java:1300)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1111)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1057)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:113)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor.invoke(CustomizeAbstractSecurityInterceptor.java:56)
+	at com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor.doFilter(CustomizeAbstractSecurityInterceptor.java:46)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at com.bjfu.fcro.config.fliter.VerifyCodeFilter.doFilter(VerifyCodeFilter.java:62)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:126)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:90)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:118)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:158)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.ConcurrentSessionFilter.doFilter(ConcurrentSessionFilter.java:152)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200)
 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
 	at com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter.doFilterInternal(CustomizeOncePerRequestFilter.java:98)
 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
@@ -104,30 +447,458 @@ org.springframework.security.authentication.InternalAuthenticationServiceExcepti
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:745)
-Caused by: java.lang.RuntimeException: 用户不能为空
-	at com.bjfu.fcro.config.service.UserDetailsServiceImpl.loadUserByUsername(UserDetailsServiceImpl.java:38)
-	at org.springframework.security.authentication.dao.DaoAuthenticationProvider.retrieveUser(DaoAuthenticationProvider.java:108)
-	... 57 common frames omitted
-2021-04-16 15:52:45,746 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 5516 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
-2021-04-16 15:52:45,750 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
-2021-04-16 15:52:46,614 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2021-04-16 15:52:46,615 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
-2021-04-16 15:52:46,678 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 59ms. Found 0 JDBC repository interfaces.
-2021-04-16 15:52:46,691 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2021-04-16 15:52:46,693 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2021-04-16 15:52:46,737 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36ms. Found 0 Redis repository interfaces.
-2021-04-16 15:52:47,289 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
-2021-04-16 15:52:47,298 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
-2021-04-16 15:52:47,298 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
-2021-04-16 15:52:47,514 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
-2021-04-16 15:52:47,514 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1711 ms
-2021-04-16 15:52:47,731 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
-2021-04-16 15:52:48,179 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
-2021-04-16 15:52:48,330 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3f1ed068, org.springframework.security.web.context.SecurityContextPersistenceFilter@36cc9385, org.springframework.security.web.header.HeaderWriterFilter@15383681, org.springframework.web.filter.CorsFilter@753aca85, org.springframework.security.web.authentication.logout.LogoutFilter@113e13f9, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@4d0753c9, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7c8c70d6, org.springframework.security.web.session.ConcurrentSessionFilter@304d0259, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7915bca3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@48840594, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2e645fbd, org.springframework.security.web.session.SessionManagementFilter@109a2025, org.springframework.security.web.access.ExceptionTranslationFilter@7342e05d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@21079a12]
-2021-04-16 15:52:48,372 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
-2021-04-16 15:52:48,757 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
-2021-04-16 15:52:48,996 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2021-04-16 15:52:48,996 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
-2021-04-16 15:52:49,002 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 6 ms
-2021-04-16 15:52:49,003 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
-2021-04-16 15:52:49,012 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 3.772 seconds (JVM running for 4.98)
+2021-04-21 21:24:38,231 ERROR [http-nio-7070-exec-9] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/].[dispatcherServlet] : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.IndexOutOfBoundsException: Index: 0, Size: 0] with root cause
+java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+	at java.util.ArrayList.rangeCheck(ArrayList.java:653)
+	at java.util.ArrayList.get(ArrayList.java:429)
+	at com.bjfu.fcro.service.serviceimpl.SysSamplingPlanServiceimpl.updateplan(SysSamplingPlanServiceimpl.java:429)
+	at com.bjfu.fcro.service.serviceimpl.SysSamplingPlanServiceimpl$$FastClassBySpringCGLIB$$dea636d4.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:771)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:691)
+	at com.bjfu.fcro.service.serviceimpl.SysSamplingPlanServiceimpl$$EnhancerBySpringCGLIB$$dd876e44.updateplan(<generated>)
+	at com.bjfu.fcro.controller.SysSamplingAppController.updateplan(SysSamplingAppController.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:878)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:792)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:113)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor.invoke(CustomizeAbstractSecurityInterceptor.java:56)
+	at com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor.doFilter(CustomizeAbstractSecurityInterceptor.java:46)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at com.bjfu.fcro.config.fliter.VerifyCodeFilter.doFilter(VerifyCodeFilter.java:62)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:126)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:90)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:118)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:158)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.ConcurrentSessionFilter.doFilter(ConcurrentSessionFilter.java:152)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter.doFilterInternal(CustomizeOncePerRequestFilter.java:98)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1590)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+2021-04-21 21:25:19,636 ERROR [http-nio-7070-exec-10] com.bjfu.fcro.common.exception.GlobalExceptionHandler : 未知异常！原因是:
+com.alibaba.fastjson.JSONException: syntax error, expect {, actual int, pos 0, fastjson-version 1.2.68
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:503)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.parseRest(JavaBeanDeserializer.java:1573)
+	at com.alibaba.fastjson.parser.deserializer.FastjsonASMDeserializer_2_Temp_Task.deserialze(Unknown Source)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:284)
+	at com.alibaba.fastjson.parser.DefaultJSONParser.parseObject(DefaultJSONParser.java:688)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:396)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:300)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:573)
+	at com.bjfu.fcro.service.serviceimpl.SysSamplingPlanServiceimpl.updateplan(SysSamplingPlanServiceimpl.java:431)
+	at com.bjfu.fcro.service.serviceimpl.SysSamplingPlanServiceimpl$$FastClassBySpringCGLIB$$dea636d4.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:771)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:691)
+	at com.bjfu.fcro.service.serviceimpl.SysSamplingPlanServiceimpl$$EnhancerBySpringCGLIB$$dd876e44.updateplan(<generated>)
+	at com.bjfu.fcro.controller.SysSamplingAppController.updateplan(SysSamplingAppController.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:878)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:792)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:113)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor.invoke(CustomizeAbstractSecurityInterceptor.java:56)
+	at com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor.doFilter(CustomizeAbstractSecurityInterceptor.java:46)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at com.bjfu.fcro.config.fliter.VerifyCodeFilter.doFilter(VerifyCodeFilter.java:62)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:126)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:90)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:118)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:158)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.ConcurrentSessionFilter.doFilter(ConcurrentSessionFilter.java:152)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter.doFilterInternal(CustomizeOncePerRequestFilter.java:98)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1590)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+2021-04-21 21:26:20,202 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 84024 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 21:26:20,208 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 21:26:21,101 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 21:26:21,102 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-04-21 21:26:21,166 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 60ms. Found 0 JDBC repository interfaces.
+2021-04-21 21:26:21,180 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 21:26:21,181 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-04-21 21:26:21,226 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36ms. Found 0 Redis repository interfaces.
+2021-04-21 21:26:21,809 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
+2021-04-21 21:26:21,818 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-04-21 21:26:21,818 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-21 21:26:21,973 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-04-21 21:26:21,973 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1705 ms
+2021-04-21 21:26:22,197 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2021-04-21 21:26:22,648 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2021-04-21 21:26:22,730 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@574a89e2, org.springframework.security.web.context.SecurityContextPersistenceFilter@68d651f2, org.springframework.security.web.header.HeaderWriterFilter@2241f05b, org.springframework.web.filter.CorsFilter@1e1e9ef3, org.springframework.security.web.authentication.logout.LogoutFilter@7a04fea7, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@1416a80a, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@79a04e5f, org.springframework.security.web.session.ConcurrentSessionFilter@6c9320c2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1e43e323, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6917bb4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3dd31157, org.springframework.security.web.session.SessionManagementFilter@71978f46, org.springframework.security.web.access.ExceptionTranslationFilter@743e66f7, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@36417a54]
+2021-04-21 21:26:22,832 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 21:26:23,236 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
+2021-04-21 21:26:23,630 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 21:26:23,630 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2021-04-21 21:26:23,636 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 6 ms
+2021-04-21 21:26:23,637 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
+2021-04-21 21:26:23,653 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 3.963 seconds (JVM running for 5.147)
+2021-04-21 21:26:27,329 ERROR [http-nio-7070-exec-1] com.bjfu.fcro.common.exception.GlobalExceptionHandler : 未知异常！原因是:
+com.alibaba.fastjson.JSONException: syntax error, expect {, actual int, pos 0, fastjson-version 1.2.68
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:503)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.parseRest(JavaBeanDeserializer.java:1573)
+	at com.alibaba.fastjson.parser.deserializer.FastjsonASMDeserializer_2_Temp_Task.deserialze(Unknown Source)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:284)
+	at com.alibaba.fastjson.parser.DefaultJSONParser.parseObject(DefaultJSONParser.java:688)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:396)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:300)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:573)
+	at com.bjfu.fcro.service.serviceimpl.SysSamplingPlanServiceimpl.updateplan(SysSamplingPlanServiceimpl.java:431)
+	at com.bjfu.fcro.service.serviceimpl.SysSamplingPlanServiceimpl$$FastClassBySpringCGLIB$$dea636d4.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:771)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:691)
+	at com.bjfu.fcro.service.serviceimpl.SysSamplingPlanServiceimpl$$EnhancerBySpringCGLIB$$dd876e44.updateplan(<generated>)
+	at com.bjfu.fcro.controller.SysSamplingAppController.updateplan(SysSamplingAppController.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:878)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:792)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:113)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor.invoke(CustomizeAbstractSecurityInterceptor.java:56)
+	at com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor.doFilter(CustomizeAbstractSecurityInterceptor.java:46)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at com.bjfu.fcro.config.fliter.VerifyCodeFilter.doFilter(VerifyCodeFilter.java:62)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:126)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:90)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:118)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:158)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.ConcurrentSessionFilter.doFilter(ConcurrentSessionFilter.java:152)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter.doFilterInternal(CustomizeOncePerRequestFilter.java:98)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1590)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+2021-04-21 21:26:51,823 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 84352 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 21:26:51,828 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 21:26:52,586 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 21:26:52,586 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-04-21 21:26:52,652 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 62ms. Found 0 JDBC repository interfaces.
+2021-04-21 21:26:52,665 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 21:26:52,666 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-04-21 21:26:52,721 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 47ms. Found 0 Redis repository interfaces.
+2021-04-21 21:26:53,286 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
+2021-04-21 21:26:53,298 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-04-21 21:26:53,298 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-21 21:26:53,478 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-04-21 21:26:53,478 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1596 ms
+2021-04-21 21:26:53,728 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2021-04-21 21:26:54,181 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2021-04-21 21:26:54,327 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@8bd86c8, org.springframework.security.web.context.SecurityContextPersistenceFilter@14823f76, org.springframework.security.web.header.HeaderWriterFilter@7915bca3, org.springframework.web.filter.CorsFilter@4fa9ab6, org.springframework.security.web.authentication.logout.LogoutFilter@2b03d52f, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@7f5eae0f, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@31c628e7, org.springframework.security.web.session.ConcurrentSessionFilter@f91da5e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6ed16657, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@124ac145, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2d3ef181, org.springframework.security.web.session.SessionManagementFilter@3ad4a7d6, org.springframework.security.web.access.ExceptionTranslationFilter@36cc9385, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@fd9ebde]
+2021-04-21 21:26:54,367 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 21:26:54,746 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
+2021-04-21 21:26:54,970 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 21:26:54,970 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2021-04-21 21:26:54,975 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 5 ms
+2021-04-21 21:26:54,976 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
+2021-04-21 21:26:54,986 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 3.672 seconds (JVM running for 4.851)
+2021-04-21 21:34:45,359 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 81540 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 21:34:45,365 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 21:34:46,196 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 21:34:46,197 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-04-21 21:34:46,261 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 59ms. Found 0 JDBC repository interfaces.
+2021-04-21 21:34:46,274 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 21:34:46,275 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-04-21 21:34:46,319 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 36ms. Found 0 Redis repository interfaces.
+2021-04-21 21:34:46,959 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
+2021-04-21 21:34:46,969 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-04-21 21:34:46,969 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-21 21:34:47,126 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-04-21 21:34:47,127 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1693 ms
+2021-04-21 21:34:47,348 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2021-04-21 21:34:47,823 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2021-04-21 21:34:47,970 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@8bd86c8, org.springframework.security.web.context.SecurityContextPersistenceFilter@14823f76, org.springframework.security.web.header.HeaderWriterFilter@7915bca3, org.springframework.web.filter.CorsFilter@4fa9ab6, org.springframework.security.web.authentication.logout.LogoutFilter@2b03d52f, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@7f5eae0f, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@31c628e7, org.springframework.security.web.session.ConcurrentSessionFilter@f91da5e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6ed16657, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@124ac145, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2d3ef181, org.springframework.security.web.session.SessionManagementFilter@3ad4a7d6, org.springframework.security.web.access.ExceptionTranslationFilter@36cc9385, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@fd9ebde]
+2021-04-21 21:34:48,010 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 21:34:48,395 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
+2021-04-21 21:34:48,623 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 21:34:48,624 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2021-04-21 21:34:48,629 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 5 ms
+2021-04-21 21:34:48,630 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
+2021-04-21 21:34:48,640 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 3.81 seconds (JVM running for 4.995)
+2021-04-21 21:37:33,777 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Starting FoodcheckRouteoptiApplication on DESKTOP-FVOEJCM with PID 73336 (E:\ltx\foodcheck_routeopti\target\classes started by ltx in E:\ltx\foodcheck_routeopti)
+2021-04-21 21:37:33,783 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : No active profile set, falling back to default profiles: default
+2021-04-21 21:37:34,741 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 21:37:34,741 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2021-04-21 21:37:34,807 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 61ms. Found 0 JDBC repository interfaces.
+2021-04-21 21:37:34,821 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-04-21 21:37:34,822 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-04-21 21:37:34,866 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37ms. Found 0 Redis repository interfaces.
+2021-04-21 21:37:35,426 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 7070 (http)
+2021-04-21 21:37:35,439 INFO  [main] org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-04-21 21:37:35,439 INFO  [main] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.38]
+2021-04-21 21:37:35,620 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-04-21 21:37:35,620 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1775 ms
+2021-04-21 21:37:35,859 WARN  [main] com.bjfu.fcro.config.handler.CustomizeAbstractSecurityInterceptor : Could not validate configuration attributes as the SecurityMetadataSource did not return any attributes from getAllConfigAttributes()
+2021-04-21 21:37:36,341 INFO  [main] org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping : Adding welcome page: class path resource [static/index.html]
+2021-04-21 21:37:36,428 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@a2341c6, org.springframework.security.web.context.SecurityContextPersistenceFilter@6ed16657, org.springframework.security.web.header.HeaderWriterFilter@3ad4a7d6, org.springframework.web.filter.CorsFilter@6e4c0d8c, org.springframework.security.web.authentication.logout.LogoutFilter@4af70944, com.bjfu.fcro.config.handler.CustomizeOncePerRequestFilter@255e5e2e, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7d3fb0ef, org.springframework.security.web.session.ConcurrentSessionFilter@79fd6f95, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@113e13f9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@24e83d19, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3e3315d9, org.springframework.security.web.session.SessionManagementFilter@4a67b4ec, org.springframework.security.web.access.ExceptionTranslationFilter@7915bca3, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4ee5b2d9]
+2021-04-21 21:37:36,548 INFO  [main] org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 21:37:37,096 INFO  [main] com.alibaba.druid.pool.DruidDataSource : {dataSource-1} inited
+2021-04-21 21:37:37,404 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 21:37:37,404 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Initializing Servlet 'dispatcherServlet'
+2021-04-21 21:37:37,409 INFO  [main] org.springframework.web.servlet.DispatcherServlet : Completed initialization in 5 ms
+2021-04-21 21:37:37,410 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 7070 (http) with context path ''
+2021-04-21 21:37:37,420 INFO  [main] com.bjfu.fcro.FoodcheckRouteoptiApplication : Started FoodcheckRouteoptiApplication in 4.132 seconds (JVM running for 5.42)

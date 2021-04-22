@@ -19,6 +19,7 @@ public interface SysSamplingFoodTypeService {
     /**查找自定义食品类型   adminid = admin_id*/
     List<SysSamplingFoodType> findcustomizecategories(int pagesize_true,int pageindex_true,String adminaccount);
 
+    int updatesixteencategories(Integer id,String value_at_risk);
     /**查找自定义食品类型的数量*/
     int findcountcustomizecategories(String adminaccount);
 

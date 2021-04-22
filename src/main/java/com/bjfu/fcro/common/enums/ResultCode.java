@@ -49,6 +49,7 @@ public enum ResultCode {
     NO_FOOD_FOUND_IN_THE_LIBRARY(2022,"抽检库为空或者库中不存所有要抽检的食品类型"),
     TOO_MANY_SAMPLING_ACCOUNTS(2023,"选择的抽检账号数量过多"),
     NO_PLANS(2024,"暂无抽检计划"),
+    Not_ALLOWED_TO_DELETE(2025,"不允许删除"),
     /* 业务错误 */
     NO_PERMISSION(3001, "没有权限");
 

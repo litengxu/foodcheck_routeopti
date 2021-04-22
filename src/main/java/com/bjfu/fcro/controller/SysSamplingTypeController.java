@@ -58,7 +58,17 @@ public class SysSamplingTypeController {
         List<SysSamplingFoodType> list = sysSamplingFoodTypeService.findsixteencategories(pagesize_true,pageindex_true);
         return ResultTool.success(list);
     }
+    /**修改食品类型风险值*/
+    @PostMapping("/updatesixteencategories")
+    @ResponseBody
+    public  Object updatesixteencategories(
+            @RequestParam Integer id,
+            @RequestParam String value_at_risk
+    ){
 
+        sysSamplingFoodTypeService.updatesixteencategories(id,value_at_risk);
+        return ResultTool.success();
+    }
     /**查看自定义食品类型*/
     @PostMapping("/findcustomizecategories")
     @ResponseBody
