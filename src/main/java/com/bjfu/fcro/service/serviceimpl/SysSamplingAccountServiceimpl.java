@@ -158,7 +158,7 @@ public class SysSamplingAccountServiceimpl implements SysSamplingAccountService,
         persons = randomsort(persons,personsize);
         int admin_id = userDao.selectbyaccount(adminaccount);
         List<SysSamplingAccount> listaccount = samplingAccountDao.selectAllbyadminid(admin_id);
-        List<SysSamplingInspectorInformation> listperson = samplingInspectorInformationDao.selectAllByAdminAccount(adminaccount);
+        List<SysSamplingInspectorInformation> listperson = samplingInspectorInformationDao.selectnoleaveAllByAdminAccount(adminaccount);
         int accoutindex = 0;
         int personindex = 0;
         for(int i=0;i<listaccount.size();i++){

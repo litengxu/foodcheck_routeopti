@@ -1,10 +1,13 @@
 package com.bjfu.fcro.service.serviceimpl;
 
 
+import com.bjfu.fcro.common.enums.ResultCode;
+import com.bjfu.fcro.common.utils.ResultTool;
 import com.bjfu.fcro.dao.SamplingInspectorInformationDao;
 import com.bjfu.fcro.dao.UserDao;
 import com.bjfu.fcro.entity.SysSamplingInspectorInformation;
 import com.bjfu.fcro.service.SysSamplingInspectorInformationService;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -35,13 +38,28 @@ public class SysSamplingInspectorInformationServiceimpl  implements SysSamplingI
     }
 
     @Override
+    public int selectnoleavecountAllByAdminAccount(String adminaccount) {
+        return samplingInspectorInformationDao.selectnoleavecountAllByAdminAccount(adminaccount);
+    }
+
+    @Override
+    public int selectAskForLeaveCountAllByAdminAccount(String adminaccount) {
+        return samplingInspectorInformationDao.selectAskForLeaveCountAllByAdminAccount(adminaccount);
+    }
+
+    @Override
     public List<SysSamplingInspectorInformation> selectpageByAdminAccount(String adminaccount, int pagesize, int pageIndex) {
         return samplingInspectorInformationDao.selectpageByAdminAccount(adminaccount,pagesize,pageIndex);
     }
 
     @Override
-    public int updatebyid(Integer id,String sii_name,String sii_sex,String sii_phone,String sampling_agency) {
-        return samplingInspectorInformationDao.updatebyid(id,sii_name,sii_sex,sii_phone,sampling_agency);
+    public List<SysSamplingInspectorInformation> selectAskForLeavePageByAdminAccount(String adminaccount, int pagesize, int pageIndex) {
+        return samplingInspectorInformationDao.selectAskForLeavePageByAdminAccount(adminaccount,pagesize,pageIndex);
+    }
+
+    @Override
+    public int updatebyid(Integer id,String sii_name,String sii_sex,String sii_phone,String sampling_agency,int int_leave_status) {
+        return samplingInspectorInformationDao.updatebyid(id,sii_name,sii_sex,sii_phone,sampling_agency,int_leave_status);
     }
 
     @Override
@@ -80,7 +98,7 @@ public class SysSamplingInspectorInformationServiceimpl  implements SysSamplingI
 
     @Override
     public List<SysSamplingInspectorInformation> selectunassignedByAdminAccount(String adminaccount) {
-        return samplingInspectorInformationDao.selectunassignedByAdminAccount(adminaccount);
+        return samplingInspectorInformationDao.selectunassignednoleaveByAdminAccount(adminaccount);
     }
 
     @Override
@@ -93,5 +111,37 @@ public class SysSamplingInspectorInformationServiceimpl  implements SysSamplingI
         return samplingInspectorInformationDao.selectnamebyaccount(account);
     }
 
+    @Override
+    public Object updatepassword(String account, String password) {
+       /*验证密码是否符合规范*/
+        if(password.length() <5 || password.length() >20){
+            return ResultTool.fail(ResultCode.PASSWORD_IS_NOT_COMPLIANT);
+        }
+        if(samplingInspectorInformationDao.updatePasswordByAccount(account,password) > 0){
+            return ResultTool.success();
+        }else{
+            return ResultTool.fail();
+        }
 
+
+    }
+
+    @Override
+    public Object handleleave(Integer id, int state) {
+        samplingInspectorInformationDao.updateleavestatusbyid(id,state);
+        return ResultTool.success();
+    }
+
+    @Override
+    public Object asktoleave(String account) {
+        SysSamplingInspectorInformation sysSamplingInspectorInformation = samplingInspectorInformationDao.selectbyaccount(account);
+        if(sysSamplingInspectorInformation.getLeave_status() == 1){
+            return ResultTool.fail(ResultCode.APPROVING);
+        }
+        if(sysSamplingInspectorInformation.getLeave_status() == 2){
+            return ResultTool.fail(ResultCode.APPROVED);
+        }
+        samplingInspectorInformationDao.updateleavestatusbyid(sysSamplingInspectorInformation.getId(),1);
+        return ResultTool.fail(ResultCode.APPROVAL_ISSUED);
+    }
 }

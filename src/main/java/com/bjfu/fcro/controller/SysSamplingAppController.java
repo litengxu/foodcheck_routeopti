@@ -111,4 +111,27 @@ public class SysSamplingAppController {
 
         return sysSamplingPlanService.updateplan(temp_task,sysSamplingPlan);
     }
+
+    /*更新密码*/
+    @PostMapping("/updatepassword")
+    @ResponseBody
+    public Object updatepassword(
+            @RequestBody String str
+    ){
+        String account = JSON.parseObject(str).getString("username");
+        String newpassward = JSON.parseObject(str).getString("password");
+        return sysSamplingInspectorInformationService.updatepassword(account,newpassward);
+    }
+
+    /*请假*/
+    @PostMapping("/asktoleave")
+    @ResponseBody
+    public Object asktoleave(
+            @RequestBody String str
+    ){
+        String account = JSON.parseObject(str).getString("username");
+
+        return sysSamplingInspectorInformationService.asktoleave(account);
+    }
+
 }

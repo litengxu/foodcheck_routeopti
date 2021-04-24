@@ -49,9 +49,9 @@ public interface SamplingPlanDao {
     int findundocount(@Param("adminid") int adminid);
 
 
-    /**查找所有抽检计划*/
-    @Select("select * from sys_sampling_plan ORDER BY create_time DESC")
-    List<SysSamplingPlan> findallplan();
+    /**查找管理员下的所有抽检计划*/
+    @Select("select * from sys_sampling_plan where admin_id = #{adminid} ORDER BY create_time DESC")
+    List<SysSamplingPlan> findallplanbyadminid(@Param("adminid") int adminid);
 
     /**根据id更新抽检计划表*/
     @Update("UPDATE sys_sampling_plan set task_json = #{taskjson},sampling_status = #{status} where id = #{id}")

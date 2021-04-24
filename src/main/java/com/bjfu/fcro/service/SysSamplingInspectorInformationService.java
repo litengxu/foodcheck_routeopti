@@ -25,13 +25,17 @@ public interface SysSamplingInspectorInformationService {
     List<SysSamplingInspectorInformation> selectAllByAdminAccount(String adminaccount);
     /**查询数量*/
     int selectcountAllByAdminAccount(String adminaccount);
+    int selectnoleavecountAllByAdminAccount(String adminaccount);
+    /**查询数量*/
+    int selectAskForLeaveCountAllByAdminAccount(String adminaccount);
     /**分页查询所有信息*/
     List<SysSamplingInspectorInformation> selectpageByAdminAccount(String adminaccount,int pagesize, int pageIndex);
-
+    /**申请中抽检员*/
+    List<SysSamplingInspectorInformation> selectAskForLeavePageByAdminAccount(String adminaccount,int pagesize, int pageIndex);
     /*
     * 根据id，更新抽检员信息表中的数据
     * */
-    int updatebyid(Integer id,String sii_name,String sii_sex,String sii_phone,String sampling_agency);
+    int updatebyid(Integer id,String sii_name,String sii_sex,String sii_phone,String sampling_agency,int int_leave_status);
 
 
     /*根据id查询出whether_assigned*/
@@ -59,5 +63,11 @@ public interface SysSamplingInspectorInformationService {
 
     /**根据账号查询对应的抽检员名字*/
     String  selectnamebyaccount(String account);
+
+    Object updatepassword(String account,String password);
+
+   Object handleleave(Integer id,int state);
+
+    Object asktoleave(String account);
 
 }

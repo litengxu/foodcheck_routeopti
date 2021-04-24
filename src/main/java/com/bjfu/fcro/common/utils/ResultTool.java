@@ -21,7 +21,9 @@ public class ResultTool {
     public static <T> JsonResult<T> success(T data) {
         return new JsonResult(true, data);
     }
-
+    public static JsonResult success(ResultCode resultEnum) {
+        return new JsonResult(true, resultEnum);
+    }
     public static JsonResult fail() {
         return new JsonResult(false);
     }

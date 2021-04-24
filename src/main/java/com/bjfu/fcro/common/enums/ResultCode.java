@@ -50,6 +50,10 @@ public enum ResultCode {
     TOO_MANY_SAMPLING_ACCOUNTS(2023,"选择的抽检账号数量过多"),
     NO_PLANS(2024,"暂无抽检计划"),
     Not_ALLOWED_TO_DELETE(2025,"不允许删除"),
+    PASSWORD_IS_NOT_COMPLIANT(2026,"密码不符合规范"),
+    APPROVING (2027,"正在审批"),
+    APPROVED(2028,"审批通过"),
+    APPROVAL_ISSUED(2029,"已发起审批"),
     /* 业务错误 */
     NO_PERMISSION(3001, "没有权限");
 

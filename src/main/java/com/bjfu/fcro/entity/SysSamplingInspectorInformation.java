@@ -39,4 +39,6 @@ public class SysSamplingInspectorInformation {
     //账号密码
     private String sii_account;
     private String sii_password;
+    /*请假状态 */
+    private int leave_status;
 }

@@ -9,6 +9,7 @@ import com.bjfu.fcro.common.utils.CoordinateToDistance;
 import com.bjfu.fcro.common.utils.ResultTool;
 import com.bjfu.fcro.dao.*;
 import com.bjfu.fcro.entity.SysSamplingAccount;
+import com.bjfu.fcro.entity.SysSamplingInspectorInformation;
 import com.bjfu.fcro.entity.SysSamplingLibrary;
 import com.bjfu.fcro.entity.SysSamplingPlan;
 import com.bjfu.fcro.entity.temporary.Temp_Group;
@@ -370,8 +371,11 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     public synchronized Object getplan(String account) {
 
 //        找到账号对应的抽检员姓名，根据姓名去查找最新的抽检计划
-        String name = samplingInspectorInformationDao.selectnamebyaccount(account);
-        List<SysSamplingPlan> samplingPlans = this.findallplan();
+        SysSamplingInspectorInformation sysSamplingInspectorInformation = samplingInspectorInformationDao.selectbyaccount(account);
+        String name = sysSamplingInspectorInformation.getSii_name();
+        int admin_id = sysSamplingInspectorInformation.getAdmin_id();
+
+        List<SysSamplingPlan> samplingPlans = this.findallplan(admin_id);
         boolean flag = false;
         SysSamplingPlan res = null;
 
@@ -419,8 +423,8 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     }
 
     @Override
-    public List<SysSamplingPlan> findallplan() {
-        return samplingPlanDao.findallplan();
+    public List<SysSamplingPlan> findallplan(int adminid) {
+        return samplingPlanDao.findallplanbyadminid(adminid);
     }
     @Override
     public Object updateplan( Temp_Task temp_task,  SysSamplingPlan sysSamplingPlan) throws  Exception{
@@ -477,6 +481,8 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
         }
 
     }
+
+
 
     /**根据抽检点的list获取距离矩阵*/
     public static double[][] getdists(List<Temp_SamplePlanInfoTable> samplingPoints){
