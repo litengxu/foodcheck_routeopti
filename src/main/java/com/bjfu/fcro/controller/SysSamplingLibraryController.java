@@ -160,7 +160,7 @@ public class SysSamplingLibraryController {
 
         /*把文件存到磁盘上*/
         for (int i = 0; i <files.size() ; i++) {
-            paths[i] =  OfficeTool.uploadAndReturnPath(files.get(i),adminacount,files.get(i).getOriginalFilename());
+            paths[i] =  OfficeTool.uploadAndReturnPath(files.get(i),adminacount,files.get(i).getOriginalFilename(),false);
         }
         int admin_id = sysUserService.selectbyaccount(adminacount);
         sysSamplingLibraryService.uploadbyexcel(adminacount,admin_id,paths);

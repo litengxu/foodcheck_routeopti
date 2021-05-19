@@ -19,13 +19,13 @@ public class GlobalExceptionHandler {
 
     /**
      * 处理自定义的业务异常
-     * @param req
+//     * @param req
      * @param e
      * @return
      */
     @ExceptionHandler(value = BizException.class)
     @ResponseBody
-    public  ResultBody bizExceptionHandler(HttpServletRequest req, BizException e){
+    public  ResultBody bizExceptionHandler(BizException e){
         logger.error("发生业务异常！原因是：{}",e.getErrorMsg());
         return ResultBody.error(e.getErrorCode(),e.getErrorMsg());
     }

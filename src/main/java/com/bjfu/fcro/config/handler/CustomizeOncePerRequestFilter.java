@@ -1,9 +1,14 @@
 package com.bjfu.fcro.config.handler;
 
+import com.bjfu.fcro.common.exception.BizException;
+import com.bjfu.fcro.common.exception.CommonEnum;
 import com.bjfu.fcro.config.utils.JwtTokenUtil;
+import com.bjfu.fcro.config.utils.TokenCache;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -19,6 +24,7 @@ import java.io.IOException;
 
 /**
  * 拦截器  会在账号密码判断前执行
+ * 每个链接拦截并都会到这来判断，登录时无法获得token，因为header没有token的值
  */
 @Component
 public class CustomizeOncePerRequestFilter extends OncePerRequestFilter {
@@ -31,18 +37,21 @@ public class CustomizeOncePerRequestFilter extends OncePerRequestFilter {
 
     private String header = "Authorization";
 
+
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
-                                    FilterChain chain) throws ServletException, IOException {
+                                    FilterChain chain) throws BizException ,ServletException, IOException{
+
         String headerToken = request.getHeader(header);
+        String oldusername = request.getHeader("username");
+//        System.out.println("username"+oldusername);
 //        System.out.println("headerToken = " + headerToken);
 //        System.out.println("request getMethod = " + request.getMethod());
 //        System.out.println("request username="+request.getParameter("username"));
         if (!StringUtils.isEmpty(headerToken)) {
             //postMan测试时，自动假如的前缀，要去掉。
             String token = headerToken.replace("Bearer", "").trim();
-//            System.out.println("token = " + token);
 
             //判断令牌是否过期，默认是一周
             //比较好的解决方案是：
@@ -52,13 +61,18 @@ public class CustomizeOncePerRequestFilter extends OncePerRequestFilter {
             //注意：刷新获得新token是在token过期时间内有效。
             //如果token本身的过期（1周），强制登录，生成新token。
             boolean check = false;
+
             try {
                 check = this.jwtTokenUtil.isTokenExpired(token);
-//                System.out.println("check:"+check);
+                if(check){
+                    logger.info("令牌已过期，请重新登录。");
+                    TokenCache.deletetoken(oldusername);
+                }
             } catch (Exception e) {
-//                System.out.println("令牌已过期，请重新登录。");
-                new Throwable("令牌已过期，请重新登录。"+e.getMessage());
+                e.printStackTrace();
             }
+
+
             if (!check){
                 //通过令牌获取用户名称
                 String username = jwtTokenUtil.getUsernameFromToken(token);

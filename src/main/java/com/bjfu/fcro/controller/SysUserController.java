@@ -35,6 +35,10 @@ public class SysUserController {
         return "index";
     }
 
+    @RequestMapping("/redict")
+    public String redict() {
+        return "localstorage";
+    }
     //根据单个账号名称，获取该账号的信息
     @GetMapping("/getaccountmessage")
     @ResponseBody

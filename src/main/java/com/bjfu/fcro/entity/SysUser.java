@@ -3,6 +3,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
 //import javax.persistence.Id;
@@ -13,7 +14,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SysUser {
+public class SysUser{
     @Id
     private Integer id;
     //账号

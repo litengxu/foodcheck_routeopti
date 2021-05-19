@@ -78,7 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //第2步：让Security永远不会创建HttpSession，它不会使用HttpSession来获取SecurityContext
         //配置session创建的方式，默认时ifrequired（需要时再创建），token时可以使用stateless
         http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().headers().cacheControl();
+                .and().headers().cacheControl().and().frameOptions().disable();
 
 //        //未登录到转到登录界面..定制登录页面
 //        http.formLogin().loginPage("/login");
@@ -112,6 +112,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //抽检员信息的管理，需要管理员权限
                 antMatchers("/siinformation/**").hasAnyAuthority("admin").
                 antMatchers("/ssaccount/**").hasAnyAuthority("admin").
+                /*管理员和超级管理员都可以访问*/
+                antMatchers("/sepp/").hasAnyAuthority("admin","superadmin").
+                antMatchers("/samplingAccountHistory/").hasAnyAuthority("admin","superadmin").
+                antMatchers("/sslibrary/").hasAnyAuthority("admin","superadmin").
+                antMatchers("/ssplan/").hasAnyAuthority("admin","superadmin").
+                antMatchers("/sstype/").hasAnyAuthority("admin","superadmin").
+                antMatchers("/user/").hasAnyAuthority("admin","superadmin").
                 antMatchers("/index").permitAll().
                 anyRequest().permitAll();
 

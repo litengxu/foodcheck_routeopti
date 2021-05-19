@@ -21,7 +21,7 @@ public class JwtTokenUtil {
 
     // 过期时间 毫秒,设置默认1周的时间过期
     private  static final long EXPIRATION_TIME = 3600000L * 24*7;
-//    private  static final long EXPIRATION_TIME = 100000L ;
+//    private  static final long EXPIRATION_TIME = 10000L ;
 
     /**
      * 生成令牌
@@ -35,7 +35,10 @@ public class JwtTokenUtil {
         claims.put(Claims.ISSUED_AT, new Date());
         return generateToken(claims);
     }
+    /**删除令牌*/
+    public void deleteToken(){
 
+    }
     /**
      * 从令牌中获取用户名
      *
@@ -47,7 +50,6 @@ public class JwtTokenUtil {
         try {
 
             Claims claims = getClaimsFromToken(token);
-
             username = claims.getSubject();
         } catch (Exception e) {
            e.printStackTrace();
@@ -65,6 +67,7 @@ public class JwtTokenUtil {
         try {
             Claims claims = getClaimsFromToken(token);
             Date expiration = claims.getExpiration();
+
             return expiration.before(new Date());
         } catch (Exception e) {
             new Throwable(e);
@@ -136,9 +139,8 @@ public class JwtTokenUtil {
     private Claims getClaimsFromToken(String token) throws Exception {
         Claims claims = null;
         try {
-
+            /*如果token过期，下面语句会报异常，返回的claims为空*/
             claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
-
         } catch (Exception e) {
             new Throwable(e);
         }

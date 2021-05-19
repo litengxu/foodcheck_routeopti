@@ -9,22 +9,22 @@ import com.bjfu.fcro.entity.SysSamplingAccount;
 import com.bjfu.fcro.entity.SysSamplingPlan;
 import com.bjfu.fcro.entity.temporary.Temp_SamplePlanInfoTable;
 import com.bjfu.fcro.entity.temporary.Temp_Task;
-import com.bjfu.fcro.service.SysSamplingAccountService;
-import com.bjfu.fcro.service.SysSamplingInspectorInformationService;
-import com.bjfu.fcro.service.SysSamplingPlanService;
-import com.bjfu.fcro.service.SysUserService;
+import com.bjfu.fcro.service.*;
 import lombok.Synchronized;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/samplingApp")
@@ -48,6 +48,10 @@ public class SysSamplingAppController {
     private SysSamplingAccountService sysSamplingAccountService;
     @Autowired
     private SysSamplingInspectorInformationService sysSamplingInspectorInformationService;
+
+
+    @Autowired
+    private SysSamplingFoodListService sysSamplingFoodListService;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     //根据单个账号名称，获取该账号的信息
@@ -66,7 +70,11 @@ public class SysSamplingAppController {
 //        }
         if(sysSamplingInspectorInformationService.selectaccountandpassword(username,passward)>0){
             String name = sysSamplingInspectorInformationService.selectnamebyaccount(username);
-            return ResultTool.success(name);
+            int leave_state = sysSamplingInspectorInformationService.selectLeaveStateByAaccount(username);
+            Map<String,String> res  = new HashMap<>();
+            res.put("name",name);
+            res.put("leave_state",String.valueOf(leave_state));
+            return ResultTool.success(res);
         }else{
             return ResultTool.fail();
         }
@@ -133,5 +141,55 @@ public class SysSamplingAppController {
 
         return sysSamplingInspectorInformationService.asktoleave(account);
     }
+
+    /*上传商品食物数据*/
+
+//
+    /**
+     * 接口：http://47.94.240.186:7070/samplingApp/addSamplingFood
+     *
+     * 提交方式说明：某个抽检点的每一大类食品都需要提交count次
+     *
+     * 例如：
+     *          某个抽检点的数据为："sampleofoodlist":[{"count":2,"foodtype":"调味品"},{"count":3,"foodtype":"乳制品"}],
+     *          则需要提交2次调味品 + 3次乳制品的表单，共提交5次数据到接口
+     *
+     * 参数说明
+     * String sampling_food_type  食品大类（例如：乳制品）
+       String food_specific_name   具体抽检食品（例如：蒙牛纯牛奶）
+     Integer food_counts,具体抽检食品的数量 （例如：要抽检几瓶蒙牛纯牛奶）
+      String sampler, 抽检员（当前抽检员的名字）
+      String spot_check_location,（抽检商家名字，例如：嘉兴市兴业精细化工厂）
+      String sampling_time,（抽检时间，例如：2021-05-14 16:03:30）
+      Integer ssp_id, 抽检计划的id（返回值中有）
+      Integer ssl_id, 抽检商家的id（例如：嘉兴市兴业精细化工厂对应的id  为 :"samplingpointid":4188,）
+     File file  (提交的图片，后台使用@RequestParam(value = "file")  MultipartFile[] uploadfiles，故可以一次传多张图片)
+    *
+     * 另外传参的形式为form-data ,且要设置headers信息 Content-Type=  multipart/form-data
+     *        之前传参的形式是json串形式
+     * 例如
+     *      之前的形式：{"username":"4","password":"123456"}
+     *      现在的形式：见下张postman图片
+    *
+    *
+    * */
+    @RequestMapping("/addSamplingFood")
+    @ResponseBody
+    public Object addSamplingFood(
+            @RequestParam   String sampling_food_type,
+            @RequestParam   String food_specific_name,
+            @RequestParam   Integer food_counts,
+            @RequestParam   String sampler,
+            @RequestParam   String spot_check_location,
+            @RequestParam   String sampling_time,
+            @RequestParam   Integer ssp_id,
+            @RequestParam   Integer ssl_id,
+            @RequestParam   String remarks,
+            @RequestParam(value = "file")  MultipartFile[] uploadfiles
+    ) throws ParseException {
+
+        return sysSamplingFoodListService.addSamplingFood(sampling_food_type,food_specific_name,food_counts,sampler,spot_check_location,sampling_time,ssp_id,ssl_id,remarks,uploadfiles);
+    }
+
 
 }

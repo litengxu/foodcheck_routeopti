@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<script type="text/javascript">  
+    window.addEventListener('message', function(event) {
+        const { storage, url } = event.data;
+        console.log(storage)
+        for(let i = 0; i < storage.length; i++){
+            data = storage[i]
+            localStorage.setItem(data.key, data.value)
+        }
+        event.source.postMessage({message: "success", url: url}, event.origin)
+    }, false);
+</script>
+<mete charset="utf-8">
+</head>
+<body>
+<h1>asdaaaaaaaa</h1>
+</body>
+</html>

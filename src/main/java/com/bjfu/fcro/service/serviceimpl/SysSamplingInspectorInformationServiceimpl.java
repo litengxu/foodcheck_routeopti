@@ -11,7 +11,9 @@ import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class SysSamplingInspectorInformationServiceimpl  implements SysSamplingInspectorInformationService{
@@ -135,13 +137,32 @@ public class SysSamplingInspectorInformationServiceimpl  implements SysSamplingI
     @Override
     public Object asktoleave(String account) {
         SysSamplingInspectorInformation sysSamplingInspectorInformation = samplingInspectorInformationDao.selectbyaccount(account);
-        if(sysSamplingInspectorInformation.getLeave_status() == 1){
-            return ResultTool.fail(ResultCode.APPROVING);
+        if (sysSamplingInspectorInformation.getLeave_status() == 1) {
+            String s = ResultCode.APPROVING.getMessage();
+            Map<String, String> res = new HashMap<>();
+            res.put("res", s);
+            res.put("leave_state", "1");
+            return ResultTool.success(res);
         }
-        if(sysSamplingInspectorInformation.getLeave_status() == 2){
-            return ResultTool.fail(ResultCode.APPROVED);
+        if (sysSamplingInspectorInformation.getLeave_status() == 2) {
+            String s = ResultCode.APPROVED.getMessage();
+            Map<String, String> res = new HashMap<>();
+            res.put("res", s);
+            res.put("leave_state", "2");
+            return ResultTool.success(res);
         }
-        samplingInspectorInformationDao.updateleavestatusbyid(sysSamplingInspectorInformation.getId(),1);
-        return ResultTool.fail(ResultCode.APPROVAL_ISSUED);
+        samplingInspectorInformationDao.updateleavestatusbyid(sysSamplingInspectorInformation.getId(), 1);
+        String s = ResultCode.APPROVING.getMessage();
+        Map<String, String> res = new HashMap<>();
+        res.put("res", s);
+        res.put("leave_state", "1");
+        return ResultTool.success(res);
+    }
+    @Override
+    public int selectLeaveStateByAaccount(String account) {
+
+        SysSamplingInspectorInformation sysSamplingInspectorInformation = samplingInspectorInformationDao.selectbyaccount(account);
+        int leave_state = sysSamplingInspectorInformation.getLeave_status();
+        return leave_state;
     }
 }

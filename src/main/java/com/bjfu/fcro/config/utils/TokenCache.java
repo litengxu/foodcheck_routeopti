@@ -19,7 +19,10 @@ public class TokenCache {
 
         cache.put(TOKEN_KEY+username,token);
     }
-
+//    删
+    public static void deletetoken(String username){
+        cache.asMap().remove(TOKEN_KEY+username);
+    }
     /**
      * 取
      * @return

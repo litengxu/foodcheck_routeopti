@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class OfficeTool {
     protected static final Logger logger = LoggerFactory.getLogger(OfficeTool.class);
@@ -177,7 +178,7 @@ public class OfficeTool {
      * @param path 保存的文件夹  	路径格式：\\AAA\\BBB
      * @return
      */
-    public static String uploadAndReturnPath(MultipartFile file , String path , String fileName){
+    public static String uploadAndReturnPath(MultipartFile file , String path , String fileName,boolean img){
         //1.上传文件，并且获取到文件的保存路径
         String filePath = "";
         try {
@@ -186,11 +187,30 @@ public class OfficeTool {
                 pathRoot = new File("");
             }
             /**由于会修改classes文件，项目会重新启动    所以下面的注释需要等到利用jar包部署服务器后使用*/
-//            linux 使用 /
-            String saveFile = pathRoot.getAbsolutePath().replace("%20"," ").replace('/', '/')+"/files"+"/"+path;
+            String osName = System.getProperty("os.name");
+            String saveFile = null;
 
-//            window使用 \
-//            String saveFile = pathRoot.getAbsolutePath().replace("%20"," ").replace('/', '\\')+"\\files"+"\\"+path;
+            if (Pattern.matches("Linux.*", osName)) {
+                if(img == false){
+                    //            linux 使用 /
+                  saveFile = pathRoot.getAbsolutePath().replace("%20"," ").replace('/', '/')+"/files"+"/"+path;
+
+                }else{
+                    //            linux 使用 /
+                  saveFile = pathRoot.getAbsolutePath().replace("%20"," ").replace('/', '/')+"/files/images"+"/"+path;
+                }
+            } else if (Pattern.matches("Windows.*", osName)) {
+                if(img == false){
+                    //            window使用 \
+//                  saveFile = pathRoot.getAbsolutePath().replace("%20"," ").replace('/', '\\')+"\\files"+"\\"+path;
+                    saveFile = pathRoot.getAbsolutePath().replace("%20"," ").substring(0,pathRoot.getAbsolutePath().replace("%20"," ").length()-15).replace('/', '\\')+"\\files"+"\\"+path;
+
+                }else{
+                    //            window使用 \
+//                saveFile = pathRoot.getAbsolutePath().replace("%20"," ").replace('/', '\\')+"\\files\\images"+"\\"+path;
+                    saveFile = pathRoot.getAbsolutePath().replace("%20"," ").substring(0,pathRoot.getAbsolutePath().replace("%20"," ").length()-15).replace('/', '\\')+"\\files\\images"+"\\"+path;
+                }
+            }
 //            windows下使用下面这个
 //            String saveFile = pathRoot.getAbsolutePath().replace("%20"," ").substring(0,pathRoot.getAbsolutePath().replace("%20"," ").length()-15).replace('/', '\\')+"\\files"+"\\"+path;
             File f = new File(saveFile);
@@ -201,12 +221,17 @@ public class OfficeTool {
             writer.write(file.getBytes());
             writer.flush();
             writer.close();
-
             //文件路径
-//            windows下使用
-//            filePath = saveFile + "\\" + fileName;
-//            linux下使用
-            filePath = saveFile + "/" + fileName;
+            if (Pattern.matches("Linux.*", osName)) {
+                //            linux下使用
+                filePath = saveFile + "/" + fileName;
+            } else if (Pattern.matches("Windows.*", osName)) {
+                //            windows下使用
+                filePath = saveFile + "\\" + fileName;
+            }
+
+
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -217,15 +242,34 @@ public class OfficeTool {
     /**文件下载*/
     public static void download(String filename, HttpServletResponse res) throws IOException {
         File pathRoot = new File(ResourceUtils.getURL("classpath:").getPath());
-        /**由于会修改classes文件，项目会重新启动    所以下面的注释需要等到利用jar包部署服务器后使用*/
-//     String saveFile = pathRoot.getAbsolutePath().replace("%20"," ").replace('/', '\\')+"\\files"+"\\"+template;
-        String saveFile = pathRoot.getAbsolutePath().replace("%20"," ").substring(0,pathRoot.getAbsolutePath().replace("%20"," ").length()-15).replace('/', '\\')+"\\files"+"\\"+"template";
-        // 发送给客户端的数据
+        if(!pathRoot.exists()) {
+            pathRoot = new File("");
+        }
+        String osName = System.getProperty("os.name");
+        String saveFile = null;
         OutputStream outputStream = res.getOutputStream();
         byte[] buff = new byte[1024];
         BufferedInputStream bis = null;
+        /*
+        * window 下
+        *       pathRoot E:\ltx\foodcheck_routeopti  可以用于存文件
+        *       但是根据file取文件，需要用到 /,所以要把 \ 替换为 /
+        * Linux 下
+        *        pathRoot不存在 所以要pathRoot = new File("");获取新的pathRoot
+        *        获取到为/usr/software/mysoft/files/images/
+        *   */
+        if (Pattern.matches("Linux.*", osName)) {
+            saveFile = pathRoot.getAbsolutePath().replace("%20"," ").replace('/', '/')+"/files"+"/"+"template";
+            bis = new BufferedInputStream(new FileInputStream(new File(saveFile+"/" + filename)));
+        } else if (Pattern.matches("Windows.*", osName)) {
+            saveFile = pathRoot.getAbsolutePath().replace("%20"," ").substring(0,pathRoot.getAbsolutePath().replace("%20"," ").length()-15).replace('/', '\\')+"\\files"+"\\"+"template";
+            bis = new BufferedInputStream(new FileInputStream(new File(saveFile+"\\" + filename)));
+        }
+        /**由于会修改classes文件，项目会重新启动    所以下面的注释需要等到利用jar包部署服务器后使用*/
+//     String saveFile = pathRoot.getAbsolutePath().replace("%20"," ").replace('/', '\\')+"\\files"+"\\"+template;
+        // 发送给客户端的数据
+
         // 读取filename
-        bis = new BufferedInputStream(new FileInputStream(new File(saveFile+"\\" + filename)));
         int i = bis.read(buff);
         while (i != -1) {
             outputStream.write(buff, 0, buff.length);

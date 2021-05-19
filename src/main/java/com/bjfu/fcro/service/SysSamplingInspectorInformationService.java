@@ -70,4 +70,6 @@ public interface SysSamplingInspectorInformationService {
 
     Object asktoleave(String account);
 
+    int selectLeaveStateByAaccount(String account);
+
 }
