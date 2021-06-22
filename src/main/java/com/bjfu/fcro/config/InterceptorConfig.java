@@ -7,7 +7,10 @@ import org.springframework.web.servlet.config.annotation.*;
 
 import java.io.File;
 import java.util.regex.Pattern;
-
+/**
+ * 解决图片访问问题  拦截  /images/** 的接口请求 替换为 file:/saveFile/** 的请求 才能拿到本地的文件
+ *
+ * */
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
 

@@ -202,6 +202,7 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     /**4. 得到一个各个坐标点间的距离矩阵 dist[][]（不利用百度api，只利用原有的经纬度）*/
 
     /*从map中取出参与抽检的抽检点，存入新的List中*/
+    /*samplingPoints 第一位为初始点*/
     List<Temp_SamplePlanInfoTable> samplingPoints = new ArrayList<>();
     /*先加入出发点到抽检计划中*/
     Temp_SamplePlanInfoTable start = new Temp_SamplePlanInfoTable(0,"初始点","未完成",starting_point,Double.parseDouble(coordinate[0]),Double.parseDouble(coordinate[1]),null);
@@ -212,18 +213,38 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
             samplingPoints.add(entry.getValue().get(i));
         }
     }
+//
         System.out.println(samplingPoints.toString());
     if(selectedsamplingaccountid.length != 1 && samplingPoints.size() <= selectedsamplingaccountid.length+2 ){
         return ResultTool.fail(ResultCode.TOO_MANY_SAMPLING_ACCOUNTS);
     }
     double [][]dists = getdists(samplingPoints);
+        for (int i = 0; i < dists.length; i++) {
+            for (int j = 0; j < dists[i].length; j++)
+                System.out.print("" + dists[i][j] + ", ");
+            System.out.println();
+        }
     /**     5. 将结果分为selectedsamplingaccountid.length份，每一份交给一个账号抽检（使用分组算法进行分组，保证分组的总的时间花费最少)*/
-    int [][]groups = Grouping.grouping(dists,selectedsamplingaccountid.length,exitThreshold);
+//    5.1 使用groups进行分组
+//    int [][]groups = Grouping.grouping(dists,selectedsamplingaccountid.length,exitThreshold);
+        /**
+         * 5.2 使用K-means 进行分组(要控制各个分组的数量？？？  )
+         *  1. 生成坐标构成的二维数据结构
+         * 2. 利用k_means 分组，输出分组的索引（0是初始点，所以索引统一+1）
+         *
+         * */
+     ArrayList<double[]> dataSet = getdata(samplingPoints);
+        for (int i = 0; i < dataSet.size() ; i++) {
+            System.out.println(dataSet.get(i));
+        }
+     int [][]groups = Grouping.grouping_kmeans(dataSet,selectedsamplingaccountid.length);
     for (int i = 0; i < groups.length; i++) {
             for (int j = 0; j < groups[i].length; j++)
                 System.out.print("" + groups[i][j] + ", ");
             System.out.println();
     }
+
+
     /** 6. 使用算法排序各个点之间的顺序，linitial_position排在第一个和最后一个*/
     /*dists距离矩阵目前是使用直接计算经纬度的距离，后期可以改成百度地图api求取实际距离*/
     groups = DoSort.sort(groups,dists);
@@ -494,12 +515,25 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
             for (int j = 0; j < len ; j++) {
                 double tolng = samplingPoints.get(j).getLng();
                 double tolat = samplingPoints.get(j).getLat();
-
                 dists[i][j] = CoordinateToDistance.coordinateToDistance(fromlng,fromlat,tolng,tolat);
             }
         }
         return dists;
     }
+    /**
+     * 生成坐标的数组
+    * */
+    public static  ArrayList<double[]> getdata(List<Temp_SamplePlanInfoTable> samplingPoints){
+        int len = samplingPoints.size();
+        ArrayList<double[]> data = new ArrayList<>();
+        for (int i = 1; i < len; i++) {
+            double lng = samplingPoints.get(i).getLng();
+            double lat = samplingPoints.get(i).getLat();
+            data.add(new double[]{lng,lat});
+        }
+        return data;
+    }
+
     /**拼接顯示給前台的字符串*/        /**
      * 第i组：
      *  抽检账号：

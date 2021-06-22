@@ -1,5 +1,7 @@
 package com.bjfu.fcro.algorithm;
 
+import java.util.ArrayList;
+
 /**
  * 这个类的主旨是把若干个任务分成大致相等的几份，使得每一份由一个或一队抽检员完成。
  * 目标是所有抽检员的费用消耗之和最小。
@@ -8,7 +10,27 @@ public class Grouping {
 	public static java.util.Random rand = new java.util.Random(47);
 
 	public static void main(String[] args) {
-		testGrouping();
+//		testGrouping();
+		ArrayList<double[]> dataSet=new ArrayList<double[]>();
+		dataSet.add(new double[]{1,2});
+		dataSet.add(new double[]{3,3});
+		dataSet.add(new double[]{3,4});
+		dataSet.add(new double[]{5,6});
+		dataSet.add(new double[]{8,9});
+		dataSet.add(new double[]{4,5});
+		dataSet.add(new double[]{6,4});
+		dataSet.add(new double[]{3,9});
+		dataSet.add(new double[]{5,9});
+		dataSet.add(new double[]{4,2});
+		dataSet.add(new double[]{1,9});
+		dataSet.add(new double[]{7,8});
+		int [][]groups = grouping_kmeans(dataSet,10);
+		for (int i = 0; i < groups.length; i++) {
+			for (int j = 0; j < groups[i].length; j++)
+				System.out.print("" + groups[i][j] + ", ");
+			System.out.println();
+		}
+
 	}
 
 	public static void testGrouping() {
@@ -239,4 +261,55 @@ public class Grouping {
 			java.util.Arrays.sort(groups[i]);
 		return groups;
 	}
+
+	/**
+	 * 使用 kmeans 进行分组
+	* */
+
+	public static int[][] grouping_kmeans(ArrayList<double[]> dataSet, int groupAmount){
+
+		int total = dataSet.size();
+//		/ 如果分组数为1
+		if (groupAmount == 1) {
+			// 直接设置该组路线（按下标顺序填入）
+			int[][] groups = new int[1][total];
+			for (int i = 0 ; i < total; i++)
+				groups[0][i] = i+1;
+			return groups;
+		}
+		Kmeans k=new Kmeans(groupAmount);
+		//设置原始数据集
+		k.setDataSet(dataSet);
+		//执行算法
+		k.execute();
+		//得到聚类结果
+		ArrayList<ArrayList<double[]>> cluster=k.getCluster();
+		for(int i=0;i<cluster.size();i++)
+		{
+			k.printDataArray(cluster.get(i), "cluster["+i+"]");
+		}
+//		根据分组的结果，生成索引的数组
+		int[][] groups = new int[groupAmount][];
+		int  flag[] = new int[dataSet.size()];
+		for (int i = 0; i < cluster.size(); i++) {
+			groups[i] = new int[cluster.get(i).size()];
+
+			for (int j = 0; j < cluster.get(i).size() ; j++) {
+				double a = cluster.get(i).get(j)[0];
+				double b = cluster.get(i).get(j)[1];
+				for (int l = 0; l < dataSet.size(); l++) {
+					if(a == dataSet.get(l)[0] && b == dataSet.get(l)[1] && flag [l] == 0){
+						groups[i][j] = l+1;
+						flag[l] = 1;
+						break;
+					}
+				}
+			}
+		}
+
+		return groups;
+	}
+
+
 }
+
