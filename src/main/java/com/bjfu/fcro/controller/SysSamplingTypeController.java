@@ -1,6 +1,7 @@
 package com.bjfu.fcro.controller;
 
 
+import com.bjfu.fcro.common.enums.ResultCode;
 import com.bjfu.fcro.common.utils.ResultTool;
 import com.bjfu.fcro.entity.SysSamplingFoodType;
 import com.bjfu.fcro.service.SysCommonMethodService;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 @Controller
 @RequestMapping("/sstype")
@@ -55,8 +57,13 @@ public class SysSamplingTypeController {
     ){
         int pageindex_true = (pageIndex-1)*pageSize;
         int pagesize_true = pageSize;
-        List<SysSamplingFoodType> list = sysSamplingFoodTypeService.findsixteencategories(pagesize_true,pageindex_true);
-        return ResultTool.success(list);
+        String   adminaccount = sysCommonMethodService.findadminaccount();
+        List<SysSamplingFoodType> list = sysSamplingFoodTypeService.findsixteencategories(pagesize_true,pageindex_true,adminaccount);
+        int total = sysSamplingFoodTypeService.findcountsixteencategories(adminaccount);
+        Map<String,Object> res = new HashMap<>();
+        res.put("list",list);
+        res.put("total",total);
+        return ResultTool.success(res);
     }
     /**修改食品类型风险值*/
     @PostMapping("/updatesixteencategories")
@@ -68,6 +75,32 @@ public class SysSamplingTypeController {
 
         sysSamplingFoodTypeService.updatesixteencategories(id,value_at_risk);
         return ResultTool.success();
+    }
+
+    /**添加大类食品类型*/
+    @PostMapping("/addsixteencategories")
+    @ResponseBody
+    public  Object addsixteencategories(
+            @RequestParam String food_type,
+            @RequestParam String risk_value
+    ){
+        String  adminaccount = null;
+        double riskvalue;
+        try {
+             riskvalue = Double.parseDouble(risk_value);
+        }catch (Exception exception){
+            return ResultTool.fail(ResultCode.CONTAINS_UNKNOWN_CHARACTERSS);
+        }
+        if(riskvalue <=0 || riskvalue >=1 ) return ResultTool.fail(ResultCode.RISK_VALUE_JUDGE);
+        adminaccount = sysCommonMethodService.findadminaccount();
+        int adminid = sysUserService.selectbyaccount(adminaccount);
+        System.out.println(adminid);
+        /**
+         * 1.判断是否有重复的食品类型
+         *
+         * 2. 插入大类食品类型 风险值为risk_value
+         * */
+        return sysSamplingFoodTypeService.addsixteencategories(adminid,adminaccount,food_type,0);
     }
     /**查看自定义食品类型*/
     @PostMapping("/findcustomizecategories")
@@ -102,7 +135,7 @@ public class SysSamplingTypeController {
          *
          * 2. 插入新的自定义食品类型 风险值为0
          * */
-        return sysSamplingFoodTypeService.addcustomizecategories(adminid,food_type,0);
+        return sysSamplingFoodTypeService.addcustomizecategories(adminid,adminaccount,food_type,0);
     }
     /**删除自定义食品类型*/
     @PostMapping("/deletecustomizecategories")

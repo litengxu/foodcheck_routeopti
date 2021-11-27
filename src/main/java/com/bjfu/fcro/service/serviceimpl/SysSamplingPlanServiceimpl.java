@@ -1,6 +1,7 @@
 package com.bjfu.fcro.service.serviceimpl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bjfu.fcro.algorithm.DistInDifTime;
 import com.bjfu.fcro.algorithm.Divide;
 import com.bjfu.fcro.algorithm.DoSort;
 import com.bjfu.fcro.algorithm.Grouping;
@@ -8,10 +9,7 @@ import com.bjfu.fcro.common.enums.ResultCode;
 import com.bjfu.fcro.common.utils.CoordinateToDistance;
 import com.bjfu.fcro.common.utils.ResultTool;
 import com.bjfu.fcro.dao.*;
-import com.bjfu.fcro.entity.SysSamplingAccount;
-import com.bjfu.fcro.entity.SysSamplingInspectorInformation;
-import com.bjfu.fcro.entity.SysSamplingLibrary;
-import com.bjfu.fcro.entity.SysSamplingPlan;
+import com.bjfu.fcro.entity.*;
 import com.bjfu.fcro.entity.temporary.Temp_Group;
 import com.bjfu.fcro.entity.temporary.Temp_SampleFoodTable;
 import com.bjfu.fcro.entity.temporary.Temp_SamplePlanInfoTable;
@@ -33,7 +31,12 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     public static java.util.Random rand = new java.util.Random(47);
     /**设置分组时循环的阈值*/
     public static int exitThreshold = 500;
-
+    static String period[][] = {
+            {"8","10"},
+            {"10","17"},
+            {"17","20"},
+            {"20","8"}
+    };
     @Autowired
     private SamplingFoodTypeDao samplingFoodTypeDao;
     @Autowired
@@ -46,7 +49,8 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     private SamplingInspectorInformationDao samplingInspectorInformationDao;
     @Autowired
     private UserDao userDao;
-
+    @Autowired
+    private SpendBetweenInPointsDao spendBetweenInPointsDao;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     /**
      * selectedsamplingaccountid 抽检账号的id
@@ -218,12 +222,14 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     if(selectedsamplingaccountid.length != 1 && samplingPoints.size() <= selectedsamplingaccountid.length+2 ){
         return ResultTool.fail(ResultCode.TOO_MANY_SAMPLING_ACCOUNTS);
     }
+    /**得到固定欧式距离矩阵*/
     double [][]dists = getdists(samplingPoints);
         for (int i = 0; i < dists.length; i++) {
             for (int j = 0; j < dists[i].length; j++)
                 System.out.print("" + dists[i][j] + ", ");
             System.out.println();
         }
+
     /**     5. 将结果分为selectedsamplingaccountid.length份，每一份交给一个账号抽检（使用分组算法进行分组，保证分组的总的时间花费最少)*/
 //    5.1 使用groups进行分组
 //    int [][]groups = Grouping.grouping(dists,selectedsamplingaccountid.length,exitThreshold);
@@ -246,6 +252,9 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
 
 
     /** 6. 使用算法排序各个点之间的顺序，linitial_position排在第一个和最后一个*/
+    /**6.1 根据抽检点集合，得到抽检点集合，得到分时抽检集合*/
+    List<SysSpendBetweenInPoints> pointsList = spendBetweenInPointsDao.selectAll();
+    List<DistInDifTime> Dlist = getDlist(samplingPoints,pointsList);
     /*dists距离矩阵目前是使用直接计算经纬度的距离，后期可以改成百度地图api求取实际距离*/
     groups = DoSort.sort(groups,dists);
         for (int i = 0; i < groups.length; i++) {
@@ -291,7 +300,7 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
 //        创建新的任务实体
     Temp_Task temp_task = new Temp_Task(starting_point,coordinate[0],coordinate[1],sdf.format(new java.util.Date()),"未完成",samplingpointnames,addresses,Foodtypes,new ArrayList<>(),"未完成");
         System.out.println(temp_task.toString());
-//        根据抽检账号的id，获取账号名
+//        根据抽检账号的id，获取账号名n
     String []selectedsamplingaccount = new String[selectedsamplingaccountid.length];
     String []selectedsamplingaccountnames = new String[selectedsamplingaccountid.length];
     for (int i = 0; i < selectedsamplingaccountid.length; i++) {
@@ -368,7 +377,9 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     @Override
     public Object findplan(int val,int pagesize_true, int pageindex_true, String adminaccount) {
         int adminid = userDao.selectbyaccount(adminaccount);
-
+        List<SysUser> admin_list = userDao.selectAllAccountByAdminAccount(adminid);
+        System.out.println(adminid);
+        System.out.println(admin_list.size());
         List<SysSamplingPlan> samplingPlans = null;
         int total = 0;
         if(val == -1){
@@ -381,7 +392,27 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
             samplingPlans = samplingPlanDao.findcompletedplan(pagesize_true,pageindex_true,adminid);
             total = samplingPlanDao.findcompletedcount(adminid);
         }
-
+        for (int i = 0; i < admin_list.size(); i++) {
+            if(val == -1){
+                List<SysSamplingPlan> temp = samplingPlanDao.findplan(pagesize_true,pageindex_true,admin_list.get(i).getId());
+                for (int j = 0; j < temp.size(); j++) {
+                    samplingPlans.add(temp.get(j));
+                }
+                total += samplingPlanDao.findcount(admin_list.get(i).getId());
+            }else if (val == 0){
+                List<SysSamplingPlan> temp = samplingPlanDao.findundoplan(pagesize_true,pageindex_true,admin_list.get(i).getId());
+                for (int j = 0; j < temp.size(); j++) {
+                    samplingPlans.add(temp.get(j));
+                }
+                total += samplingPlanDao.findundocount(admin_list.get(i).getId());
+            }else  if(val == 1){
+                List<SysSamplingPlan> temp = samplingPlanDao.findcompletedplan(pagesize_true,pageindex_true,admin_list.get(i).getId());
+                for (int j = 0; j < temp.size(); j++) {
+                    samplingPlans.add(temp.get(j));
+                }
+                total += samplingPlanDao.findcompletedcount(admin_list.get(i).getId());
+            }
+        }
         Map<String,Object> res = new HashMap<>();
         res.put("list",samplingPlans);
         res.put("total",total);
@@ -497,6 +528,7 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
         if(samplingPlanDao.findCompletePlanByid(id) == 1){
             return ResultTool.fail(ResultCode.Not_ALLOWED_TO_DELETE);
         }else{
+          samplingPlanDao.deleteFoodlistByid(id);
           samplingPlanDao.deletePlanByid(id);
           return ResultTool.success();
         }
@@ -519,6 +551,40 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
             }
         }
         return dists;
+    }
+    /**6.1 根据抽检点集合，得到抽检点集合，得到分时抽检集合*/
+    public   List<DistInDifTime> getDlist(List<Temp_SamplePlanInfoTable> samplingPoints,List<SysSpendBetweenInPoints> pointsList){
+        List<DistInDifTime> Dlist = new ArrayList<>();
+        int len = samplingPoints.size();
+        for (int i = 0; i < period.length ; i++) {
+            String startTime = period[i][0];
+            String endTime = period[i][1];
+            double dists[][] = new double[len][len];
+            double times[][] = new double[len][len];
+            for (int j = 0; j < len; j++) {
+                int startSamplingPointid = samplingPoints.get(j).getSamplingpointid();
+                for (int k = j+1; k < len; k++) {
+                    if(j == k) continue;
+                    int endSamplingPointid = samplingPoints.get(k).getSamplingpointid();
+                    for (int l = 0; l < pointsList.size(); l++) {
+                        int startPointId = pointsList.get(l).getStart_point_id();
+                        int endPointId = pointsList.get(l).getEnd_point_id();
+                        // 如果开始结束时间段匹配，且开始结束的抽检点也匹配，则加入到矩阵中
+                        if((pointsList.get(l).getStart_time().equals(startTime) && pointsList.get(l).getEnd_time().equals(endTime))
+                                && (((startPointId == startSamplingPointid ) && (endPointId == endSamplingPointid)) || ((startPointId == endSamplingPointid)&&(endPointId == endSamplingPointid)))){
+                            dists[j][k] = Double.parseDouble(pointsList.get(l).getDriving_path());
+                            times[j][k] = Double.parseDouble(pointsList.get(l).getDriving_time());
+                            dists[k][j] = Double.parseDouble(pointsList.get(l).getDriving_path());
+                            times[k][j] = Double.parseDouble(pointsList.get(l).getDriving_time());
+                        }
+                    }
+                }
+            }
+            DistInDifTime distInDifTime = new DistInDifTime(dists,times,Double.parseDouble(startTime),Double.parseDouble(endTime));
+            Dlist.add(distInDifTime);
+        }
+
+        return Dlist;
     }
     /**
      * 生成坐标的数组
@@ -589,18 +655,21 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     }
 
     public static void main(String[] args) {
-        SysSamplingPlanServiceimpl s = new SysSamplingPlanServiceimpl();
-        String a = "{\"address\":[\"杭州电子科技大学\",\"上城区梵天寺路48号5幢\",\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"上城区梵天寺路48号5幢\"],\"createTimeStamp\":\"2021-03-23 16:34:43\",\"finishTimeStamp\":\"未完成\",\"foodtypes\":[\"食品\",\"豆制品22222\",\"蔬菜222222222\"],\"groupList\":[\n" +
-                "    {\"acceptTimeStamp\":\"2021-03-29 20:27:47\",\"account\":\"121543533\",\"accountid\":112,\"finishTimeStamp\":\"未完成\",\"id\":0,\"names\":\"王占-李腾旭\",\"samplePlanInfoTableList\":[{\"address\":\"上城区梵天寺路48号5幢\",\"lat\":30.223564,\"lng\":120.17427,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"蔬菜222222222\"}],\"samplingpoint\":\"12\",\"samplingpointid\":4130,\"state\":\"完成\"},{\"address\":\"上城区梵天寺路48号5幢\",\"lat\":30.223583,\"lng\":120.17425,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"食品\"},{\"count\":1,\"foodtype\":\"豆制品22222\"}],\"samplingpoint\":\"杭州天一堂梨膏糖厂\",\"samplingpointid\":4126,\"state\":\"未完成\"}],\"samplingPointIds\":[4130,4126],\"samplingPointIndex\":[4,1],\"samplingPointsNames\":[\"12\",\"杭州天一堂梨膏糖厂\"],\"state\":false},\n" +
-                "    {\"acceptTimeStamp\":\"未接受\",\"account\":\"1\",\"accountid\":113,\"finishTimeStamp\":\"未完成\",\"id\":1,\"names\":\"李武-陈可\",\"samplePlanInfoTableList\":[{\"address\":\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"lat\":30.253082,\"lng\":120.215515,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"豆制品22222\"}],\"samplingpoint\":\"杭州海曼珐酷酒业有限公司2\",\"samplingpointid\":4127,\"state\":\"未完成\"},{\"address\":\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"lat\":30.32432,\"lng\":120.20212,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"豆制品22222\"},{\"count\":1,\"foodtype\":\"蔬菜222222222\"}],\"samplingpoint\":\"杭州海曼珐酷酒业有限公司\",\"samplingpointid\":4129,\"state\":\"未完成\"}],\"samplingPointIds\":[4127,4129],\"samplingPointIndex\":[2,3],\"samplingPointsNames\":[\"杭州海曼珐酷酒业有限公司2\",\"杭州海曼珐酷酒业有限公司\"],\"state\":false}],\n" +
-                "    \"samplingnames\":[\"初始点\",\"杭州天一堂梨膏糖厂\",\"杭州海曼珐酷酒业有限公司2\",\"杭州海曼珐酷酒业有限公司\",\"12\"],\"startPoint\":\"杭州电子科技大学\",\"startPoint_lat\":\"30.30768\",\"startPoint_lng\":\"120.386024\",\"state\":\"true\"}";
-        String b = "{\"address\":[\"杭州电子科技大学\",\"上城区梵天寺路48号5幢\",\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"上城区梵天寺路48号5幢\"],\"createTimeStamp\":\"2021-03-23 16:34:43\",\"finishTimeStamp\":\"未完成\",\"foodtypes\":[\"食品\",\"豆制品22222\",\"蔬菜222222222\"],\"groupList\":[\n" +
-                "    {\"acceptTimeStamp\":\"2021-03-29 20:27:47\",\"account\":\"121543533\",\"accountid\":112,\"finishTimeStamp\":\"未完成\",\"id\":0,\"names\":\"王占-李腾旭\",\"samplePlanInfoTableList\":[{\"address\":\"上城区梵天寺路48号5幢\",\"lat\":30.223564,\"lng\":120.17427,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"蔬菜222222222\"}],\"samplingpoint\":\"12\",\"samplingpointid\":4130,\"state\":\"未完成\"},{\"address\":\"上城区梵天寺路48号5幢\",\"lat\":30.223583,\"lng\":120.17425,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"食品\"},{\"count\":1,\"foodtype\":\"豆制品22222\"}],\"samplingpoint\":\"杭州天一堂梨膏糖厂\",\"samplingpointid\":4126,\"state\":\"未完成\"}],\"samplingPointIds\":[4130,4126],\"samplingPointIndex\":[4,1],\"samplingPointsNames\":[\"12\",\"杭州天一堂梨膏糖厂\"],\"state\":false},\n" +
-                "    {\"acceptTimeStamp\":\"未接受\",\"account\":\"1\",\"accountid\":113,\"finishTimeStamp\":\"未完成\",\"id\":1,\"names\":\"李武-陈可\",\"samplePlanInfoTableList\":[{\"address\":\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"lat\":30.253082,\"lng\":120.215515,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"豆制品22222\"}],\"samplingpoint\":\"杭州海曼珐酷酒业有限公司2\",\"samplingpointid\":4127,\"state\":\"完成\"},{\"address\":\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"lat\":30.32432,\"lng\":120.20212,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"豆制品22222\"},{\"count\":1,\"foodtype\":\"蔬菜222222222\"}],\"samplingpoint\":\"杭州海曼珐酷酒业有限公司\",\"samplingpointid\":4129,\"state\":\"未完成\"}],\"samplingPointIds\":[4127,4129],\"samplingPointIndex\":[2,3],\"samplingPointsNames\":[\"杭州海曼珐酷酒业有限公司2\",\"杭州海曼珐酷酒业有限公司\"],\"state\":false}],\n" +
-                "    \"samplingnames\":[\"初始点\",\"杭州天一堂梨膏糖厂\",\"杭州海曼珐酷酒业有限公司2\",\"杭州海曼珐酷酒业有限公司\",\"12\"],\"startPoint\":\"杭州电子科技大学\",\"startPoint_lat\":\"30.30768\",\"startPoint_lng\":\"120.386024\",\"state\":\"true\"}";
-        Temp_Task old_temp_task = JSONObject.parseObject(a,Temp_Task.class);
-        Temp_Task temp_task = JSONObject.parseObject(b,Temp_Task.class);
-        temp_task = s.mergeTempTask(temp_task,old_temp_task);
-        System.out.println(temp_task.toString());
+//        SysSamplingPlanServiceimpl s = new SysSamplingPlanServiceimpl();
+//        String a = "{\"address\":[\"杭州电子科技大学\",\"上城区梵天寺路48号5幢\",\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"上城区梵天寺路48号5幢\"],\"createTimeStamp\":\"2021-03-23 16:34:43\",\"finishTimeStamp\":\"未完成\",\"foodtypes\":[\"食品\",\"豆制品22222\",\"蔬菜222222222\"],\"groupList\":[\n" +
+//                "    {\"acceptTimeStamp\":\"2021-03-29 20:27:47\",\"account\":\"121543533\",\"accountid\":112,\"finishTimeStamp\":\"未完成\",\"id\":0,\"names\":\"王占-李腾旭\",\"samplePlanInfoTableList\":[{\"address\":\"上城区梵天寺路48号5幢\",\"lat\":30.223564,\"lng\":120.17427,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"蔬菜222222222\"}],\"samplingpoint\":\"12\",\"samplingpointid\":4130,\"state\":\"完成\"},{\"address\":\"上城区梵天寺路48号5幢\",\"lat\":30.223583,\"lng\":120.17425,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"食品\"},{\"count\":1,\"foodtype\":\"豆制品22222\"}],\"samplingpoint\":\"杭州天一堂梨膏糖厂\",\"samplingpointid\":4126,\"state\":\"未完成\"}],\"samplingPointIds\":[4130,4126],\"samplingPointIndex\":[4,1],\"samplingPointsNames\":[\"12\",\"杭州天一堂梨膏糖厂\"],\"state\":false},\n" +
+//                "    {\"acceptTimeStamp\":\"未接受\",\"account\":\"1\",\"accountid\":113,\"finishTimeStamp\":\"未完成\",\"id\":1,\"names\":\"李武-陈可\",\"samplePlanInfoTableList\":[{\"address\":\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"lat\":30.253082,\"lng\":120.215515,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"豆制品22222\"}],\"samplingpoint\":\"杭州海曼珐酷酒业有限公司2\",\"samplingpointid\":4127,\"state\":\"未完成\"},{\"address\":\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"lat\":30.32432,\"lng\":120.20212,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"豆制品22222\"},{\"count\":1,\"foodtype\":\"蔬菜222222222\"}],\"samplingpoint\":\"杭州海曼珐酷酒业有限公司\",\"samplingpointid\":4129,\"state\":\"未完成\"}],\"samplingPointIds\":[4127,4129],\"samplingPointIndex\":[2,3],\"samplingPointsNames\":[\"杭州海曼珐酷酒业有限公司2\",\"杭州海曼珐酷酒业有限公司\"],\"state\":false}],\n" +
+//                "    \"samplingnames\":[\"初始点\",\"杭州天一堂梨膏糖厂\",\"杭州海曼珐酷酒业有限公司2\",\"杭州海曼珐酷酒业有限公司\",\"12\"],\"startPoint\":\"杭州电子科技大学\",\"startPoint_lat\":\"30.30768\",\"startPoint_lng\":\"120.386024\",\"state\":\"true\"}";
+//        String b = "{\"address\":[\"杭州电子科技大学\",\"上城区梵天寺路48号5幢\",\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"上城区梵天寺路48号5幢\"],\"createTimeStamp\":\"2021-03-23 16:34:43\",\"finishTimeStamp\":\"未完成\",\"foodtypes\":[\"食品\",\"豆制品22222\",\"蔬菜222222222\"],\"groupList\":[\n" +
+//                "    {\"acceptTimeStamp\":\"2021-03-29 20:27:47\",\"account\":\"121543533\",\"accountid\":112,\"finishTimeStamp\":\"未完成\",\"id\":0,\"names\":\"王占-李腾旭\",\"samplePlanInfoTableList\":[{\"address\":\"上城区梵天寺路48号5幢\",\"lat\":30.223564,\"lng\":120.17427,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"蔬菜222222222\"}],\"samplingpoint\":\"12\",\"samplingpointid\":4130,\"state\":\"未完成\"},{\"address\":\"上城区梵天寺路48号5幢\",\"lat\":30.223583,\"lng\":120.17425,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"食品\"},{\"count\":1,\"foodtype\":\"豆制品22222\"}],\"samplingpoint\":\"杭州天一堂梨膏糖厂\",\"samplingpointid\":4126,\"state\":\"未完成\"}],\"samplingPointIds\":[4130,4126],\"samplingPointIndex\":[4,1],\"samplingPointsNames\":[\"12\",\"杭州天一堂梨膏糖厂\"],\"state\":false},\n" +
+//                "    {\"acceptTimeStamp\":\"未接受\",\"account\":\"1\",\"accountid\":113,\"finishTimeStamp\":\"未完成\",\"id\":1,\"names\":\"李武-陈可\",\"samplePlanInfoTableList\":[{\"address\":\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"lat\":30.253082,\"lng\":120.215515,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"豆制品22222\"}],\"samplingpoint\":\"杭州海曼珐酷酒业有限公司2\",\"samplingpointid\":4127,\"state\":\"完成\"},{\"address\":\"下城区石桥路274号跨境园西狗项目块B2-19室\",\"lat\":30.32432,\"lng\":120.20212,\"sampleofoodlist\":[{\"count\":1,\"foodtype\":\"豆制品22222\"},{\"count\":1,\"foodtype\":\"蔬菜222222222\"}],\"samplingpoint\":\"杭州海曼珐酷酒业有限公司\",\"samplingpointid\":4129,\"state\":\"未完成\"}],\"samplingPointIds\":[4127,4129],\"samplingPointIndex\":[2,3],\"samplingPointsNames\":[\"杭州海曼珐酷酒业有限公司2\",\"杭州海曼珐酷酒业有限公司\"],\"state\":false}],\n" +
+//                "    \"samplingnames\":[\"初始点\",\"杭州天一堂梨膏糖厂\",\"杭州海曼珐酷酒业有限公司2\",\"杭州海曼珐酷酒业有限公司\",\"12\"],\"startPoint\":\"杭州电子科技大学\",\"startPoint_lat\":\"30.30768\",\"startPoint_lng\":\"120.386024\",\"state\":\"true\"}";
+//        Temp_Task old_temp_task = JSONObject.parseObject(a,Temp_Task.class);
+//        Temp_Task temp_task = JSONObject.parseObject(b,Temp_Task.class);
+//        temp_task = s.mergeTempTask(temp_task,old_temp_task);
+//        System.out.println(temp_task.toString());
+
+
+
     }
 }

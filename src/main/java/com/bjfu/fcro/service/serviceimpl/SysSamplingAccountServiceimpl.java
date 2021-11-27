@@ -199,9 +199,10 @@ public class SysSamplingAccountServiceimpl implements SysSamplingAccountService,
     }
 
     @Override
-    public Object selectAllCanParticipatebyadminid(int adminid) {
+    public Object selectAllCanParticipatebyadminid(int adminid,String adminacount) {
         List<SysSamplingAccount>  listaccount = samplingAccountDao.selectAllCanParticipatebyadminid(adminid);
-        List<SysSamplingFoodType> listtype = samplingFoodTypeDao.findallbyadminid(adminid);
+        int superadminid = userDao.selectsuperadminidbyaccount(adminacount);
+        List<SysSamplingFoodType> listtype = samplingFoodTypeDao.findallbyadminid(adminid,superadminid);
         Map<String,Object> res = new HashMap<>();
         res.put("listaccount",listaccount);
         res.put("listtype",listtype);

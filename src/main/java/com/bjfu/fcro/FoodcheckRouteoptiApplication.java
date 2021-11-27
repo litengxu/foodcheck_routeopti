@@ -1,10 +1,13 @@
 package com.bjfu.fcro;
 
+import com.bjfu.fcro.config.threadpools.scheduletask.TaskThreadPoolConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
@@ -12,6 +15,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ServletComponentScan
 @EnableTransactionManagement
 @EnableAsync
+@EnableConfigurationProperties({TaskThreadPoolConfig.class} )
+//@EnableScheduling
 public class FoodcheckRouteoptiApplication {
 
 	public static void main(String[] args) {

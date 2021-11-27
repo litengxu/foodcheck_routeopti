@@ -49,7 +49,7 @@ public interface SysSamplingAccountService {
 
         /**查询所有可以参与抽检的账号*/
 
-        Object selectAllCanParticipatebyadminid(int adminid);
+        Object selectAllCanParticipatebyadminid(int adminid,String admincount);
 
         /**查找是否由该账号名和密码 的对应*/
         int selectaccountandpassword(String username, String password);

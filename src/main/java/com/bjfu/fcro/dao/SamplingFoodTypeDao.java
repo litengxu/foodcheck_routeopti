@@ -19,26 +19,30 @@ public interface SamplingFoodTypeDao {
     List<SysSamplingFoodType> findalltypebyadminid2(@Param("adminid")  int  adminid);
 
     /**根据管理员账号名查询此账号下所有的抽检类型*/
-    @Select("select * from sys_sampling_food_type where admin_id = #{adminid} or admin_id = 1")
-    List<SysSamplingFoodType> findallbyadminid(@Param("adminid")  int  adminid);
+    @Select("select * from sys_sampling_food_type where admin_id = #{adminid} or admin_id = #{superadminid}")
+    List<SysSamplingFoodType> findallbyadminid(@Param("adminid")  int  adminid,@Param("superadminid")  int  superadminid);
 
 
     /**根据管理员账号名查询此账号下所有的抽检类型*/
-    @Select("select type_name from sys_sampling_food_type where admin_id =( SELECT id from sys_user WHERE account = #{adminaccount}) or admin_id = 1")
-    List<SysSamplingFoodType> findalltypebyadminid(@Param("adminaccount")  String adminaccount);
+    @Select("select type_name from sys_sampling_food_type where admin_id =( SELECT id from sys_user WHERE account = #{adminaccount}) or admin_id = #{adminid}")
+    List<SysSamplingFoodType> findalltypebyadminid(@Param("adminaccount")  String adminaccount,@Param("adminid")  int adminid);
 
-    /**查找十六大类食品id   adminid = 1 id*/
-    @Select("select id from sys_sampling_food_type where admin_id = 1 ")
+    /**查找十六大类食品id   adminid =  id*/
+    @Select("select id from sys_sampling_food_type where admin_id = #{adminid} ")
     List<SysSamplingFoodType> findallidbyadminid(@Param("adminid")  int adminid);
 
     /**根据管理员账号和食品类型查询该类型的id*/
-    @Select("select id from sys_sampling_food_type where type_name = #{typename} and (admin_id =( SELECT id from sys_user WHERE account = #{adminaccount}) or admin_id = 1)")
-    int selectidbytypenameandadminaccount(@Param("typename") String typename,@Param("adminaccount") String adminaccount);
+    @Select("select id from sys_sampling_food_type where type_name = #{typename} and (admin_id =( SELECT id from sys_user WHERE account = #{adminaccount}) or admin_id = #{superadminid})")
+    int selectidbytypenameandadminaccount(@Param("typename") String typename,@Param("adminaccount") String adminaccount,@Param("superadminid") int superadminid);
 
-    /**查找十六大类食品类型   adminid = 1*/
-    @Select("select * from sys_sampling_food_type where id>=(select id from  sys_sampling_food_type where admin_id = 1  ORDER BY id LIMIT #{pageIndex}, 1) and admin_id = 1 " +
+    /**查找大类食品类型   adminid = adminid*/
+    @Select("select * from sys_sampling_food_type where id>=(select id from  sys_sampling_food_type where admin_id = #{adminid}  ORDER BY id LIMIT #{pageIndex}, 1) and admin_id = #{adminid} " +
             " ORDER BY id LIMIT #{pagesize}")
-    List<SysSamplingFoodType> findsixteencategories(@Param("pagesize")  int pagesize_true,@Param("pageIndex") int pageindex_true);
+    List<SysSamplingFoodType> findsixteencategories(@Param("pagesize")  int pagesize_true,@Param("pageIndex") int pageindex_true,@Param("adminid") int adminid);
+
+    /**查找大类食品类型   adminid = adminid*/
+    @Select("select count(id) from sys_sampling_food_type where admin_id = #{adminid}")
+    int findcountsixteencategories(@Param("adminid") int adminid);
 
     /**查找自定义食品类型   adminid = admin_id*/
     @Select("select * from sys_sampling_food_type where id>=(select id from  sys_sampling_food_type where admin_id =( SELECT id from sys_user WHERE account = #{adminaccount})  ORDER BY id LIMIT #{pageIndex}, 1) and  admin_id =( SELECT id from sys_user WHERE account = #{adminaccount}) " +
@@ -51,7 +55,7 @@ public interface SamplingFoodTypeDao {
 
 
     /**返回某个自定义食品类型的数量*/
-    @Select("select count(id) from sys_sampling_food_type where (admin_id = #{adminid} or admin_id = 1) and type_name = #{food_type}")
+    @Select("select count(id) from sys_sampling_food_type where admin_id = #{adminid}  and type_name = #{food_type}")
     int findcountcustomizecategorie(@Param("adminid") int adminid,@Param("food_type") String food_type);
 
     /**插入新的自定义抽检类型*/

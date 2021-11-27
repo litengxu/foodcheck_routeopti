@@ -1,7 +1,10 @@
 package com.bjfu.fcro.service;
 
 
+import com.bjfu.fcro.algorithm.DistInDifTime;
 import com.bjfu.fcro.entity.SysSamplingPlan;
+import com.bjfu.fcro.entity.SysSpendBetweenInPoints;
+import com.bjfu.fcro.entity.temporary.Temp_SamplePlanInfoTable;
 import com.bjfu.fcro.entity.temporary.Temp_Task;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +29,7 @@ public interface SysSamplingPlanService {
     ) throws Exception;
 
     Object deleteplan(int id);
+    public List<DistInDifTime> getDlist(List<Temp_SamplePlanInfoTable> samplingPoints, List<SysSpendBetweenInPoints> pointsList);
 
 
 }

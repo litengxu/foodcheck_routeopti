@@ -11,9 +11,9 @@ spring:
   jackson:
     time-zone: GMT+8
   datasource:
-    url: jdbc:mysql://localhost:3307/foodcheck_routeopti?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    url: jdbc:mysql://localhost:3306/foodcheck_routeopti?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
-    password: root
+    password: 123456
     druid:
       test-on-borrow: true
       test-while-idle: true
@@ -52,7 +52,14 @@ logging:
     console: "%d %-5level %logger : %msg%n"
     file: "%d %-5level [%thread] %logger : %msg%n"
 
-
+#定时任务线程池配置参数
+task:
+  pool:
+    corePoolSize: 10
+    maxPoolSize: 40
+    keepAliveSeconds: 300
+    queueCapacity: 50
+    threadNamePrefix: scheduletask
 
 
 

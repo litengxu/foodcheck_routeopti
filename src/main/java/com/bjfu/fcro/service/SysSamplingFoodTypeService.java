@@ -13,8 +13,10 @@ public interface SysSamplingFoodTypeService {
 
     List<SysSamplingFoodType> findalltypebyadminid(String adminaccount);
 
-    /**查找十六大类食品类型   adminid = 1*/
-    List<SysSamplingFoodType> findsixteencategories(int pagesize_true,int pageindex_true);
+    /**查找31大类食品类型   adminid = adminid*/
+    List<SysSamplingFoodType> findsixteencategories(int pagesize_true,int pageindex_true,String adminaccount);
+    /**查找31大类食品类型   adminid = adminid*/
+    int findcountsixteencategories(String adminaccount);
 
     /**查找自定义食品类型   adminid = admin_id*/
     List<SysSamplingFoodType> findcustomizecategories(int pagesize_true,int pageindex_true,String adminaccount);
@@ -31,8 +33,10 @@ public interface SysSamplingFoodTypeService {
 
     /**添加自定义食品类型*/
 
-    Object addcustomizecategories(int admin_id,String type_name,int value_at_risk);
+    Object addcustomizecategories(int admin_id,String adminaccount,String type_name,int value_at_risk);
     /**删除食品类型*/
     Object deletecustomizecategories(int id,int adminid);
+    /**添加大类食品类型*/
+    Object addsixteencategories(int admin_id,String adminaccount,String type_name,int value_at_risk);
 
 }

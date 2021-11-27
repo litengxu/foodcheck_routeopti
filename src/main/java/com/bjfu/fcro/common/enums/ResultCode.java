@@ -54,6 +54,7 @@ public enum ResultCode {
     APPROVING (2027,"正在审批"),
     APPROVED(2028,"审批通过"),
     APPROVAL_ISSUED(2029,"已发起审批"),
+    RISK_VALUE_JUDGE(2030,"食品风险值需要在0-1之间"),
     /* 业务错误 */
     NO_PERMISSION(3001, "没有权限");
 

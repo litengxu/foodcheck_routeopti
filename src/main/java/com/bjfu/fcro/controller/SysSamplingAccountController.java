@@ -182,7 +182,7 @@ public class SysSamplingAccountController {
     ) throws  Exception{
         String adminaccount = sysCommonMethodService.findadminaccount();
         int adminid = sysUserService.selectbyaccount(adminaccount);
-        return sysSamplingAccountService.selectAllCanParticipatebyadminid(adminid);
+        return sysSamplingAccountService.selectAllCanParticipatebyadminid(adminid,adminaccount);
     }
 
 }

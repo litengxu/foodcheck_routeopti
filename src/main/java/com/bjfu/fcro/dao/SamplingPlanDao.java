@@ -69,6 +69,9 @@ public interface SamplingPlanDao {
     int  findCompletePlanByid(
             @Param("id") int id);
     /**根据id删除计划*/
+    @Select("delete from sys_sampling_food_list where ssp_id = #{id}")
+    List<SysSamplingPlan> deleteFoodlistByid(
+            @Param("id") int id);
     @Select("delete from sys_sampling_plan where id = #{id}")
     List<SysSamplingPlan> deletePlanByid(
             @Param("id") int id);

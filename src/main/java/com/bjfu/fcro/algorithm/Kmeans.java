@@ -207,6 +207,7 @@ public class Kmeans {
                 }else{
 //                    如果该中心点已装满，则在距离矩阵中排除该点
                     distance[minLocation] = Double.MAX_VALUE;
+
                 }
             }
         }

@@ -112,10 +112,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //抽检员信息的管理，需要管理员权限
                 antMatchers("/siinformation/**").hasAnyAuthority("admin").
                 antMatchers("/ssaccount/**").hasAnyAuthority("admin").
+                antMatchers("/sslibrary/**").hasAnyAuthority("admin").
                 /*管理员和超级管理员都可以访问*/
                 antMatchers("/sepp/").hasAnyAuthority("admin","superadmin").
                 antMatchers("/samplingAccountHistory/").hasAnyAuthority("admin","superadmin").
-                antMatchers("/sslibrary/").hasAnyAuthority("admin","superadmin").
                 antMatchers("/ssplan/").hasAnyAuthority("admin","superadmin").
                 antMatchers("/sstype/").hasAnyAuthority("admin","superadmin").
                 antMatchers("/user/").hasAnyAuthority("admin","superadmin").

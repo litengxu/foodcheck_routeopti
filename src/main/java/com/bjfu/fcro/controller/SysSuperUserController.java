@@ -3,6 +3,7 @@ package com.bjfu.fcro.controller;
 import com.bjfu.fcro.common.enums.ResultCode;
 import com.bjfu.fcro.common.utils.ResultTool;
 import com.bjfu.fcro.entity.SysUser;
+import com.bjfu.fcro.service.SysCommonMethodService;
 import com.bjfu.fcro.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,14 +20,16 @@ public class SysSuperUserController {
 
     @Autowired
     private SysUserService sysUserService;
-
+    @Autowired
+    private SysCommonMethodService sysCommonMethodService;
 
     //（超级管理员）获取所有管理员账号的信息
     @GetMapping("/getallaccountmessage")
     @ResponseBody
     public Object getallcountmessage(){
         List<SysUser> list =  new ArrayList<>();
-        list = sysUserService.selectAllAccount();
+        String   adminaccount = sysCommonMethodService.findadminaccount();
+        list = sysUserService.selectAllAccount(adminaccount);
         return ResultTool.success(list);
     }
 
@@ -56,6 +59,7 @@ public class SysSuperUserController {
     @PostMapping("/addnewaccountmessage")
     @ResponseBody
     public Object addnewaccountmessage(
+            @RequestParam String supername,
             @RequestParam  String name,
             @RequestParam  String username,
             @RequestParam String password,
@@ -70,6 +74,7 @@ public class SysSuperUserController {
         if(count >=1){
             return ResultTool.fail(ResultCode.USER_ALREADY_EXISTS);
         }else{
+            Integer superid = sysUserService.selectbyaccount(supername);
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             password = passwordEncoder.encode(password);
             SysUser sysUser = new SysUser();
@@ -84,8 +89,8 @@ public class SysSuperUserController {
             sysUser.setAccount_not_locked(iflocked);
             sysUser.setUpdate_time(new Date());
             sysUser.setCreate_time(new Date());
-            sysUser.setCreate_user(1);
-            sysUser.setUpdate_user(1);
+            sysUser.setCreate_user(superid);
+            sysUser.setUpdate_user(superid);
             sysUserService.insertnewaccount(sysUser);
             return ResultTool.success();
         }

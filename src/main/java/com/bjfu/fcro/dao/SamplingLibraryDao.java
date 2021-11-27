@@ -89,4 +89,7 @@ public interface SamplingLibraryDao {
     /**根据抽检点名称查询id*/
     @Select("select id from sys_sampling_library where ssl_name = #{ssl_name} and admin_id = #{admin_id}")
     int selectidbysllname(@Param("ssl_name") String ssl_name,@Param("admin_id") int admin_id);
+
+    @Select("Select * from sys_sampling_library where id = #{id}")
+    SysSamplingLibrary selectByid(@Param("id") int id);
 }

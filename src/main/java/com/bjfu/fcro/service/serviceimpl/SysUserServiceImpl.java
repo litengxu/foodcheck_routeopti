@@ -75,8 +75,11 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public List<SysUser> selectAllAccount() {
-        return this.userDao.selectAllAccount();
+    public List<SysUser> selectAllAccount(String adminaccount) {
+
+        //根据超级管理员的账号名，查出来名下所有的管理员账号，并输出
+        Integer id = userDao.selectbyaccount(adminaccount);
+        return this.userDao.selectAllAccountByAdminAccount(id);
     }
 
     @Override

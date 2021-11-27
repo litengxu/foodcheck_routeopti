@@ -12,8 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -272,10 +274,51 @@ public class OfficeTool {
         // 读取filename
         int i = bis.read(buff);
         while (i != -1) {
+
             outputStream.write(buff, 0, buff.length);
             outputStream.flush();
             i = bis.read(buff);
         }
+    }
+
+    /**文件下载*/
+    public static void  download2( HttpServletResponse response,String filename) throws IOException {
+        // 下载本地文件
+        File pathRoot = new File(ResourceUtils.getURL("classpath:").getPath());
+        if(!pathRoot.exists()) {
+            pathRoot = new File("");
+        }
+        String osName = System.getProperty("os.name");
+        String saveFile = null;
+        String path = null;
+        if (Pattern.matches("Linux.*", osName)) {
+            saveFile = pathRoot.getAbsolutePath().replace("%20"," ").replace('/', '/')+"/files"+"/"+"template";
+            path = saveFile+"/" + filename;
+            //            bis = new BufferedInputStream(new FileInputStream(new File(saveFile+"/" + filename)));
+        } else if (Pattern.matches("Windows.*", osName)) {
+            saveFile = pathRoot.getAbsolutePath().replace("%20"," ").substring(0,pathRoot.getAbsolutePath().replace("%20"," ").length()-15).replace('/', '\\')+"\\files"+"\\"+"template";
+            path = saveFile+"\\" + filename;
+            //            bis = new BufferedInputStream(new FileInputStream(new File(saveFile+"\\" + filename)));
+        }
+//        InputStream inStream = new FileInputStream("F:\\Java\\foodcheck_routeopti\\files\\template\\templateexcel.xlsx");// 文件的存放路径
+        InputStream inStream = new FileInputStream(path);// 文件的存放路径
+
+        // 设置输出的格式
+        response.setContentType("application/octet-stream");
+        response.setCharacterEncoding("UTF-8");
+        response.setHeader("Access-Control-Expose-Headers","Content-Disposition");
+        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename,"utf-8"));
+        // 循环取出流中的数据
+        byte[] b = new byte[100];
+        int len;
+        try {
+            while ((len = inStream.read(b)) > 0)
+                response.getOutputStream().write(b, 0, len);
+            inStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("end");
     }
 
 }

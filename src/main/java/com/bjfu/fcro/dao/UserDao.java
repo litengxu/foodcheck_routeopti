@@ -45,6 +45,11 @@ public interface UserDao {
     @Select("select * from sys_user where id!=1")
     List<SysUser> selectAllAccount();
     /**
+    * 根据超级管理员用户名，查出所有的管理员员账号信息
+    * */
+    @Select("select * from sys_user where create_user = #{id}")
+    List<SysUser> selectAllAccountByAdminAccount(Integer id);
+    /**
      * 根据账号名查询用户信息
      *
      * @param
@@ -78,4 +83,7 @@ public interface UserDao {
 
     @Select("select city from sys_user where account =#{adminaccount}")
     String selectcity(@Param("adminaccount") String adminaccount);
+
+    @Select("select create_user from sys_user where account=#{adminaccount}")
+    int selectsuperadminidbyaccount(@Param("adminaccount") String adminaccount);
 }

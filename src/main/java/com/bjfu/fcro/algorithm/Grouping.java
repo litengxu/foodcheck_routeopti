@@ -11,20 +11,34 @@ public class Grouping {
 
 	public static void main(String[] args) {
 //		testGrouping();
+/*
+10*
+9 *	11 	8	9	  5
+8 *            12
+7 *
+6 * 		4
+5 *       6
+4 * 	3     7
+3 *     2
+2 * 1     10
+1 *
+0 * * * * * * * * * * * * *
+  0 1 2 3 4 5 6 7 8 9 10
+* */
 		ArrayList<double[]> dataSet=new ArrayList<double[]>();
-		dataSet.add(new double[]{1,2});
-		dataSet.add(new double[]{3,3});
-		dataSet.add(new double[]{3,4});
-		dataSet.add(new double[]{5,6});
-		dataSet.add(new double[]{8,9});
-		dataSet.add(new double[]{4,5});
-		dataSet.add(new double[]{6,4});
-		dataSet.add(new double[]{3,9});
-		dataSet.add(new double[]{5,9});
-		dataSet.add(new double[]{4,2});
-		dataSet.add(new double[]{1,9});
-		dataSet.add(new double[]{7,8});
-		int [][]groups = grouping_kmeans(dataSet,10);
+		dataSet.add(new double[]{1,2});//1
+		dataSet.add(new double[]{3,3});//2
+		dataSet.add(new double[]{3,4});//3
+		dataSet.add(new double[]{5,6});//4
+		dataSet.add(new double[]{8,9});//5
+		dataSet.add(new double[]{4,5});//6
+		dataSet.add(new double[]{6,4});//7
+		dataSet.add(new double[]{3,9});//8
+		dataSet.add(new double[]{5,9});//9
+		dataSet.add(new double[]{4,2});//10
+		dataSet.add(new double[]{1,9});//11
+		dataSet.add(new double[]{7,8});//12
+		int [][]groups = grouping_kmeans(dataSet,5);
 		for (int i = 0; i < groups.length; i++) {
 			for (int j = 0; j < groups[i].length; j++)
 				System.out.print("" + groups[i][j] + ", ");

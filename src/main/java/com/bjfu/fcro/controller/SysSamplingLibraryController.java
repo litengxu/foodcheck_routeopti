@@ -169,19 +169,25 @@ public class SysSamplingLibraryController {
     @RequestMapping(value = "/download")
     @ResponseBody
     public void download(
-
+            HttpServletResponse response
     ) throws IOException {
-        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletResponse response = requestAttributes.getResponse();
+        System.out.println("download");
+//        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+//        HttpServletResponse response = requestAttributes.getResponse();
         String filename = "templateexcel.xlsx";
-        // 设置信息给客户端不解析
-        String type = new MimetypesFileTypeMap().getContentType(filename);
-        // 设置contenttype，即告诉客户端所发送的数据属于什么类型
-        response.setHeader("Content-type",type);
-        // 设置编码
-        String bianma = new String(filename.getBytes("utf-8"), "iso-8859-1");
-        // 设置扩展头，当Content-Type 的类型为要下载的类型时 , 这个信息头会告诉浏览器这个文件的名字和类型。
-        response.setHeader("Content-Disposition", "attachment;filename=" + bianma);
-        OfficeTool.download(filename, response);
+//        // 设置信息给客户端不解析
+//        String type = new MimetypesFileTypeMap().getContentType(filename);
+//        // 设置contenttype，即告诉客户端所发送的数据属于什么类型
+//        response.setHeader("Content-type",type);
+//        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+//        response.setCharacterEncoding("UTF-8");
+//        // 设置编码
+//        String bianma = new String(filename.getBytes("utf-8"), "iso-8859-1");
+//        // 设置扩展头，当Content-Type 的类型为要下载的类型时 , 这个信息头会告诉浏览器这个文件的名字和类型。
+//        response.setHeader("Content-Disposition", "attachment;filename=" + java.net.URLEncoder.encode("测试.xls", "UTF-8"));
+//        System.out.println(filename);
+//        System.out.println(response);
+//        OfficeTool.download(filename, response);
+        OfficeTool.download2(response,filename);
     }
 }

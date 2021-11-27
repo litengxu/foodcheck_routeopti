@@ -7,9 +7,12 @@ import com.bjfu.fcro.common.utils.ResultTool;
 import com.bjfu.fcro.dao.ExcelProcessingProgressDao;
 import com.bjfu.fcro.dao.SamplingFoodTypeDao;
 import com.bjfu.fcro.dao.SamplingLibraryDao;
+import com.bjfu.fcro.dao.UserDao;
 import com.bjfu.fcro.entity.SysSamplingFoodType;
 import com.bjfu.fcro.entity.SysSamplingLibrary;
 import com.bjfu.fcro.service.SysSamplingLibraryService;
+import com.bjfu.fcro.service.SysSpendBetweenInPointsService;
+import lombok.Synchronized;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
@@ -40,6 +43,11 @@ public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService 
     private SamplingFoodTypeDao samplingFoodTypeDao;
     @Autowired
     private ExcelProcessingProgressDao excelProcessingProgressDao;
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private SysSpendBetweenInPointsService sysSpendBetweenInPointsService;
+
     @Override
     public List<SysSamplingLibrary> selectAll( int pagesize, int pageIndex) {
         return samplingLibraryDao.selectAll(pagesize,pageIndex);
@@ -121,7 +129,8 @@ public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService 
     public Map<Integer, Map<Integer, Object>> uploadbyexcel(String adminaccount,int admin_id,String []paths) {
         logger.info("开始处理excel");
         Map<Integer, Map<Integer,Object>> map = new HashMap<>();
-        List<SysSamplingFoodType> listtype = samplingFoodTypeDao.findallidbyadminid(admin_id);
+        int superadminid = userDao.selectsuperadminidbyaccount(adminaccount);
+        List<SysSamplingFoodType> listtype = samplingFoodTypeDao.findallidbyadminid(superadminid);
         int ids[] = new int[listtype.size()];
         for (int i=0;i<listtype.size();i++){
             ids[i] = listtype.get(i).getId();
@@ -204,8 +213,16 @@ public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService 
     }
     @Transactional( rollbackFor = {Exception.class})
     public boolean insertexcel(String ssl_name,String category,String address,int admin_id,String jurisdiction,String ids,String longitude,String latitude){
+       synchronized (this){
+           List<SysSamplingLibrary> oldList = samplingLibraryDao.selectallByAdminidnopage(admin_id);
+           samplingLibraryDao.insertallnewsamplinglibrary(ssl_name, category, address, admin_id, jurisdiction, ids,longitude,latitude);
+           int id = samplingLibraryDao.selectidbysllname(ssl_name,admin_id);
+           SysSamplingLibrary newPoint = samplingLibraryDao.selectByid(id);
+           sysSpendBetweenInPointsService.InsertNewPoints(oldList,newPoint,admin_id);
+           return true;
+       }
 
-        return samplingLibraryDao.insertallnewsamplinglibrary(ssl_name, category, address, admin_id, jurisdiction, ids,longitude,latitude);
+
     }
     @Override
     public boolean deletesamplinglibrarybyid(int id) {
@@ -222,14 +239,14 @@ public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService 
         }
         int []ids = new int[dislen+adislen];
         int index=0;
+        int superadminid = userDao.selectsuperadminidbyaccount(adminaccount);
         for(int i=0;i<dislen;i++ ){
-
-            ids[index++] = samplingFoodTypeDao.selectidbytypenameandadminaccount(distributenames[i],adminaccount);
+            ids[index++] = samplingFoodTypeDao.selectidbytypenameandadminaccount(distributenames[i],adminaccount,superadminid);
         }
         for(int i=0;i<adislen;i++){
 
 
-            ids[index++] = samplingFoodTypeDao.selectidbytypenameandadminaccount(againhavedistributenames[i],adminaccount);
+            ids[index++] = samplingFoodTypeDao.selectidbytypenameandadminaccount(againhavedistributenames[i],adminaccount,superadminid);
         }
         samplingLibraryDao.updateidsbyid(toids(ids),insaccountid);
         return true;
@@ -254,17 +271,42 @@ public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService 
 
     @Override
     @Transactional( rollbackFor = {Exception.class})
-    public Object insertallsamplinglibrary(String ssl_name, String category, String address, int admin_id, String jurisdiction, String[] selectedfoodtypes,String adminaccount) throws Exception {
+    public   Object  insertallsamplinglibrary(String ssl_name, String category, String address, int admin_id, String jurisdiction, String[] selectedfoodtypes,String adminaccount) throws Exception {
 
-        String str[] = BaiduApiTool.getCoordinate(address);
-        if(str == null){
-            return ResultTool.fail(ResultCode.IRREGULAR_ADDRESS);
+        /**需要加锁*/
+        synchronized(this){
+            List<SysSamplingLibrary> oldList = samplingLibraryDao.selectallByAdminidnopage(admin_id);
+            String str[] = BaiduApiTool.getCoordinate(address);
+            if(str == null){
+                return ResultTool.fail(ResultCode.IRREGULAR_ADDRESS);
+            }
+            String longitude = str[0];
+            String latitude  = str[1];
+            samplingLibraryDao.insertnewsamplinglibrary(ssl_name,category,address,admin_id,jurisdiction,longitude,latitude);
+            int id = samplingLibraryDao.selectidbysllname(ssl_name,admin_id);
+            this.savesamplingidstosslibrary(adminaccount,selectedfoodtypes,null,id);
+
+            /*插入新的数据到映射表*/
+            SysSamplingLibrary newPoint = samplingLibraryDao.selectByid(id);
+            sysSpendBetweenInPointsService.InsertNewPoints(oldList,newPoint,admin_id);
+            return ResultTool.success();
         }
-        String longitude = str[0];
-        String latitude  = str[1];
-        samplingLibraryDao.insertnewsamplinglibrary(ssl_name,category,address,admin_id,jurisdiction,longitude,latitude);
-        int id = samplingLibraryDao.selectidbysllname(ssl_name,admin_id);
-        this.savesamplingidstosslibrary(adminaccount,selectedfoodtypes,null,id);
-        return ResultTool.success();
+
+
     }
+
+    /**处理一些遗留的数据 记得关掉异步方法*/
+    public void dosome(){
+        int adminid = 2;
+        List<SysSamplingLibrary> oldList = samplingLibraryDao.selectallByAdminidnopage(adminid);
+        for (int i = 0; i < oldList.size(); i++) {
+            SysSamplingLibrary sysSamplingLibrary = oldList.get(i);
+            List<SysSamplingLibrary> temp = new ArrayList<>();
+            for (int j = i+1; j < oldList.size(); j++) {
+                temp.add(oldList.get(j));
+            }
+            sysSpendBetweenInPointsService.InsertNewPoints(temp,sysSamplingLibrary,adminid);
+        }
+    }
+
 }

@@ -1,7 +1,11 @@
 package com.bjfu.fcro.service;
 
 
+import com.bjfu.fcro.algorithm.DistInDifTime;
 import com.bjfu.fcro.entity.SysSamplingLibrary;
+import com.bjfu.fcro.entity.SysSpendBetweenInPoints;
+import com.bjfu.fcro.entity.temporary.Temp_SamplePlanInfoTable;
+import lombok.Synchronized;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,7 +49,7 @@ public interface SysSamplingLibraryService {
     int slelectcountbysslname(String ssl_name);
 
     /**保存新的抽检点数据到表中*/
-    Object insertallsamplinglibrary(
+     Object  insertallsamplinglibrary(
             String ssl_name,
              String category,
              String address,
@@ -54,4 +58,8 @@ public interface SysSamplingLibraryService {
             String selectedfoodtypes[],
             String  adminaccount
     ) throws  Exception;
-}
+
+    public void dosome();
+
+
+    }

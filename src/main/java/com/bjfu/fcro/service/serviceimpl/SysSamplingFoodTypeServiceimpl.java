@@ -7,8 +7,10 @@ import com.bjfu.fcro.dao.SamplingLibraryDao;
 import com.bjfu.fcro.dao.UserDao;
 import com.bjfu.fcro.entity.SysSamplingFoodType;
 import com.bjfu.fcro.entity.SysSamplingLibrary;
+import com.bjfu.fcro.entity.SysUser;
 import com.bjfu.fcro.service.SysSamplingFoodTypeService;
 import jdk.nashorn.internal.runtime.linker.LinkerCallSite;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,14 +35,21 @@ public class SysSamplingFoodTypeServiceimpl  implements SysSamplingFoodTypeServi
 
     @Override
     public List<SysSamplingFoodType> findalltypebyadminid(String adminaccount) {
-
-        List<SysSamplingFoodType> list = samplingFoodTypeDao.findalltypebyadminid(adminaccount);
+        int adminid = userDao.selectsuperadminidbyaccount(adminaccount);
+        List<SysSamplingFoodType> list = samplingFoodTypeDao.findalltypebyadminid(adminaccount,adminid);
         return list;
     }
 
     @Override
-    public List<SysSamplingFoodType> findsixteencategories(int pagesize_true,int pageindex_true) {
-        return samplingFoodTypeDao.findsixteencategories(pagesize_true,pageindex_true);
+    public List<SysSamplingFoodType> findsixteencategories(int pagesize_true,int pageindex_true,String adminaccount) {
+        int adminid = userDao.selectsuperadminidbyaccount(adminaccount);
+        return samplingFoodTypeDao.findsixteencategories(pagesize_true,pageindex_true,adminid);
+    }
+
+    @Override
+    public int findcountsixteencategories(String adminaccount) {
+        int adminid = userDao.selectsuperadminidbyaccount(adminaccount);
+        return samplingFoodTypeDao.findcountsixteencategories(adminid);
     }
 
     @Override
@@ -63,14 +72,17 @@ public class SysSamplingFoodTypeServiceimpl  implements SysSamplingFoodTypeServi
         return samplingFoodTypeDao.findcountcustomizecategorie(adminid,food_type);
     }
 
+
     @Override
     public boolean insertnewcustomizecategorie(int admin_id, String type_name, int value_at_risk) {
         return samplingFoodTypeDao.insertnewcustomizecategorie(admin_id,type_name,value_at_risk);
     }
 
     @Override
-    public Object addcustomizecategories(int admin_id, String type_name, int value_at_risk) {
-        if(findcountcustomizecategorie(admin_id,type_name) >= 1){
+    //todo 判断自定义类型和大类类型都不能有相同的
+    public Object addcustomizecategories(int admin_id,String adminaccount, String type_name, int value_at_risk) {
+        int superadminid = userDao.selectsuperadminidbyaccount(adminaccount);
+        if(findcountcustomizecategorie(admin_id,type_name) >= 1 || findcountcustomizecategorie(superadminid,type_name)>= 1){
             return ResultTool.fail(ResultCode.FOOD_TYPE_EXISTS);
         }
         if(insertnewcustomizecategorie(admin_id,type_name,value_at_risk)){
@@ -115,4 +127,27 @@ public class SysSamplingFoodTypeServiceimpl  implements SysSamplingFoodTypeServi
 
         return ResultTool.success();
     }
+
+    @Override
+    public Object addsixteencategories(int admin_id, String adminaccount,String type_name, int value_at_risk) {
+        //todo 判断自定义类型和大类类型都不能有相同的
+        if(findcountcustomizecategorie(admin_id,type_name) >= 1){
+            return ResultTool.fail(ResultCode.FOOD_TYPE_EXISTS);
+        }
+        int superadminid = userDao.selectsuperadminidbyaccount(adminaccount);
+        //判断超级管理员下的管理员是否包含新添加的食品类型
+        List<SysUser> sysUsers = userDao.selectAllAccountByAdminAccount(superadminid);
+        for (int i = 0; i < sysUsers.size(); i++) {
+            if(findcountcustomizecategorie(sysUsers.get(i).getId(),type_name)>=1){
+                return ResultTool.fail(ResultCode.FOOD_TYPE_EXISTS);
+            }
+        }
+        if(insertnewcustomizecategorie(admin_id,type_name,value_at_risk)){
+            return ResultTool.success();
+        }else{
+            return ResultTool.fail();
+        }
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package com.bjfu.fcro.algorithm;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @Program: foodcheck_routeopti
@@ -25,6 +26,21 @@ public class DoSort {
             int temp[] = Arrays.copyOf(groups[i],groups[i].length);
             for (int j = 1; j < path.length; j++) {
                 groups[i][j-1] = temp[path[j] - 1];
+            }
+        }
+        return groups;
+    }
+    public static int[][] sort2(int [][]groups, double [][]euddists, List<DistInDifTime> Dlist){
+        for(int i=0;i<groups.length;i++){
+            // 将出发点插入路线首位
+            int[] tempGroup = Grouping.addInit(groups[i]);
+
+            // 调用贪心算法得到最优路径
+//            int[] path = SSA.ssa2(euddists,tempGroup,Dlist).genes;
+            int[] path = SSA.ssa(euddists,tempGroup).genes;
+            //去掉出发点
+            for (int j = 1; j < path.length; j++) {
+                groups[i][j-1] = path[j];
             }
         }
         return groups;

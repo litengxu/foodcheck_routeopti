@@ -38,7 +38,7 @@ public interface SysUserService {
      int selectacountnum(String account);
 
      //获取所有账号的信息
-     List<SysUser> selectAllAccount();
+     List<SysUser> selectAllAccount(String adminaccount);
 
      //根据账户获取账号的信息
      SysUser selectByAccount(String account);

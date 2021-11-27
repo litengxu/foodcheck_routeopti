@@ -7,7 +7,7 @@ import com.bjfu.fcro.dao.SamplingInspectorInformationDao;
 import com.bjfu.fcro.dao.UserDao;
 import com.bjfu.fcro.entity.SysSamplingInspectorInformation;
 import com.bjfu.fcro.service.SysSamplingInspectorInformationService;
-import com.sun.org.apache.regexp.internal.RE;
+//import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
