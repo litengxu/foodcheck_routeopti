@@ -65,7 +65,6 @@ public class BaiduApiTool {
                 +","+origins.get("lng")+"&destinations="+destinations.get("lat")+","+destinations.get("lng")+
                 "&ak="+AK+"&tactics=12";
         String json = loadJSON(url);
-        System.out.println("return json:" + json);
         Double res[]  = new Double[2];
         if (json != null && !"".equals(json)) {
             JSONObject obj = JSONObject.fromObject(json);

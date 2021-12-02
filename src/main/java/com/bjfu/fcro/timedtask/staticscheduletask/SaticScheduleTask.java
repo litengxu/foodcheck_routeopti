@@ -67,7 +67,7 @@ public class SaticScheduleTask {
         int hash = 0;
         System.err.println("执行静态定时任务时间: " + LocalDateTime.now()+"线程名字："+Thread.currentThread().getName()+"hash:"+hash);
 
-        sysSpendBetweenInPointsService.scheduleTask(hash,"20","8");
+        sysSpendBetweenInPointsService.scheduleTask(hash,"20","24");
 
     }
     @Async("scheduleTaskAsyncPool")
@@ -76,7 +76,7 @@ public class SaticScheduleTask {
         int hash = 1;
         System.err.println("执行静态定时任务时间: " + LocalDateTime.now()+"线程名字："+Thread.currentThread().getName()+"hash:"+hash);
 
-        sysSpendBetweenInPointsService.scheduleTask(hash,"20","8");
+        sysSpendBetweenInPointsService.scheduleTask(hash,"20","24");
     }
     @Async("scheduleTaskAsyncPool")
     @Scheduled(cron = "0 0/59 20-23 * * MON-FRI")//周一到周五，20-23点每一小时触发一次
@@ -84,7 +84,7 @@ public class SaticScheduleTask {
         int hash = 2;
         System.err.println("执行静态定时任务时间: " + LocalDateTime.now()+"线程名字："+Thread.currentThread().getName()+"hash:"+hash);
 
-        sysSpendBetweenInPointsService.scheduleTask(hash,"20","8");
+        sysSpendBetweenInPointsService.scheduleTask(hash,"20","24");
     }
     @Async("scheduleTaskAsyncPool")
     @Scheduled(cron = "0 0/59 0-8 * * MON-FRI")//周一到周五，0-8点每一小时触发一次
@@ -92,7 +92,7 @@ public class SaticScheduleTask {
         int hash = 0;
         System.err.println("执行静态定时任务时间: " + LocalDateTime.now()+"线程名字："+Thread.currentThread().getName()+"hash:"+hash);
 
-        sysSpendBetweenInPointsService.scheduleTask(hash,"20","8");
+        sysSpendBetweenInPointsService.scheduleTask(hash,"0","8");
     }
     @Async("scheduleTaskAsyncPool")
     @Scheduled(cron = "0 0/59 0-8 * * MON-FRI")//周一到周五，0-8点每一小时触发一次
@@ -100,7 +100,7 @@ public class SaticScheduleTask {
         int hash = 1;
         System.err.println("执行静态定时任务时间: " + LocalDateTime.now()+"线程名字："+Thread.currentThread().getName()+"hash:"+hash);
 
-        sysSpendBetweenInPointsService.scheduleTask(hash,"20","8");
+        sysSpendBetweenInPointsService.scheduleTask(hash,"0","8");
     }
     @Async("scheduleTaskAsyncPool")
     @Scheduled(cron = "0 0/59 0-8 * * MON-FRI")//周一到周五，0-8点每一小时触发一次
@@ -108,7 +108,7 @@ public class SaticScheduleTask {
         int hash = 2;
         System.err.println("执行静态定时任务时间: " + LocalDateTime.now()+"线程名字："+Thread.currentThread().getName()+"hash:"+hash);
 
-        sysSpendBetweenInPointsService.scheduleTask(hash,"20","8");
+        sysSpendBetweenInPointsService.scheduleTask(hash,"0","8");
     }
 
 }

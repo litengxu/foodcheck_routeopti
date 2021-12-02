@@ -14,7 +14,7 @@ import java.util.List;
 public class PartitionSwap {
 
 	public static int[] partionswap(int[] initPath,double dists[][],int optcount,int k) {
-		int n = dists.length;//长度
+		int n = initPath.length;//长度
 	
 		int s = (n-1)/k;//分为k段,每段s.0点不参与
 		if(s<5) {
@@ -81,7 +81,7 @@ public class PartitionSwap {
 		return initPath;
 	}
 	public static int[] partionswap2(double curTime,int[] initPath, double dists[][], int optcount, int k, List<DistInDifTime> Dlist) {
-		int n = dists.length;//长度
+		int n = initPath.length;//长度
 
 		int s = (n-1)/k;//分为k段,每段s.0点不参与
 		if(s<5) {

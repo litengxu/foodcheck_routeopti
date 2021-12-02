@@ -1,10 +1,7 @@
 package com.bjfu.fcro.service.serviceimpl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.bjfu.fcro.algorithm.DistInDifTime;
-import com.bjfu.fcro.algorithm.Divide;
-import com.bjfu.fcro.algorithm.DoSort;
-import com.bjfu.fcro.algorithm.Grouping;
+import com.bjfu.fcro.algorithm.*;
 import com.bjfu.fcro.common.enums.ResultCode;
 import com.bjfu.fcro.common.utils.CoordinateToDistance;
 import com.bjfu.fcro.common.utils.ResultTool;
@@ -15,6 +12,7 @@ import com.bjfu.fcro.entity.temporary.Temp_SampleFoodTable;
 import com.bjfu.fcro.entity.temporary.Temp_SamplePlanInfoTable;
 import com.bjfu.fcro.entity.temporary.Temp_Task;
 import com.bjfu.fcro.service.SysSamplingPlanService;
+import com.bjfu.fcro.service.SysSpendBetweenInPointsService;
 import lombok.Synchronized;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -35,7 +33,8 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
             {"8","10"},
             {"10","17"},
             {"17","20"},
-            {"20","8"}
+            {"20","24"},
+            {"0","8"}
     };
     @Autowired
     private SamplingFoodTypeDao samplingFoodTypeDao;
@@ -49,6 +48,8 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     private SamplingInspectorInformationDao samplingInspectorInformationDao;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private SysSpendBetweenInPointsService sysSpendBetweenInPointsService;
     @Autowired
     private SpendBetweenInPointsDao spendBetweenInPointsDao;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -208,8 +209,9 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     /*从map中取出参与抽检的抽检点，存入新的List中*/
     /*samplingPoints 第一位为初始点*/
     List<Temp_SamplePlanInfoTable> samplingPoints = new ArrayList<>();
+    int starting_point_id = GetAndInsertStartPoint( starting_point, coordinate, admin_id);
     /*先加入出发点到抽检计划中*/
-    Temp_SamplePlanInfoTable start = new Temp_SamplePlanInfoTable(0,"初始点","未完成",starting_point,Double.parseDouble(coordinate[0]),Double.parseDouble(coordinate[1]),null);
+    Temp_SamplePlanInfoTable start = new Temp_SamplePlanInfoTable(starting_point_id,"初始点","未完成",starting_point,Double.parseDouble(coordinate[0]),Double.parseDouble(coordinate[1]),null);
     samplingPoints.add(start);
     /*再加入要抽检的抽检点*/
     for(Map.Entry<String,List<Temp_SamplePlanInfoTable>> entry:map.entrySet()){
@@ -256,7 +258,7 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
     List<SysSpendBetweenInPoints> pointsList = spendBetweenInPointsDao.selectAll();
     List<DistInDifTime> Dlist = getDlist(samplingPoints,pointsList);
     /*dists距离矩阵目前是使用直接计算经纬度的距离，后期可以改成百度地图api求取实际距离*/
-    groups = DoSort.sort(groups,dists);
+    groups = DoSort.sort2(groups,dists,Dlist);
         for (int i = 0; i < groups.length; i++) {
             for (int j = 0; j < groups[i].length; j++)
                 System.out.print("" + groups[i][j] + ", ");
@@ -419,6 +421,8 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
         return ResultTool.success(res);
     }
 
+    /**
+     * 根据抽检账号名，找到最新的未完成抽检计划，然后根据抽检员姓名匹配到抽检计划中的某一组，修改接收状态，返回最新的抽检计划*/
     @Override
     public synchronized Object getplan(String account) {
 
@@ -447,6 +451,31 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
                                     temp_task.getGroupList().get(j).setAcceptTimeStamp(sdf.format(new java.util.Date()));
                                     int id = samplingPlans.get(i).getId();
                                     samplingPlanDao.updateplan(temp_task.toString(),id,samplingPlans.get(i).isSampling_state());
+                                }else{
+                                    /**
+                                     *
+                                     * 此处加入关键点更新算法
+                                     * 如果该组任务已被接受且到了关键点时，说明至少已到达初始点后的第一个点
+                                     * 此时执行更新算法
+                                     * 已知：
+                                     *      该组的所有任务 该组中已完成的任务 未完成的任务 之前的分组顺序
+                                     * 后面补
+                                     * */
+//                                    Temp_Group currentGroup = temp_task.getGroupList().get(j);
+//                                    List<Temp_SamplePlanInfoTable> currentSampleInfo = currentGroup.getSamplePlanInfoTableList();
+//                                    String taskAddress[] = temp_task.getAddress();
+//                                    List<Temp_SamplePlanInfoTable> newSampleInfo = keyPointUpdate(currentSampleInfo);
+//                                    int []newSamplingPointIndex = findNewSamplingPointIndex(newSampleInfo,taskAddress);
+//                                    int []newSamplingPointIds = findNewSamplingPointIds(newSampleInfo);
+//                                    String []newSamplingPointsNames = findNewSamplingPointsNames(newSampleInfo);
+//                                    currentGroup.setSamplePlanInfoTableList(newSampleInfo);
+//                                    currentGroup.setSamplingPointIds(newSamplingPointIds);
+//                                    currentGroup.setSamplingPointIndex(newSamplingPointIndex);
+//                                    currentGroup.setSamplingPointsNames(newSamplingPointsNames);
+//                                    temp_task.getGroupList().set(j,currentGroup);
+//                                    int id = samplingPlans.get(i).getId();
+//                                    samplingPlanDao.updateplan(temp_task.toString(),id,samplingPlans.get(i).isSampling_state());
+//                                    samplingPlans.get(i).setTask_json(temp_task.toString());
                                 }
                                 res = samplingPlans.get(i);
                                 flag = true;
@@ -552,7 +581,7 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
         }
         return dists;
     }
-    /**6.1 根据抽检点集合，得到抽检点集合，得到分时抽检集合*/
+    /**6.1 根据抽检点集合，得到分时抽检集合*/
     public   List<DistInDifTime> getDlist(List<Temp_SamplePlanInfoTable> samplingPoints,List<SysSpendBetweenInPoints> pointsList){
         List<DistInDifTime> Dlist = new ArrayList<>();
         int len = samplingPoints.size();
@@ -571,17 +600,20 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
                         int endPointId = pointsList.get(l).getEnd_point_id();
                         // 如果开始结束时间段匹配，且开始结束的抽检点也匹配，则加入到矩阵中
                         if((pointsList.get(l).getStart_time().equals(startTime) && pointsList.get(l).getEnd_time().equals(endTime))
-                                && (((startPointId == startSamplingPointid ) && (endPointId == endSamplingPointid)) || ((startPointId == endSamplingPointid)&&(endPointId == endSamplingPointid)))){
+                                && (((startPointId == startSamplingPointid ) && (endPointId == endSamplingPointid)) || ((startPointId == endSamplingPointid)&&(endPointId == startSamplingPointid)))){
                             dists[j][k] = Double.parseDouble(pointsList.get(l).getDriving_path());
                             times[j][k] = Double.parseDouble(pointsList.get(l).getDriving_time());
                             dists[k][j] = Double.parseDouble(pointsList.get(l).getDriving_path());
                             times[k][j] = Double.parseDouble(pointsList.get(l).getDriving_time());
+//                            System.out.println("j: "+j+"k: "+k+"startPointId: "+startPointId+"endPointId: "+endPointId+ "startSamplingPointid: "+startSamplingPointid+"endSamplingPointid: "+endSamplingPointid);
+
                         }
                     }
                 }
             }
             DistInDifTime distInDifTime = new DistInDifTime(dists,times,Double.parseDouble(startTime),Double.parseDouble(endTime));
             Dlist.add(distInDifTime);
+
         }
 
         return Dlist;
@@ -652,6 +684,40 @@ public class SysSamplingPlanServiceimpl implements SysSamplingPlanService {
         }
         return old_temp_task;
 
+    }
+
+
+    /**插入和获得出发点id*/
+    public  int GetAndInsertStartPoint(String starting_point,String coordinate[],int admin_id){
+        int starting_point_id;
+        if(samplingLibraryDao.selectidbysllname2(starting_point,admin_id) != null){
+            return samplingLibraryDao.selectidbysllname(starting_point,admin_id);
+        }else{
+            /**
+             * 1. 插入初始点到抽检库 2.算出到初始点到各个抽检点的值，并插入映射表
+             * */
+            samplingLibraryDao.insertallnewsamplinglibrary2(starting_point,"无",starting_point,admin_id,"无","",coordinate[0],coordinate[1],1);
+            List<SysSamplingLibrary> oldList = samplingLibraryDao.selectallByAdminidnopage(admin_id);
+            starting_point_id = samplingLibraryDao.selectidbysllname(starting_point,admin_id);
+            synchronized (this){
+                SysSamplingLibrary newPoint = samplingLibraryDao.selectByid(starting_point_id);
+                sysSpendBetweenInPointsService.InsertNewPoints(oldList,newPoint,admin_id);
+            }
+            return starting_point_id;
+        }
+    }
+
+
+    /**关键点更新算法
+     *
+     * 根据Dynasearch算法
+     * */
+    public  List<Temp_SamplePlanInfoTable> keyPointUpdate(List<Temp_SamplePlanInfoTable> currentSampleInfo){
+
+
+//        List<Temp_SamplePlanInfoTable> newSampleInfo = new ArrayList<>();
+
+        return currentSampleInfo;
     }
 
     public static void main(String[] args) {

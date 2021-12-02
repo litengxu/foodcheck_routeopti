@@ -13,38 +13,38 @@ public interface SamplingLibraryDao {
 
 
     /**超级管理员，按分页查询所有的抽检库数据*/
-    @Select("select * from sys_sampling_library where id >= (SELECT id from sys_sampling_library  ORDER BY id LIMIT #{pageIndex}, 1)" +
-            " ORDER BY id LIMIT #{pagesize}")
+    @Select("select * from sys_sampling_library where id >= (SELECT id from sys_sampling_library where  initial_point = 0 ORDER BY id LIMIT #{pageIndex}, 1) and initial_point = 0" +
+            " ORDER BY id LIMIT #{pagesize} ")
     List<SysSamplingLibrary> selectAll(@Param("pagesize") int pagesize,@Param("pageIndex") int pageIndex);
 
     /**根据管理员账号查询抽检库信息 按分页*/
-    @Select("select * from sys_sampling_library where id >= (SELECT id from sys_sampling_library WHERE  admin_id  = #{admin_id} ORDER BY id LIMIT #{pageIndex}, 1)" +
-            " and   admin_id  = #{admin_id} ORDER BY  id LIMIT #{pagesize}")
+    @Select("select * from sys_sampling_library where id >= (SELECT id from sys_sampling_library WHERE  admin_id  = #{admin_id} and initial_point = 0 ORDER BY id LIMIT #{pageIndex}, 1)" +
+            " and   admin_id  = #{admin_id} and initial_point = 0 ORDER BY  id LIMIT #{pagesize}")
     List<SysSamplingLibrary> selectpageByAdminid(@Param("admin_id") int  admin_id,@Param("pagesize") int pagesize,@Param("pageIndex") int pageIndex);
 
     /**搜索抽检库信息 按分页*/
-    @Select("select * from sys_sampling_library where id >= (SELECT id from sys_sampling_library WHERE  admin_id  = #{admin_id} and (ssl_name like '%${searchname}%' OR address like '%${searchname}%') ORDER BY id LIMIT #{pageIndex}, 1)" +
-            " and   admin_id  = #{admin_id} and (ssl_name like '%${searchname}%' OR address like '%${searchname}%') ORDER BY  id LIMIT #{pagesize}")
+    @Select("select * from sys_sampling_library where id >= (SELECT id from sys_sampling_library WHERE  admin_id  = #{admin_id} and (ssl_name like '%${searchname}%' OR address like '%${searchname}%') and initial_point = 0 ORDER BY id LIMIT #{pageIndex}, 1)" +
+            " and   admin_id  = #{admin_id} and (ssl_name like '%${searchname}%' OR address like '%${searchname}%') and initial_point = 0 ORDER BY  id LIMIT #{pagesize}")
     List<SysSamplingLibrary> searchpageByAdminid(@Param("admin_id") int  admin_id,@Param("pagesize") int pagesize,@Param("pageIndex") int pageIndex,@Param("searchname") String searchname);
 
     /**根据管理员账号获取数据总数*/
-    @Select("select count(id) from sys_sampling_library where  admin_id  = #{admin_id}")
+    @Select("select count(id) from sys_sampling_library where  admin_id  = #{admin_id} and initial_point = 0")
     int selectcountByAdminid(@Param("admin_id") int  admin_id);
 
      /**根据管理员账号获取数据*/
-    @Select("select * from sys_sampling_library where  admin_id  = #{admin_id}")
+    @Select("select * from sys_sampling_library where  admin_id  = #{admin_id} and initial_point = 0")
     List<SysSamplingLibrary> selectallByAdminidnopage(@Param("admin_id") int  admin_id);
     
     /**根据超级管理员账号获取数据总数*/
-    @Select("select count(id) from sys_sampling_library ")
+    @Select("select count(id) from sys_sampling_library and initial_point = 0 ")
     int selectcount();
 
     /**根据管理员账号和搜索词获取总数*/
-    @Select("select count(id) from sys_sampling_library where  admin_id  = #{admin_id} and (ssl_name like '%${searchname}%' OR address like '%${searchname}%')")
+    @Select("select count(id) from sys_sampling_library where  admin_id  = #{admin_id} and (ssl_name like '%${searchname}%' OR address like '%${searchname}%') and initial_point = 0")
     int searchcountByAdminid(@Param("admin_id") int  admin_id,@Param("searchname") String searchname);
 
     /**根据管理员账号和搜索词获取总数*/
-    @Select("select count(id) from sys_sampling_library where  ssl_name like '%${searchname}%' OR address like '%${searchname}%'")
+    @Select("select count(id) from sys_sampling_library where  initial_point = 0 and ssl_name like '%${searchname}%' OR address like '%${searchname}%' ")
     int searchcount(@Param("searchname") String searchname);
 
     /**修改抽检库的数据*/
@@ -86,9 +86,26 @@ public interface SamplingLibraryDao {
             @Param("longitude") String longitude,
             @Param("latitude") String latitude
     );
+    /**插入新的抽检点数据**/
+    @Insert("INSERT into sys_sampling_library (ssl_name,category,address,admin_id,jurisdiction,foodtype_ids,longitude,latitude,initial_point) VALUES(#{ssl_name},#{category},#{address},#{admin_id},#{jurisdiction},#{foodtype_ids},#{longitude},#{latitude},#{initial_point});")
+    boolean insertallnewsamplinglibrary2(
+            @Param("ssl_name") String ssl_name,
+            @Param("category") String category,
+            @Param("address") String address,
+            @Param("admin_id") int admin_id,
+            @Param("jurisdiction") String jurisdiction,
+            @Param("foodtype_ids") String foodtype_ids,
+            @Param("longitude") String longitude,
+            @Param("latitude") String latitude,
+            @Param("initial_point") int initial_point
+    );
     /**根据抽检点名称查询id*/
     @Select("select id from sys_sampling_library where ssl_name = #{ssl_name} and admin_id = #{admin_id}")
     int selectidbysllname(@Param("ssl_name") String ssl_name,@Param("admin_id") int admin_id);
+
+    /**根据抽检点名称查询id*/
+    @Select("select id from sys_sampling_library where ssl_name = #{ssl_name} and admin_id = #{admin_id}")
+    Object selectidbysllname2(@Param("ssl_name") String ssl_name,@Param("admin_id") int admin_id);
 
     @Select("Select * from sys_sampling_library where id = #{id}")
     SysSamplingLibrary selectByid(@Param("id") int id);

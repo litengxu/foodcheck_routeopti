@@ -24,7 +24,8 @@ public class SysSpendBetweenInPointsServiceimpl implements SysSpendBetweenInPoin
             {"8","10"},
             {"10","17"},
             {"17","20"},
-            {"20","8"}
+            {"20","24"},
+            {"0","8"}
     };
     protected static final Logger logger = LoggerFactory.getLogger(SysSpendBetweenInPointsServiceimpl.class);
 

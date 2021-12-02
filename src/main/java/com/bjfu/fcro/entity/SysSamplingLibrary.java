@@ -39,7 +39,7 @@ public class SysSamplingLibrary {
     //修改时间
     private Date last_update_time;
     //保留字段
-    private String ssl_reserved_field1;
+    private String initial_point;
     private String ssl_reserved_field2;
     private String ssl_reserved_field3;
 }

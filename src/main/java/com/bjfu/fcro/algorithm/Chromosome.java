@@ -8,6 +8,7 @@ package com.bjfu.fcro.algorithm;
 import com.bjfu.fcro.algorithm.BasicOperation;
 import com.bjfu.fcro.algorithm.Tools;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ import java.util.List;
 public class Chromosome implements Comparable<Chromosome>{
 	double fitness = Double.POSITIVE_INFINITY; //��Ӧ��ֵ
 	int[] genes = null; //��������
-	
+	double [][]dists;
 	
 	public Chromosome(){
 	}
@@ -70,6 +71,34 @@ public class Chromosome implements Comparable<Chromosome>{
 //			}
 //		}
 	}
+	public Chromosome(int n, int []path,double [][]dists){
+		this.dists = dists;
+		genes = new int[n];
+		for(int i =0 ;i<n;i++) {
+			genes[i] = path[i];
+		}
+		//this.genes = path;这样会把当前的genes的引用指向path
+		for(int i=0;i<100;i++) {
+			int pos1 = (int)(Math.random() * (n-1)+1);//修改第一个城市为0
+			int pos2 = (int)(Math.random() * (n-1)+1);
+			if (pos1 == pos2)
+				return;
+			//continue;
+			int temp =this.genes[pos1];
+			this.genes[pos1] = this.genes[pos2];
+			this.genes[pos2] = temp;
+		}
+
+//		for (int i=0; i<n; i++)
+//			genes[i] = i;
+//		Tools.randomizeArr(genes);
+//		for(int i=0;i<n;i++) {//修改第一个城市为0
+//			if(genes[i] == 0) {
+//				genes[i] = genes[0];
+//				genes[0] = 0;
+//			}
+//		}
+	}
 	public String toString(){
 		return "" + fitness + "; " + java.util.Arrays.toString(this.genes);
 	}
@@ -94,10 +123,13 @@ public class Chromosome implements Comparable<Chromosome>{
 	 */
 	public void modify(){
 		int n = this.genes.length;
+		/*应对分组时的情况*/
+
 		boolean[] isRepeated = new boolean[n];
 		int[] counts = new int[n];
+
 		int repeatNum = 0;
-		for (int i=0; i<n; i++){
+		for (int i=0; i<genes.length; i++){
 			counts[genes[i]]++;
 			if (counts[genes[i]] > 1){
 				isRepeated[i] = true;
@@ -123,12 +155,59 @@ public class Chromosome implements Comparable<Chromosome>{
 			pointer++;
 		}
 	}
+	public void modify2(int pre[]){
+		/*应对分组时的情况*/
+
+		int n = dists.length;
+
+		boolean[] isRepeated = new boolean[n];
+		int[] counts = new int[n];
+		for (int i = 0; i < n; i++) {
+			counts[i] = Integer.MIN_VALUE;
+		}
+		for (int i = 0; i < pre.length; i++) {
+			counts[pre[i]] = 0;
+		}
+		counts[0] = 0;
+
+		int repeatNum = 0;
+		for (int i=0; i<genes.length; i++){
+			counts[genes[i]]++;
+			if (counts[genes[i]] > 1){
+				isRepeated[i] = true;
+				repeatNum++;
+			}
+		}
+
+		if (repeatNum == 0)
+			return;
+		int[] repeats = new int[repeatNum];
+		int pointer = 0;
+		for (int i=0; i<n; i++){
+			if (counts[i] == 0){
+				repeats[pointer] = i;
+				pointer++;
+			}
+		}
+
+		Tools.randomizeArr(repeats);
+		pointer = 0;
+		for (int i=0; i<n; i++){
+			if (!isRepeated[i])
+				continue;
+			genes[i] = repeats[pointer];
+			pointer++;
+		}
+
+	}
 	
 	/*
 	 * 染色体交叉：
 	 */
 	public void cross(Chromosome that){
 		int n = this.genes.length;
+		int thispath[] = this.genes.clone();
+		int thatpath[] = that.genes.clone();
 		if (n <= 1)
 			return;
 		int leftLen = (int)((n-1) * Math.random()) + 1;
@@ -137,12 +216,15 @@ public class Chromosome implements Comparable<Chromosome>{
 			this.genes[i] = that.genes[i];
 			that.genes[i] = temp;
 		}
-		this.modify();
-		that.modify();
+		this.modify2(thispath);
+		that.modify2(thatpath);
+//		this.modify();
+//		that.modify();
 	}
 	//只改变this染色体的交叉
 	public void singlecross(Chromosome that) {
 		int n = this.genes.length;
+		int thispath[] = this.genes.clone();
 		if(n<=1) {
 			return;
 		}
@@ -155,7 +237,8 @@ public class Chromosome implements Comparable<Chromosome>{
 		for (int i=1; i<leftLen; i++){//修改第一个城市为0
 			this.genes[i] = that.genes[i];
 		}
-		this.modify();
+		this.modify2(thispath);
+//		this.modify();
 	}
 	/*
 	 * 染色体突变：
@@ -183,5 +266,13 @@ public class Chromosome implements Comparable<Chromosome>{
 
 	public void getFitness2(double curTime,double[][] dists,List<DistInDifTime> Dlist){
 		this.fitness = BasicOperation.getDistFormPathByDifTime2(curTime,genes,dists,Dlist);
+	}
+
+	public static void main(String[] args) {
+		double dists[][] = new double[10][10];
+		Chromosome chromosome = new Chromosome(6,new int[]{0,1,3,9,4,2},dists);
+		Chromosome that = new Chromosome(6,new int[]{0,2,4,3,9,1},dists);
+		chromosome.cross(that);
+//		chromosome.modify2(new int[]{0,1,2,4,9,3});
 	}
 }

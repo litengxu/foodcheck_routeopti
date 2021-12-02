@@ -36,8 +36,8 @@ public class DoSort {
             int[] tempGroup = Grouping.addInit(groups[i]);
 
             // 调用贪心算法得到最优路径
-//            int[] path = SSA.ssa2(euddists,tempGroup,Dlist).genes;
-            int[] path = SSA.ssa(euddists,tempGroup).genes;
+            int[] path = SSA.ssa2(euddists,tempGroup,Dlist).genes;
+//            int[] path = SSA.ssa(euddists,tempGroup).genes;
             //去掉出发点
             for (int j = 1; j < path.length; j++) {
                 groups[i][j-1] = path[j];

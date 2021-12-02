@@ -5,6 +5,7 @@ package com.bjfu.fcro;
 
 import net.sf.json.JSONObject;
 
+import javax.crypto.spec.PSource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,9 +29,14 @@ public class javatest {
         }
     }
     public static void main(String[] args) {
-        AtomicInteger a = new AtomicInteger(2);
-        a.getAndIncrement();
-        System.out.println(a);
+        Date date = new Date();
+        double hours = date.getHours();
+        System.out.println(hours);
+        System.out.println( 0 == 0.0);
+        System.out.println(72.0/449.0);
+//        AtomicInteger a = new AtomicInteger(2);
+//        a.getAndIncrement();
+//        System.out.println(a);
 //        String dom = "北京王府井";
 //        String coordinate[] = getCoordinate(dom);
 //        System.out.println("'" + dom + "'的经纬度为：" + coordinate[0]+"  "+coordinate[1]);

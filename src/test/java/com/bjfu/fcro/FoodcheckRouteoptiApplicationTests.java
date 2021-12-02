@@ -47,7 +47,7 @@ class FoodcheckRouteoptiApplicationTests {
 //		spendBetweenInPointsFlowDao.insertNewData(2,559,"1",1,"2",1
 //		,"1","1","2","2","1","1"
 //		,"1","1","1");
-//		sysSamplingLibraryService.dosome();
+
 		List<Temp_SamplePlanInfoTable> samplingPoints = new ArrayList<>();
 		Temp_SamplePlanInfoTable temp_samplePlanInfoTable1 = new Temp_SamplePlanInfoTable(4186,"1","未完成","1",12.0,21.0,new ArrayList<>());
 		Temp_SamplePlanInfoTable temp_samplePlanInfoTable2 = new Temp_SamplePlanInfoTable(4187,"1","未完成","1",12.0,21.0,new ArrayList<>());
@@ -76,6 +76,9 @@ class FoodcheckRouteoptiApplicationTests {
 		}
 	}
 
-
+	@Test
+	void insertsome(){
+		sysSamplingLibraryService.dosome();
+	}
 
 }

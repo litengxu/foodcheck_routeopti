@@ -299,12 +299,14 @@ public class SysSamplingLibraryServiceimpl implements SysSamplingLibraryService 
     public void dosome(){
         int adminid = 2;
         List<SysSamplingLibrary> oldList = samplingLibraryDao.selectallByAdminidnopage(adminid);
+        System.out.println(oldList.size());
         for (int i = 0; i < oldList.size(); i++) {
             SysSamplingLibrary sysSamplingLibrary = oldList.get(i);
             List<SysSamplingLibrary> temp = new ArrayList<>();
             for (int j = i+1; j < oldList.size(); j++) {
                 temp.add(oldList.get(j));
             }
+            System.out.println(temp.size());
             sysSpendBetweenInPointsService.InsertNewPoints(temp,sysSamplingLibrary,adminid);
         }
     }

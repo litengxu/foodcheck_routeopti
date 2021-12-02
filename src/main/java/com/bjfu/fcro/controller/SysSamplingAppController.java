@@ -28,7 +28,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/samplingApp")
-public class SysSamplingAppController {
+public class    SysSamplingAppController {
 
 
     /**

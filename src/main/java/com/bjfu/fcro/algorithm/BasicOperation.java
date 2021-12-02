@@ -82,22 +82,28 @@ public class BasicOperation {
 		double res = 0.0;
 		double tempTime = curTime;//记录开始时的时间
 		for (int i = 0; i < n-1; i++) {
-			double remaindist = euddists[path[i]][path[i+1]];//当前点到下一点的剩余未行驶距离
+ 			double remaindist = euddists[path[i]][path[i+1]];//当前点到下一点的剩余未行驶距离
 
-			while(remaindist > 0){
+			while(remaindist > 0.0){
 				for (int j = 0; j < Dlist.size(); j++) {
 					DistInDifTime distInDifTime = Dlist.get(j);
 					double startTime = distInDifTime.getStartTime();
 					double endTime = distInDifTime.getEndTime();
+
 					double speeds[][]  = distInDifTime.getSpeeds();
 					if(tempTime >= startTime && tempTime < endTime){
+
 						double speed = speeds[path[i]][path[i+1]];
 						double remaintime = endTime - tempTime;//当前时间段内剩余时间
 						double tempdist = remaintime * speed;//当前时间段内剩余时间可行使距离
+//						System.out.println("remaindist:= "+remaindist);
+//						System.out.println("tempdist:="+tempdist);
+//						System.out.println("remaintime: "+remaintime);
 						if(remaindist <= tempdist){//当前剩余为行驶距离小于当前时间段内可行使距离，说明在当前时段内可以到达目的地
 							res += remaindist/speed;
 							tempTime += remaindist/speed;
 							remaindist = 0;
+							break;
 						}else{
 							res += remaintime;
 							tempTime += remaintime;

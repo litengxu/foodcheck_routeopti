@@ -5,6 +5,7 @@ import com.bjfu.fcro.algorithm.Chromosome;
 import com.bjfu.fcro.algorithm.*;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,18 +24,18 @@ public class SSA {
 	public static final double max_early_waring = 0.8;//最大预警值
 	public static final double min_early_waring = 0.2;//最小预警值
 	
-	public static final int GenerationNum = 500;//代数
+	public static final int GenerationNum = 5;//代数
 	
 	public static Chromosome ssa(double[][] dists, int[] Path) {
-		int n = dists.length;
+		int n = Path.length;
 		int discovervalue =(int) (PoolSize * discover);
 		int dangervalue = (int)(PoolSize * danger);
-		com.bjfu.fcro.algorithm.Chromosome[] pool = new com.bjfu.fcro.algorithm.Chromosome[PoolSize];
+		Chromosome[] pool = new Chromosome[PoolSize];
 		double []everygenerationbest = new double[GenerationNum];
 		int []everygeneration = new int[GenerationNum];
 
 		for (int i=0; i<PoolSize; i++) {
-			pool[i] = new com.bjfu.fcro.algorithm.Chromosome(n,Path);//利用路径
+			pool[i] = new Chromosome(n,Path,dists);//利用路径
 //			pool[i] = new Chromosome(n);//随机产生
 			pool[i].getFitness(dists);
 			
@@ -104,7 +105,7 @@ public class SSA {
 					int m =(int) (Math.random()*discovervalue);//随机与某个发现者交叉
 					pool[j].singlecross(pool[m]);
 				}else {//效果较差，重新随机
-					pool[j] = new Chromosome(n,Path);
+					pool[j] = new Chromosome(n,Path,dists);
 //					pool[j] = new Chromosome(n);
 			
 				}
@@ -147,15 +148,17 @@ public class SSA {
 	}
 
 	public static Chromosome ssa2(double[][] dists, int[] Path, List<DistInDifTime> Dlist ) {
-		int n = dists.length;
+		System.out.println("进入ssa");
+		Date date = new Date();
+		int n = Path.length;
 		int discovervalue =(int) (PoolSize * discover);
 		int dangervalue = (int)(PoolSize * danger);
 		Chromosome[] pool = new Chromosome[PoolSize];
 		double []everygenerationbest = new double[GenerationNum];
 		int []everygeneration = new int[GenerationNum];
-		double curTime = System.currentTimeMillis();
+		double curTime = date.getHours();
 		for (int i=0; i<PoolSize; i++) {
-			pool[i] = new com.bjfu.fcro.algorithm.Chromosome(n,Path);//利用路径
+			pool[i] = new com.bjfu.fcro.algorithm.Chromosome(n,Path,dists);//利用路径
 //			pool[i] = new Chromosome(n);//随机产生
 			pool[i].getFitness2(curTime,dists,Dlist);
 
@@ -167,7 +170,9 @@ public class SSA {
 		int[]bestpath = new int[dists.length];
 		bestpath = Path.clone();
 		double bestvalue = BasicOperation.getDistFormPathByDifTime2(curTime,bestpath, dists,Dlist);
+		System.out.println("best value :="+bestvalue);
 		for(int i = 0;i<GenerationNum;i++) {
+			System.out.println("generationnum: "+i);
 			double randomvalue = Math.random();
 			//发现者的变化
 			double early = max_early_waring - (i/GenerationNum) * min_early_waring;//自适应预警值
@@ -225,7 +230,7 @@ public class SSA {
 					int m =(int) (Math.random()*discovervalue);//随机与某个发现者交叉
 					pool[j].singlecross(pool[m]);
 				}else {//效果较差，重新随机
-					pool[j] = new Chromosome(n,Path);
+					pool[j] = new Chromosome(n,Path,dists);
 //					pool[j] = new Chromosome(n);
 
 				}
