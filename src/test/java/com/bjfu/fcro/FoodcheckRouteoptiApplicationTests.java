@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.IOException;
 import java.util.*;
 
 @SpringBootTest
@@ -40,7 +41,9 @@ class FoodcheckRouteoptiApplicationTests {
 	private SysSamplingLibraryService sysSamplingLibraryService;
 	@Autowired
 	private SysSamplingPlanService sysSamplingPlanService;
+
 	@Autowired
+	private FoodSamplingInspectionDataService samplingInspectionDataService;
 	@Test
 	void contextLoads() {
 
@@ -48,32 +51,37 @@ class FoodcheckRouteoptiApplicationTests {
 //		,"1","1","2","2","1","1"
 //		,"1","1","1");
 
-		List<Temp_SamplePlanInfoTable> samplingPoints = new ArrayList<>();
-		Temp_SamplePlanInfoTable temp_samplePlanInfoTable1 = new Temp_SamplePlanInfoTable(4186,"1","未完成","1",12.0,21.0,new ArrayList<>());
-		Temp_SamplePlanInfoTable temp_samplePlanInfoTable2 = new Temp_SamplePlanInfoTable(4187,"1","未完成","1",12.0,21.0,new ArrayList<>());
-		Temp_SamplePlanInfoTable temp_samplePlanInfoTable3 = new Temp_SamplePlanInfoTable(4188,"1","未完成","1",12.0,21.0,new ArrayList<>());
-		samplingPoints.add(temp_samplePlanInfoTable1);
-		samplingPoints.add(temp_samplePlanInfoTable2);
-		samplingPoints.add(temp_samplePlanInfoTable3);
-		List<DistInDifTime> Dlist = sysSamplingPlanService.getDlist(samplingPoints,spendBetweenInPointsDao.selectAll());
-		for (int i = 0; i < Dlist.size(); i++) {
-			DistInDifTime distInDifTime = Dlist.get(i);
-			double dists[][] = distInDifTime.getDists();
-			double times[][] = distInDifTime.getTimes();
-			double speeds[][] = distInDifTime.getSpeeds();
-			System.out.println("dists = ");
-			for (int j = 0; j < dists.length; j++) {
-				System.out.println(Arrays.toString(dists[j]));
-			}
-			System.out.println("times = ");
-			for (int j = 0; j < times.length; j++) {
-				System.out.println(Arrays.toString(times[j]));
-			}
-			System.out.println("speeds = ");
-			for (int j = 0; j < speeds.length; j++) {
-				System.out.println(Arrays.toString(speeds[j]));
-			}
-		}
+
+//		测试Dlist方法
+//		List<Temp_SamplePlanInfoTable> samplingPoints = new ArrayList<>();
+//		Temp_SamplePlanInfoTable temp_samplePlanInfoTable1 = new Temp_SamplePlanInfoTable(4186,"1","未完成","1",12.0,21.0,new ArrayList<>());
+//		Temp_SamplePlanInfoTable temp_samplePlanInfoTable2 = new Temp_SamplePlanInfoTable(4187,"1","未完成","1",12.0,21.0,new ArrayList<>());
+//		Temp_SamplePlanInfoTable temp_samplePlanInfoTable3 = new Temp_SamplePlanInfoTable(4188,"1","未完成","1",12.0,21.0,new ArrayList<>());
+//		samplingPoints.add(temp_samplePlanInfoTable1);
+//		samplingPoints.add(temp_samplePlanInfoTable2);
+//		samplingPoints.add(temp_samplePlanInfoTable3);
+//		List<DistInDifTime> Dlist = sysSamplingPlanService.getDlist(samplingPoints,spendBetweenInPointsDao.selectAll());
+//		for (int i = 0; i < Dlist.size(); i++) {
+//			DistInDifTime distInDifTime = Dlist.get(i);
+//			double dists[][] = distInDifTime.getDists();
+//			double times[][] = distInDifTime.getTimes();
+//			double speeds[][] = distInDifTime.getSpeeds();
+//			System.out.println("dists = ");
+//			for (int j = 0; j < dists.length; j++) {
+//				System.out.println(Arrays.toString(dists[j]));
+//			}
+//			System.out.println("times = ");
+//			for (int j = 0; j < times.length; j++) {
+//				System.out.println(Arrays.toString(times[j]));
+//			}
+//			System.out.println("speeds = ");
+//			for (int j = 0; j < speeds.length; j++) {
+//				System.out.println(Arrays.toString(speeds[j]));
+//			}
+//		}
+
+//		samplingInspectionDataService.pretreatmentData();
+		samplingInspectionDataService.samplingStatistics();
 	}
 
 	@Test
@@ -81,4 +89,10 @@ class FoodcheckRouteoptiApplicationTests {
 		sysSamplingLibraryService.dosome();
 	}
 
+	@Test
+	void createFile() throws IOException  {
+//		samplingInspectionDataService.createFile();
+//		samplingInspectionDataService.getImgs();
+		samplingInspectionDataService.doPredict();
+	}
 }

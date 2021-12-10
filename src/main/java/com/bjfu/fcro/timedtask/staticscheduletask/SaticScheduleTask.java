@@ -1,5 +1,6 @@
 package com.bjfu.fcro.timedtask.staticscheduletask;
 
+import com.bjfu.fcro.service.FoodSamplingInspectionDataService;
 import com.bjfu.fcro.service.SysSpendBetweenInPointsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +29,8 @@ public class SaticScheduleTask {
     //或直接指定时间间隔，例如：5秒
     @Autowired
     private SysSpendBetweenInPointsService sysSpendBetweenInPointsService;
-
+    @Autowired
+    private FoodSamplingInspectionDataService foodSamplingInspectionDataService;
     @Async("scheduleTaskAsyncPool")
     @Scheduled(cron = "0 0/30 8-20 * * MON-FRI")//周一到周五，8-20点每半小时触发一次
     public void operatingHoursConfigureTasks0() {//为了应对库里数据较多的时候，只对id % 3 == 0 找新数据
@@ -109,6 +111,14 @@ public class SaticScheduleTask {
         System.err.println("执行静态定时任务时间: " + LocalDateTime.now()+"线程名字："+Thread.currentThread().getName()+"hash:"+hash);
 
         sysSpendBetweenInPointsService.scheduleTask(hash,"0","8");
+    }
+
+    @Async("scheduleTaskAsyncPool")
+    @Scheduled(cron = "0 30 23 15 * ?")//每月15号，23：30分触发一次
+    public void statisticSamplingData() throws Exception{//为了应对库里数据较多的时候，只对id % 3 == 2 找新数据
+        System.err.println("执行统计静态定时任务时间: " + LocalDateTime.now()+"线程名字："+Thread.currentThread().getName());
+        foodSamplingInspectionDataService.samplingStatistics();
+        foodSamplingInspectionDataService.createFile();
     }
 
 }
